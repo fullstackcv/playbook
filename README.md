@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./assets/social-preview.png" alt="fullstackcv / playbook — opinionated CV reference, three picks per subtask not 600" width="100%">
-</p>
-
 # fullstackcv / playbook
 
 > An opinionated reference for building CV systems. Three picks per subtask, when to use each, and when not to — plus a broader catalog of useful alternatives, legacy picks, and context.

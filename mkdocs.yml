@@ -42,8 +42,6 @@ theme:
   font:
     text: Inter
     code: JetBrains Mono
-  favicon: assets/favicon-192.png
-  logo: assets/favicon-192.png
   icon:
     repo: fontawesome/brands/github
 
