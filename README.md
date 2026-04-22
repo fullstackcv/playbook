@@ -108,7 +108,7 @@ MIT. Use anything here however you like.
 
 ## Maintainer
 
-Vikas Gupta ([@vikasguptaai](https://www.linkedin.com/in/vikasgptai/)) — senior CV engineer, 13 years in the field. Also maintains [facestack](https://github.com/fullstackcv/facestack) and the [`@vikasguptaai`](https://www.youtube.com/@vikasguptaai) YouTube channel. Reach via LinkedIn or open an issue here.
+**Vikas Gupta** [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vikas-gupta-2913a276/) — Founder, [DeepVidya.ai](https://deepvidya.ai)
 
 ---
 
