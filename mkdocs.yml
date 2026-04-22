@@ -1,0 +1,105 @@
+site_name: Full Stack CV — Playbook
+site_description: Opinionated reference for building CV systems. Three picks per subtask with when-to-use and when-not-to.
+site_url: https://fullstackcv.github.io/playbook/
+repo_url: https://github.com/fullstackcv/playbook
+repo_name: fullstackcv/playbook
+edit_uri: edit/main/
+
+# Use the repo root as the docs source (no docs/ folder), so GitHub browsing
+# of markdown files and the rendered site stay in sync.
+docs_dir: .
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - same-dir
+  - exclude:
+      glob:
+        - node_modules/*
+        - .git/*
+        - .github/ISSUE_TEMPLATE/*
+        - .github/pull_request_template.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: README.md
+  - Perception:
+      - Classification: classification/README.md
+      - Object Detection: object-detection/README.md
+      - Segmentation: segmentation/README.md
+      - Pose Estimation: pose/README.md
+      - OCR / Document AI: ocr/README.md
+      - Tracking: tracking/README.md
+      - Depth Estimation: depth/README.md
+      - Retrieval / Embeddings: retrieval/README.md
+  - Face:
+      - Full Stack: face/README.md
+  - Multimodal:
+      - VLM / Multimodal: vlm/README.md
+      - Image Generation: generation/README.md
+  - Stack:
+      - Inference Runtimes: runtimes/README.md
+      - Edge Deployment: edge/README.md
+      - Cloud Vision APIs: cloud-apis/README.md
+      - Data / Annotation / Datasets: data/README.md
+  - Meta:
+      - Contributing: CONTRIBUTING.md
+      - Evaluation Criteria: rubrics/evaluation-criteria.md
+      - Section Template: rubrics/section-template.md
+      - Refresh Pipeline Sketch: scripts/refresh.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/fullstackcv
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/vikasgptai/
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/@vikasguptaai

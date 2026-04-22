@@ -4,7 +4,7 @@
 
 Retrieval is the subtask of "given a database of images and a query image (or text), find the most similar ones." The default stack in 2026 is **CLIP-family embeddings + FAISS (or a vector DB)**. It's simple, strong, and scales to tens of millions of images on one box.
 
-This page is the *general* retrieval case. For *face identity search specifically*, see the [`face/` section](../face/) — it uses face-specific embeddings (ArcFace) with the same ANN infrastructure.
+This page is the *general* retrieval case. For *face identity search specifically*, see the [`face/` section](../face/README.md) — it uses face-specific embeddings (ArcFace) with the same ANN infrastructure.
 
 ## Recommended picks
 

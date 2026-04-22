@@ -24,20 +24,20 @@ If you're browsing to learn the field, read the picks in order — they'll give 
 
 | Section | One-line |
 |---------|----------|
-| [Classification](./classification/) | CLIP zero-shot / timm fine-tune / DINOv2 probe, by data availability. |
-| [Object Detection](./object-detection/) | YOLO for most cases; RT-DETR if on GPU; Co-DETR for research. |
-| [Segmentation](./segmentation/) | SAM 2 for zero-shot; Mask2Former / YOLOv8-seg for trained. |
-| [Pose Estimation](./pose/) | RTMPose server; MediaPipe browser; ViTPose research. |
-| [OCR / Document AI](./ocr/) | PaddleOCR for clean; VLMs for messy; Donut for structured forms. |
-| [Tracking](./tracking/) | ByteTrack default; BoT-SORT with ReID; OC-SORT for benchmarks. |
-| [Depth Estimation](./depth/) | Depth Anything V2 monocular; stereo if hardware available. |
-| [Retrieval / Embeddings](./retrieval/) | SigLIP embeddings + FAISS; DINOv2 for image-only. |
+| [Classification](./classification/README.md) | CLIP zero-shot / timm fine-tune / DINOv2 probe, by data availability. |
+| [Object Detection](./object-detection/README.md) | YOLO for most cases; RT-DETR if on GPU; Co-DETR for research. |
+| [Segmentation](./segmentation/README.md) | SAM 2 for zero-shot; Mask2Former / YOLOv8-seg for trained. |
+| [Pose Estimation](./pose/README.md) | RTMPose server; MediaPipe browser; ViTPose research. |
+| [OCR / Document AI](./ocr/README.md) | PaddleOCR for clean; VLMs for messy; Donut for structured forms. |
+| [Tracking](./tracking/README.md) | ByteTrack default; BoT-SORT with ReID; OC-SORT for benchmarks. |
+| [Depth Estimation](./depth/README.md) | Depth Anything V2 monocular; stereo if hardware available. |
+| [Retrieval / Embeddings](./retrieval/README.md) | SigLIP embeddings + FAISS; DINOv2 for image-only. |
 
 ### Face (the one vertical)
 
 | Section | One-line |
 |---------|----------|
-| [Face](./face/) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
+| [Face](./face/README.md) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
 
 *More verticals (medical, satellite, industrial, retail, robotics) will be added as products 2–12 ship content-backed opinions in each. Not adding them as empty placeholders.*
 
@@ -45,17 +45,17 @@ If you're browsing to learn the field, read the picks in order — they'll give 
 
 | Section | One-line |
 |---------|----------|
-| [VLM / Multimodal](./vlm/) | Gemini/GPT/Claude commercial; Qwen2-VL/InternVL2 open. |
-| [Image Generation](./generation/) | Flux for open; SDXL for ecosystem; ControlNet for control. |
+| [VLM / Multimodal](./vlm/README.md) | Gemini/GPT/Claude commercial; Qwen2-VL/InternVL2 open. |
+| [Image Generation](./generation/README.md) | Flux for open; SDXL for ecosystem; ControlNet for control. |
 
 ### Stack / deployment
 
 | Section | One-line |
 |---------|----------|
-| [Inference Runtimes](./runtimes/) | ONNX Runtime default; TensorRT on NVIDIA; CoreML on Apple. |
-| [Edge Deployment](./edge/) | Jetson Orin Nano Super, Raspberry Pi 5, CoreML for mobile. |
-| [Cloud Vision APIs](./cloud-apis/) | VLMs for flexible; task APIs (Rekognition/Vision) for scale. |
-| [Data, Annotation, Datasets](./data/) | CVAT / Roboflow / SAM-based auto-labeling; COCO/ImageNet/etc. |
+| [Inference Runtimes](./runtimes/README.md) | ONNX Runtime default; TensorRT on NVIDIA; CoreML on Apple. |
+| [Edge Deployment](./edge/README.md) | Jetson Orin Nano Super, Raspberry Pi 5, CoreML for mobile. |
+| [Cloud Vision APIs](./cloud-apis/README.md) | VLMs for flexible; task APIs (Rekognition/Vision) for scale. |
+| [Data, Annotation, Datasets](./data/README.md) | CVAT / Roboflow / SAM-based auto-labeling; COCO/ImageNet/etc. |
 
 ## Format each section follows
 
@@ -79,9 +79,9 @@ Some sections adjust the axis (for face recognition, the 3 picks are clean-input
 
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — how to propose additions, Dump vs Recommended vs Graveyard rules.
 - [`rubrics/evaluation-criteria.md`](./rubrics/evaluation-criteria.md) — how picks are judged (what counts, what doesn't).
-- [`templates/section-template.md`](./templates/section-template.md) — the canonical page structure.
+- [`rubrics/section-template.md`](./rubrics/section-template.md) — the canonical page structure.
 - [`scripts/refresh.md`](./scripts/refresh.md) — the LLM-in-the-loop pipeline (planned).
-- [`.github/`](./.github/) — PR and issue templates.
+- `.github/` — PR and issue templates (on GitHub only).
 
 ## License
 
