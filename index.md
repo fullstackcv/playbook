@@ -46,7 +46,7 @@ New to the playbook? Read [the Face section](face/README.md) first — it's the 
 | [Face](face/README.md) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
 
 !!! note "More verticals coming"
-    Medical, satellite, industrial, retail, and robotics sections will be added as products ship content-backed opinions in each. Not adding them as empty placeholders.
+    Medical, satellite, industrial, retail, and robotics sections will be added once there are content-backed opinions to put in each. Not adding them as empty placeholders.
 
 ### Multimodal
 

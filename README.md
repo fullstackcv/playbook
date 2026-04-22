@@ -58,7 +58,7 @@ New to the playbook? Read [the Face section](https://fullstackcv.github.io/playb
 | [Face](https://fullstackcv.github.io/playbook/face/) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
 
 > [!NOTE]
-> More verticals (medical, satellite, industrial, retail, robotics) will be added as products ship content-backed opinions in each. Not adding them as empty placeholders.
+> More verticals (medical, satellite, industrial, retail, robotics) will be added once there are content-backed opinions to put in each. Not adding them as empty placeholders.
 
 ### Multimodal
 

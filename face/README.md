@@ -296,4 +296,4 @@ For anything customer-facing where being spoofed has cost (KYC, building access,
 
 ---
 
-*Last reviewed: 2026-04-22. Written by Vikas Gupta, maintainer of [facestack](https://github.com/fullstackcv/facestack) and author of [ClassCheck](https://github.com/fullstackcv/classcheck) (product #1 of 12).*
+*Last reviewed: 2026-04-22. Written by Vikas Gupta.*

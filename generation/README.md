@@ -2,7 +2,7 @@
 
 > Diffusion models, image edits, controllable synthesis. The default open pick flipped from SDXL to Flux in 2024. Commercial keeps its lead on prompt adherence.
 
-Generation is a distinct world from perception — different libraries, different compute profiles, different failure modes. Most CV engineers don't need it for product #1; it becomes relevant for content tooling, synthetic data, editing, or generative UX.
+Generation is a distinct world from perception — different libraries, different compute profiles, different failure modes. Most CV engineers don't need it early; it becomes relevant for content tooling, synthetic data, editing, or generative UX.
 
 ## Recommended picks
 
