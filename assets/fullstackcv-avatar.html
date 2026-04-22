@@ -2,10 +2,16 @@
 <html>
 <head>
 <style>
-  html, body { width: 512px; height: 512px; margin: 0; padding: 0; overflow: hidden; -webkit-font-smoothing: antialiased; }
+  html, body {
+    width: 100%; height: 100%;
+    margin: 0; padding: 0; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    background: #1A237E;
+  }
   body {
     background: linear-gradient(135deg, #3F51B5 0%, #1A237E 100%);
     display: flex; align-items: center; justify-content: center;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   }
   .mark {
     font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
