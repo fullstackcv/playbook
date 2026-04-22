@@ -9,7 +9,7 @@ The field has three distinct use cases with different picks. Don't pick one tool
 | Use case | Pick | When to use |
 |----------|------|-------------|
 | **Document parsing SOTA (open)** | **PaddleOCR-VL-1.5** (Baidu, 0.9B VLM) | 94.5% on OmniDocBench v1.5. Handles skew, warp, illumination, screen photos. 111 languages. |
-| Messy real-world (handwriting, weird contexts) | **A flagship VLM (Gemini 2.5, GPT-5, Claude 4)** | When you want max accuracy and can afford per-page cost. Beats traditional OCR on unstructured inputs. |
+| Messy real-world (handwriting, weird contexts) | **A flagship VLM (Gemini 2.5, GPT-5, Claude 4)** | When you want max accuracy and can afford per-page cost. Often more robust than traditional OCR on unstructured inputs. |
 | Clean printed documents at scale | **PP-OCRv5** (lightweight PaddleOCR) | Free, 1st on avg 1-edit-distance across OmniDocBench, beats GOT-OCR-0.5B / Qwen2.5-VL-72B at a fraction of size. |
 | English-only + local + fast | **Tesseract 5** | Zero-dependency batch processing of clean text. |
 | Structured document understanding | **Donut** or **LayoutLMv3** | Form key-value extraction with a defined schema. Training-required. |
@@ -18,7 +18,7 @@ The field has three distinct use cases with different picks. Don't pick one tool
 
 Until 2023, OCR meant Tesseract/PaddleOCR for clean, or a dedicated pipeline (Donut, LayoutLM) for forms. Post-processing the model's output was where the engineering time went.
 
-**2024:** vision-language models (GPT-4V, Gemini, Claude, Qwen-VL) started doing "read this image" as well as or better than classical OCR on messy inputs.
+**2024:** vision-language models (GPT-4V, Gemini, Claude, Qwen-VL) became competitive with — and on messy inputs, often more robust than — classical OCR.
 
 **2025–2026:** the two worlds merged. The current SOTA on OmniDocBench v1.5 (94.5%) is **PaddleOCR-VL-1.5**, a **0.9B VLM** from Baidu — smaller than the classical pipelines, faster than flagship VLMs, and trained specifically for document parsing. For the first time there's a single open model that wins on both accuracy *and* deployability for documents.
 

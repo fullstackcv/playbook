@@ -1,6 +1,6 @@
 # Full Stack CV — Playbook
 
-> An opinionated reference for building CV systems. Three picks per subtask, when to use each, and when not to — plus a dump of everything else worth knowing.
+> An opinionated reference for building CV systems. Three picks per subtask, when to use each, and when not to — plus a broader catalog of useful alternatives, legacy picks, and context.
 
 ## The problem this solves
 

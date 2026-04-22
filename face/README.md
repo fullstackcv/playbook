@@ -7,7 +7,7 @@ Face recognition is the most mature subtask in CV. The pipeline shape has been s
 This page covers five sub-topics, each with its own picks table. Collapsed to one sentence each:
 
 - **Detection:** SCRFD by default, Haar only on Pi-class hardware.
-- **Alignment:** 5-point similarity transform. Never skip this.
+- **Alignment:** 5-point similarity transform. In most pipelines, don't skip this.
 - **Recognition:** ArcFace R100 default; AdaFace IR101 for surveillance; MobileFaceNet for edge.
 - **Search:** numpy 1-NN below 50k vectors; FAISS at 50k–10M; pgvector if multi-tenant.
 - **Anti-spoofing:** Silent-Face-Anti-Spoofing open-source; commercial (AWS Liveness, Face++) for production.
@@ -24,9 +24,11 @@ Scroll for the *why* on each.
 
 | Tier | Pick | Accuracy | FPS (CPU laptop) | When to use |
 |------|------|---------:|-----------------:|-------------|
-| Edge / dep-light | **Haar cascade** (OpenCV built-in) | ~75% on easy sets | 30 | Pi Zero / Pi 3, no ONNX, frontal faces only |
-| **Default** | **SCRFD-500MF** | ~95% on WIDER Face | 15 | Anything with enough juice for ONNX Runtime |
-| Max accuracy | **RetinaFace R50** | ~96% on WIDER Face | 3 | Offline / batch / GPU available |
+| Edge / dep-light | **Haar cascade** (OpenCV built-in) | low (frontal-only) | highest (~20–30 FPS on small frames, Pi-class) | Pi Zero / Pi 3, no ONNX, frontal faces only |
+| **Default** | **SCRFD-500MF** | strong on WIDER Face | good (tens of FPS on a modern laptop CPU) | Anything with enough juice for ONNX Runtime |
+| Max accuracy | **RetinaFace R50** | slightly stronger on WIDER Face | low on CPU; GPU recommended | Offline / batch / GPU available |
+
+*Accuracy and FPS numbers vary by backbone, input resolution, and hardware; treat the above as rough ordering rather than exact figures. Benchmark against your own pipeline before committing.*
 
 ### Why SCRFD is the default
 
@@ -78,15 +80,15 @@ InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFac
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Never | **No alignment** | Never. Costs you 10–20 points of recognition accuracy. Stop. |
-| **Default** | **5-point similarity transform** (InsightFace convention) | Every face recognition system. 15 lines of numpy. |
-| Overkill | **Dense 68-point elastic alignment (dlib)** | Academic / research. Not needed for recognition accuracy. |
+| Don't skip | **No alignment** | Only acceptable if your detector already produces canonicalised crops. Otherwise typically a meaningful accuracy loss. |
+| **Default** | **5-point similarity transform** (InsightFace convention) | Standard for most face recognition systems. ~15 lines of numpy. |
+| Overkill | **Dense 68-point elastic alignment (dlib)** | Academic / research. Not typically needed for recognition accuracy. |
 
-Alignment is not really a "pick which model" question — the 5-point similarity transform is the industry default and works. The question is whether you do it at all. Many tutorials skip it and silently lose accuracy.
+Alignment is not really a "pick which model" question — the 5-point similarity transform is the common industry default. The practical question is whether to do it at all. Skipping it is a frequent mistake in tutorial code and usually costs noticeable accuracy in production.
 
 ### Why alignment matters
 
-A face at a 30° tilt has a different ArcFace embedding than the same face upright. The recognizer was trained on aligned faces — it expects eyes on a horizontal line at fixed positions. Feed it a non-aligned crop and recognition accuracy drops 10–20 percentage points.
+A face at a 30° tilt has a different ArcFace embedding than the same face upright. The recognizer was trained on aligned faces — it expects eyes on a horizontal line at fixed positions. Feed it a non-aligned crop and recognition accuracy typically drops meaningfully (exact degradation varies with the backbone, input distribution, and pose range; rule of thumb: it's large enough that skipping alignment usually isn't worth it).
 
 The fix is a similarity transform (rotate + uniform scale + translate) that maps the detected 5 landmarks (left eye, right eye, nose tip, left and right mouth corners) to a fixed canonical position on a 112×112 crop. `cv2.estimateAffinePartial2D` + `cv2.warpAffine`. 15 lines.
 
@@ -120,13 +122,15 @@ Honestly, you don't. Use the 5-point similarity transform. The only exception: i
 
 | Tier | Pick | LFW accuracy | Surveillance accuracy | When to use |
 |------|------|-------------:|----------------------:|-------------|
-| Edge | **MobileFaceNet** | ~99.2% | ~87% | Raspberry Pi 4/5, phones, browser |
-| **Default** | **ArcFace R100** (buffalo_l) | 99.83% | ~87% | Kiosks, attendance, identity verification — controlled input |
-| Surveillance | **AdaFace IR101** | 99.82% | ~92% | CCTV, doorway, any low-quality or distant input |
+| Edge | **MobileFaceNet** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
+| **Default** | **ArcFace R100** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
+| Surveillance | **AdaFace IR101** | ~99.8% (paper) | higher than ArcFace under low-quality conditions | CCTV, doorway, any low-quality or distant input |
+
+*LFW numbers are saturated and come from the respective papers; they don't predict real-world performance on your data. The "Surveillance" column is a qualitative ordering, not a benchmarked number — measure against your own footage before committing.*
 
 ### Why three picks, not one
 
-Because LFW accuracy is saturated and doesn't predict real-world. ArcFace and AdaFace tie on LFW; AdaFace wins by 4–7 points on surveillance footage because its angular margin is *quality-adaptive* rather than fixed. If you pick based on LFW, you pick ArcFace. If you pick based on your actual deployment, you might pick AdaFace.
+Because LFW is saturated and doesn't predict real-world. ArcFace and AdaFace are near-equivalent on LFW; AdaFace tends to pull ahead on surveillance-quality footage because its angular margin is *quality-adaptive* rather than fixed. If you pick based on LFW alone, ArcFace looks sufficient. If your input distribution is noisier than LFW, AdaFace is often worth testing.
 
 ### ArcFace — the default
 
@@ -192,21 +196,24 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 
 | Scale | Pick | When to use |
 |-------|------|-------------|
-| **< 50k enrolled vectors** | **numpy dot product + threshold** | Any product with fewer than ~50k enrolled identities. Don't over-engineer. |
-| **50k – 10M** | **FAISS IndexFlatIP / HNSW** | Scale where numpy dot product gets slow. FAISS is free and fast. |
-| **Multi-tenant / Postgres-first** | **pgvector** | Per-tenant isolation, or your stack already has Postgres. Slower than FAISS but operationally simpler. |
+| **Small-scale (roughly sub-50K vectors)** | **numpy dot product + threshold** | Most products with a modest enrolment count. Don't over-engineer. |
+| **Medium-to-large scale** | **FAISS IndexFlatIP / HNSW** | When numpy dot product gets slow. FAISS is free and fast. |
+| **Multi-tenant / Postgres-first** | **pgvector** | Per-tenant isolation, or your stack already runs Postgres. Slower than FAISS per query but operationally simpler. |
 
-### Why not SVM
+The exact crossover between numpy / FAISS / pgvector depends on your latency target, tenanting model, and infra. The scale ranges above are rough guides, not hard thresholds.
 
-Because face recognition is **open-set**. The right answer for an unknown face is "unknown," not "the closest trained class."
+### Why 1-NN + threshold, not SVM
 
-Four reasons SVM is wrong for this:
-1. SVM doesn't natively output "unknown." You can threshold the decision function, but you're fighting the tool.
-2. Re-enrolling means retraining. Nearest-neighbor means appending a row.
-3. ArcFace already does the margin work at training time. SVM's margin is redundant.
-4. Scale is worse. 1-NN is O(N × 512) without index, O(log N × 512) with HNSW.
+Because face recognition is **open-set**. The right answer for an unknown face is "unknown," not "the closest trained class." For open-set identity search, 1-NN + threshold is usually the cleaner default than SVM.
 
-SVM *is* the right tool for closed-set binary classification (anti-spoofing, for instance). It is not right for identity.
+Four reasons it's the better default for this problem:
+
+1. **"Unknown" handling is natural.** SVM doesn't output "unknown" by default — you can threshold the decision function, but you're working against the tool instead of with it.
+2. **Re-enrollment is cheap.** Adding a person = appending a row. With SVM you retrain.
+3. **The margin is already in the embedding.** ArcFace's angular margin is applied at training time; adding SVM's margin on top is redundant.
+4. **Scale tends to be better.** 1-NN is O(N × D) brute, O(log N × D) with HNSW. SVM prediction is O(#support vectors × features), which can be worse above ~10K classes.
+
+SVM *is* a good fit for closed-set binary classification (anti-spoofing, for example) where the class set is fixed and small. For open-set identity search with a growing enrolment database, nearest-neighbor is usually the better default.
 
 ### Why 1-NN + threshold specifically
 

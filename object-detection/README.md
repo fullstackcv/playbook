@@ -2,7 +2,7 @@
 
 > Finding bounding boxes around objects, usually with labels. The subtask with the most churn — new YOLO variants ship every quarter. The picks rotate faster here than anywhere else.
 
-Object detection has fragmented into three deployment tiers that need different models. The "best" detector is whichever fits your constraint tier. A Co-DETR model achieving +3 points AP won't help if you're on a Jetson Nano at 3 FPS.
+Object detection has fragmented into three deployment tiers that need different models. The "best" detector is whichever fits your constraint tier. A research model achieving +3 points AP won't help if you're on a Jetson Nano with a tight latency budget.
 
 ## Recommended picks
 
@@ -12,6 +12,8 @@ Object detection has fragmented into three deployment tiers that need different 
 | **Default (CNN)** | **YOLO26m** | Server-side, real-time-ish, unified multi-task (det/seg/cls/pose/OBB) |
 | **Default (transformer)** | **RF-DETR** (Roboflow, ICLR 2026) | First real-time detector to clear 60 AP on COCO; DINOv2 backbone |
 | Max accuracy | **Co-DETR** or **DINO-family** | Offline / batch; GPU available; every AP point matters |
+
+*Reading the picks:* **Operational default** = YOLO26 (export + deployment maturity). **Latest strong contender** = RF-DETR (ICLR 2026 SOTA, NMS-free transformer; worth testing for GPU-side deployments). **Research max** = Co-DETR / DINO family. YOLO11 and YOLOv8 remain reasonable picks if your team is ecosystem-locked; the move from YOLO11 → YOLO26 is not urgent, just available.
 
 ## YOLO26 — the current CNN default
 

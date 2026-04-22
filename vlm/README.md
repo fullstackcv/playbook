@@ -15,6 +15,8 @@ The field moves *fast*. The picks below are current as of 2026-04-22 and will ag
 | **Open flagship** | **Qwen3-VL-235B-A22B** or **InternVL3-78B** | Rivals Gemini-2.5-Pro / GPT-5 on multimodal benchmarks. Self-hosted, data-sensitive, cost-critical at scale. |
 | Open small | **Qwen3-VL-7B**, **InternVL3-8B**, **LLaVA-OneVision-7B** | Edge GPU, on-prem, prototyping |
 
+*Reading the picks:* **Operational default** depends on your deployment constraints — for teams with existing Qwen2-VL / InternVL2 pipelines and strict stability requirements, those remain acceptable operational defaults; the move to Qwen3-VL / InternVL3 is a newer strong contender worth testing rather than an urgent upgrade. **Latest strong contender** = Qwen3-VL, InternVL3 (newer generation, better benchmarks). **Research max** shifts monthly in this space; expect this page to age the fastest.
+
 ## Why a VLM instead of training a model
 
 Three cases where a VLM is the right first try:

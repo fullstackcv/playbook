@@ -27,6 +27,11 @@ Pick it because:
 
 Install: `pip install onnxruntime` (CPU) or `pip install onnxruntime-gpu` (with CUDA).
 
+Recent additions (2026):
+- **TensorRT RTX execution provider** — new EP targeting NVIDIA RTX-class GPUs.
+- **OpenVINO EP memory optimization** — patch to reuse weight files across shared contexts, lowering resident memory.
+- Hybrid strategy recommended: ONNX Runtime as the primary API, TensorRT EP for GPU paths, OpenVINO EP or default CPU EP for CPU-only nodes.
+
 ## When to pick something else
 
 - **Max NVIDIA performance with static shapes** → TensorRT directly. ~30–50% faster than ONNX Runtime's TensorRT EP in practice because you can tune more aggressively.

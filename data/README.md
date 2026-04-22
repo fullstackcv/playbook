@@ -32,7 +32,7 @@ Before SAM (2023): labeling segmentation masks was the most expensive annotation
 
 After SAM: click a point, get a high-quality mask. Correct where needed. 5–10× speedup in practice.
 
-Every major annotation platform integrated SAM in 2023–2024: CVAT, Label Studio, Roboflow, V7, Labelbox. Don't label segmentation masks by hand anymore.
+Every major annotation platform integrated SAM in 2023–2024: CVAT, Label Studio, Roboflow, V7, Labelbox. By 2026, most have moved on to SAM 2 / SAM 3 integration for concept-prompted (text-driven) labeling. CVAT and Roboflow have direct integrations: Roboflow Annotate supports a SAM-2-powered label assistant in the interface, and CVAT integrates SAM, Mask R-CNN, YOLO models for auto-labeling. Don't label segmentation masks by hand anymore.
 
 ## Programmatic labeling
 

@@ -58,7 +58,8 @@ For low/medium volume (< 10K images/day), VLM APIs are competitive. At 1M+ image
 - **Document AI** — structured extraction (invoices, forms). Stronger than base Vision.
 
 ### Azure Computer Vision / Azure AI Vision
-- **Image Analysis 4.0** — labels, tags, descriptions.
+- **Image Analysis 4.0** — labels, tags, descriptions. The **Florence foundation model integration (2025)** significantly improved caption quality and natural-language image queries; tends to beat Google/AWS on those specific axes.
+- **Spatial Analysis** — people-counting, movement tracking, occupancy for physical spaces. Unique to Azure among the three; Google and AWS don't offer the equivalent.
 - **Read / OCR** — document text.
 - **Face API** — detection, analysis, identity. *Microsoft restricted Face identity access to approved customers in 2022.*
 - **Custom Vision** — custom classifier/detector training.

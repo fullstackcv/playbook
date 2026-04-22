@@ -2,6 +2,9 @@
 
 > Running CV models on devices that aren't in a data center. Four broad tiers: accelerated embedded (Jetson), general embedded (Pi), dedicated TPU (Coral), and mobile (phones).
 
+> [!WARNING]
+> **Hardware landscape changes quickly.** The specific board recommendations below reflect *today's practical defaults* (as of April 2026), not universal truths. New SKUs ship every quarter; prices and availability shift. Power budgets and model-class fit are more stable guidance than specific product picks. Verify current pricing and availability before committing to a BOM.
+
 Edge deployment is where most CV products actually live. The constraints are different from server-side — you care about power, thermals, cost, and the specific accelerator more than raw FLOPs.
 
 ## Recommended picks
@@ -20,9 +23,10 @@ NVIDIA's embedded GPU line. The Orin Nano Super (launched Dec 2024) is the curre
 Options in the Jetson family (roughly increasing power):
 - **Jetson Nano** (original, 2019) — 472 GFLOPS FP16, 4 GB RAM. End-of-life; avoid for new work.
 - **Jetson Orin Nano** (2023) — 40 TOPS INT8, 8 GB. Decent.
-- **Jetson Orin Nano Super** (2024) — 67 TOPS INT8 via firmware boost, 8 GB. **The current default.**
+- **Jetson Orin Nano Super** (2024) — 67 TOPS INT8 via firmware boost, 8 GB, $249. **The current default for consumer / maker edge.**
 - **Jetson Orin NX** — 100 TOPS, 8 or 16 GB. More expensive.
 - **Jetson AGX Orin** — 275 TOPS, 32/64 GB. Premium.
+- **Jetson Thor** (2025–2026) — ~2,070 FP4 TFLOPS (petaFLOP-class at the edge), ~7.5× Orin generation. Targeted at robotics / autonomous / industrial; expensive; overkill for most CV products. Verify current availability and pricing before committing.
 
 Pick Jetson when:
 - You're training or evaluating on an NVIDIA cluster and want the same model to run at the edge with TensorRT optimization.
@@ -39,7 +43,11 @@ Pick Pi when:
 - The CV model is light or legacy.
 - You don't need hardware ML acceleration.
 
-Add a **Hailo-8 M.2 accelerator** ($180 add-on) to turn a Pi 5 into a credible edge AI platform — 26 TOPS INT8, fits in the M.2 slot. This makes Pi + Hailo competitive with Jetson Orin Nano at similar cost.
+Add a **Hailo M.2 accelerator** to turn a Pi 5 into a credible edge AI platform. Two variants sold as Pi 5 kits:
+- **Hailo-8L** (standard AI Kit) — 13 TOPS, cheaper.
+- **Hailo-8** (AI+ Kit) — 26 TOPS, premium.
+
+Pi 5 + Hailo-8 is competitive with Jetson Orin Nano at similar cost; Pi 5 + Hailo-8L is cheaper but noticeably slower.
 
 ## Google Coral — the dedicated TPU
 
