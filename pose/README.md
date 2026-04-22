@@ -51,7 +51,8 @@ If you're building anything that runs in a browser tab or a phone app without a 
 - **ViTPose (2022)** — ViT backbone, strong accuracy. Expensive.
 - **ViTPose++** — improved training recipe. Same compute class.
 - **RTMPose (2023)** — OpenMMLab's distilled real-time pose. The current default.
-- **RTMW / RTMO** — whole-body and bottom-up variants from the same team.
+- **RTMW (OpenMMLab)** — whole-body variant. First model to exceed 70 AP on COCO-WholeBody (RTMW-x at 70.2 AP).
+- **RTMO** — bottom-up variant from the same team.
 - **DWPose (2023)** — distilled whole-body, used as the ControlNet pose preprocessor.
 - **MotionBERT** — 3D human motion representation. Strong on video.
 - **MMHuman3D (OpenMMLab)** — SMPL body fitting from video.

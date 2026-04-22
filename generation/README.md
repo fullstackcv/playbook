@@ -8,22 +8,28 @@ Generation is a distinct world from perception — different libraries, differen
 
 | Use case | Pick | When to use |
 |----------|------|-------------|
-| Commercial flagship | **Midjourney v7**, **Flux Pro**, or **DALL-E 3** | Marketing / hero images; prompt adherence matters; quality > control |
-| **Open default** | **Flux.1 [dev]** | Self-hosted, high-quality open image generation |
-| Stable / mature open | **SDXL 1.0 + LoRAs** | Massive ecosystem of fine-tunes and tools; prefer over Flux only if you need an existing LoRA |
+| Commercial flagship | **Midjourney v7**, **Flux 2 Pro**, or **DALL-E 3** | Marketing / hero images; prompt adherence matters; quality > control |
+| **Open default (photorealism)** | **Flux 2** (Black Forest Labs, Nov 2025) | Up to 4MP output, best open photorealism, strong prompt adherence |
+| **Open default (text-in-image)** | **Qwen-Image** (Alibaba, Apache 2.0) | Best-in-class multilingual text rendering within images. Commercial-friendly license. |
+| Stable / mature open | **SDXL 1.0 + LoRAs** | Massive ecosystem of fine-tunes and community tools; prefer over Flux only if you need an existing LoRA |
 | Controllable generation | **Flux + ControlNet** or **SDXL + ControlNet** | Pose-controlled, edge-controlled, depth-controlled generation |
 | Editing (img2img / inpainting) | **Flux Fill**, **SDXL Inpainting**, or a commercial "edit" API | Targeted regions of an existing image |
 | Fast / real-time | **SDXL Turbo**, **SD Lightning**, or **Flux Schnell** | Live preview, sketch-to-image, interactive apps |
 
-## Why Flux is the new open default
+## Why Flux 2 is the current open leader
 
-Flux.1 (Black Forest Labs, the team behind Stable Diffusion's original work, 2024) shipped open weights that beat SDXL on prompt adherence, aesthetic quality, and text rendering. Three variants:
+**Flux 2** (Black Forest Labs, November 2025) is the biggest open-model step forward since SDXL. Superior photorealism, better prompt comprehension, up to 4MP output. Best single choice for portrait / product / hero image quality.
 
-- **Flux.1 [dev]** — non-commercial license, 12B params, best quality.
-- **Flux.1 [schnell]** — Apache 2 license, faster, 1-step or 4-step generation.
-- **Flux.1 [pro]** — API-only commercial, highest quality, not self-hostable.
+Flux family as of 2026:
+- **Flux 2 Pro** — API-only commercial, max quality.
+- **Flux.1 [dev]** — 12B params, non-commercial license. Still widely used because of the maturing ecosystem.
+- **Flux.1 [schnell]** — Apache 2 license, 1-step or 4-step generation. Use for self-hosted commercial.
 
-For self-hosted production: `Flux.1 [schnell]` (Apache) or `Flux.1 [dev]` (non-commercial).
+For self-hosted commercial: Flux.1 [schnell] (Apache) or Qwen-Image (Apache). For highest-quality self-hosted with non-commercial acceptable: Flux 2 via HF weights or Flux.1 [dev].
+
+## Why Qwen-Image for text-in-image
+
+Qwen-Image (Alibaba, Apache 2.0) integrates language and layout reasoning directly into the architecture. Best-in-class multilingual text rendering within images — font consistency, spatial alignment, complex backgrounds. If your use case involves typography in the generated image, Qwen-Image beats Flux and SDXL on that axis. And it's Apache 2, which matters for commercial use.
 
 ## SDXL — still the mature ecosystem
 
@@ -68,20 +74,29 @@ Both Flux and SDXL have ControlNet support. SDXL's ecosystem is broader; Flux is
 - **Ideogram** — specialized in text-in-image.
 - **Leonardo / Stability / Replicate / fal.ai** — aggregator/hosting platforms.
 
-## Video generation (brief notes, fast-moving)
+## Video generation (fast-moving, verify before relying on)
 
-- **Sora (OpenAI)** — commercial, long coherent video.
-- **Veo 3 (Google)** — commercial, strong.
-- **Runway Gen-4** — commercial.
-- **Kling (Kuaishou)** — commercial, strong physics.
+Leaderboard as of April 2026 (these rotate every 1–2 months):
+
+### Commercial
+- **Kling 3.0** (Kuaishou, Feb 2026) — multi-shot sequences 3–15 seconds, 4K native, subject consistency across shots. Cost-effective (~$0.50/clip).
+- **Veo 3.1** (Google, Jan 2026) — 4K native, best-in-class lip sync for talking heads.
+- **Seedance 2.0** (ByteDance, Feb 2026) — first with unified audio-video joint generation, multi-shot storytelling from a single prompt, phoneme-level lip sync in 8+ languages.
+- **Runway Gen-4** — commercial, broad creative tooling.
 - **Luma Dream Machine** — commercial.
-- **HunyuanVideo (Tencent)** — open weights.
-- **Wan2.1 (Alibaba)** — open weights.
+
+### Open
+- **Wan 2.6** (Alibaba) — open-weight, strong, full control over the generation process.
+- **HunyuanVideo** (Tencent) — open weights.
 - **LTX-Video** — open, fast.
 - **CogVideoX** — open.
 - **AnimateDiff** — motion LoRA on top of SD/SDXL. Lower quality than dedicated video models.
 
-Video generation is moving faster than image generation and the recommendations here will age inside 6 months.
+### Graveyard (video)
+- **Sora (OpenAI)** — **shut down March 24, 2026**, six months after launch. Do not recommend.
+- **Sora 2** — preceded the shutdown; coherent prompts and camera control were praised.
+
+Video generation is moving faster than image generation and the recommendations here will age inside 3 months. Verify before citing.
 
 ## The Dump
 

@@ -10,10 +10,10 @@ The field moves *fast*. The picks below are current as of 2026-04-22 and will ag
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Commercial flagship | **Gemini 2.5 Pro**, **GPT-4o / GPT-5**, or **Claude 4 Sonnet/Opus** | Prototyping, low-volume production, when quality matters more than cost |
-| Commercial budget | **Gemini 2.5 Flash**, **GPT-4o-mini**, **Claude Haiku** | High-volume, latency-sensitive. Often 10× cheaper than flagship. |
-| **Open default** | **Qwen2-VL-72B** or **InternVL2-76B** | Self-hosted, data-sensitive, or cost-critical at scale |
-| Open small | **Qwen2-VL-7B**, **LLaVA-OneVision-7B**, **InternVL2-8B** | Edge GPU, on-prem, prototyping |
+| Commercial flagship | **Gemini 2.5 Pro**, **GPT-5**, or **Claude 4 Sonnet/Opus** | Prototyping, low-volume production, when quality matters more than cost |
+| Commercial budget | **Gemini 2.5 Flash**, **GPT-5-mini**, **Claude Haiku** | High-volume, latency-sensitive. Often 10× cheaper than flagship. |
+| **Open flagship** | **Qwen3-VL-235B-A22B** or **InternVL3-78B** | Rivals Gemini-2.5-Pro / GPT-5 on multimodal benchmarks. Self-hosted, data-sensitive, cost-critical at scale. |
+| Open small | **Qwen3-VL-7B**, **InternVL3-8B**, **LLaVA-OneVision-7B** | Edge GPU, on-prem, prototyping |
 
 ## Why a VLM instead of training a model
 
@@ -46,18 +46,20 @@ Three cases where a VLM is the right first try:
 
 ## Commercial APIs
 
-- **OpenAI** — GPT-5, GPT-4o, GPT-4o-mini. Mature API. JSON mode + function calling. Image input standard.
-- **Google** — Gemini 2.5 Pro / Flash. Strongest long-context for video. Native multimodal from training.
-- **Anthropic** — Claude 4 family (Opus, Sonnet, Haiku). Strongest factuality discipline. PDF input native (parsed as images).
+- **OpenAI** — GPT-5, GPT-5-mini, GPT-4o. Mature API. JSON mode + function calling. Image input standard.
+- **Google** — Gemini 2.5 Pro / Flash. Leads LMArena and WebDevArena for vision + coding. 1M+ token context. Native multimodal from training.
+- **Anthropic** — Claude 4 family (Opus, Sonnet, Haiku). Strongest factuality discipline. "Computer use" capability. PDF input native (parsed as images).
 - **xAI (Grok)** — Grok Vision available. Less mature ecosystem.
 
 ## Open models
 
-- **Qwen2-VL (Alibaba)** — 2B / 7B / 72B variants. Strong multilingual (Chinese especially). Good layout understanding.
-- **InternVL2 (Shanghai AI Lab)** — 1B / 2B / 8B / 26B / 40B / 76B. Consistent performer across sizes.
+- **Qwen3-VL (Alibaba)** — 2B / 7B / 32B / 235B variants. Flagship Qwen3-VL-235B-A22B rivals Gemini 2.5 Pro and GPT-5 on multimodal benchmarks (Q&A, 2D/3D grounding, video understanding, OCR, document comprehension).
+- **InternVL3 (Shanghai AI Lab)** — 1B / 2B / 8B / 14B / 38B / 78B. InternVL3-78B scored 72.2 on MMMU — SOTA among open MLLMs at release. Adds tool use, GUI agents, 3D vision perception.
+- **Qwen2-VL / InternVL2** — previous generations. Still widely deployed; upgrade when convenient.
 - **LLaVA lineage (LLaVA-OneVision, LLaVA-NeXT)** — academic. Easy to fine-tune. Slightly behind Qwen/InternVL on benchmarks.
 - **CogVLM2 (Tsinghua)** — 19B. Solid open option.
 - **Molmo (Allen AI)** — trained on open data, fully open weights + data. Slightly behind proprietary on most benchmarks.
+- **Gemma 3** — Google's open VLM family. Strong mid-tier performer.
 - **Florence-2 (Microsoft)** — not a chat VLM but a multi-task vision model (captioning, detection, segmentation). Lightweight (~0.8B).
 - **PaliGemma (Google)** — 3B VLM, fine-tuning-friendly.
 
@@ -76,15 +78,18 @@ Three cases where a VLM is the right first try:
 
 ## The Dump
 
-- **GPT-4V / GPT-4o / GPT-5 (OpenAI)** — closed commercial.
-- **Gemini 1.5 Pro / 2.5 Pro / Flash (Google)** — closed commercial.
-- **Claude 3.5 / 4 Sonnet / Haiku (Anthropic)** — closed commercial.
+- **GPT-5 / GPT-4o (OpenAI)** — closed commercial.
+- **Gemini 2.5 Pro / Flash (Google)** — closed commercial. LMArena leader.
+- **Claude 4 Opus / Sonnet / Haiku (Anthropic)** — closed commercial.
 - **Grok Vision (xAI)** — closed commercial.
 - **Reka Core / Flash (Reka AI)** — commercial, multimodal-from-training.
-- **Qwen2-VL (Alibaba)** — open, strong.
-- **InternVL2** — open, strong.
+- **Qwen3-VL (Alibaba)** — open, current flagship.
+- **Qwen2-VL (Alibaba)** — open, previous generation. Still deployed.
+- **InternVL3** — open, SOTA among open MLLMs.
+- **InternVL2** — open, previous generation.
 - **LLaVA-OneVision** — open, academic.
 - **LLaVA-NeXT** — open, academic.
+- **Gemma 3 (Google)** — open mid-tier.
 - **CogVLM2** — open.
 - **Molmo (Allen AI)** — fully open.
 - **PaliGemma (Google)** — open, small.

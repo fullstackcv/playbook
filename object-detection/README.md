@@ -8,19 +8,42 @@ Object detection has fragmented into three deployment tiers that need different 
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Edge / real-time | **YOLOv11n** or **YOLOv8n** | Jetson, Pi, phones; when FPS > accuracy |
-| **Default** | **YOLOv11m** or **RT-DETRv2** | Server-side, real-time-ish, good accuracy |
+| Edge / real-time | **YOLO26n** (Ultralytics, Jan 2026) | Jetson, Pi, phones; NMS-free, ~43% faster CPU vs YOLO11 nano |
+| **Default (CNN)** | **YOLO26m** | Server-side, real-time-ish, unified multi-task (det/seg/cls/pose/OBB) |
+| **Default (transformer)** | **RF-DETR** (Roboflow, ICLR 2026) | First real-time detector to clear 60 AP on COCO; DINOv2 backbone |
 | Max accuracy | **Co-DETR** or **DINO-family** | Offline / batch; GPU available; every AP point matters |
 
-## Why YOLO is still the default in 2026
+## YOLO26 — the current CNN default
 
-Fifteen years of incremental improvements, a massive ecosystem, trivial ONNX export, excellent inference-runtime support everywhere (TensorRT, CoreML, ONNX Runtime, TFLite). When in doubt, YOLO.
+Ultralytics shipped YOLO26 in January 2026 as a fully end-to-end, NMS-free architecture built specifically for edge deployment. Key changes vs YOLO11:
 
-The YOLO naming is confusing: YOLOv1–v4 (Redmon / AlexeyAB lineage), YOLOv5 (Ultralytics), YOLOv6 (Meituan), YOLOv7 (Wang et al.), YOLOv8 (Ultralytics), YOLOv9, YOLOv10, YOLOv11 (Ultralytics). The current Ultralytics YOLO is what most people mean by "YOLO" in production. YOLOv11 shipped late 2024; YOLOv8 is still a reasonable default because the ecosystem is deeper.
+- **NMS-free inference natively** — no post-processing NMS, simpler serving.
+- **Distribution Focal Loss removed**, replaced with Progressive Loss Balancing (ProgLoss).
+- **Small-Target-Aware Label Assignment (STAL)** — noticeable improvement on small/dense objects.
+- **MuSGD optimizer** for training stability.
+- **~43% faster CPU inference** on the nano variant vs YOLO11n.
+- **Unified multi-task** — one model family covers detection, instance segmentation, classification, pose estimation, and oriented bounding boxes.
 
-## RT-DETR — the serious alternative to YOLO
+If you had a YOLO11 deployment, YOLO26 is a drop-in upgrade with meaningful latency wins and a cleaner serving path. YOLO11 and YOLOv8 remain reasonable if you're ecosystem-locked.
 
-Transformer-based, no NMS post-processing (a real win operationally). RT-DETRv2 (2024) hits YOLOv11-m accuracy at similar latency on GPUs. If you're starting fresh and on a GPU, it's worth considering. On CPU it's less competitive than YOLO.
+The YOLO naming is still confusing: YOLOv1–v4 (Redmon / AlexeyAB lineage), YOLOv5 (Ultralytics), YOLOv6 (Meituan), YOLOv7 (Wang et al.), YOLOv8 / v9 / v10 / v11 / 26 (Ultralytics, current lineage). "YOLO" in production 2026 means "Ultralytics YOLO26."
+
+## RF-DETR — the serious transformer alternative
+
+Roboflow's RF-DETR (ICLR 2026) is the first real-time detector to hit **60+ mean AP on COCO**. Built on a DINOv2 vision transformer backbone, tuned explicitly for real-time latency:
+
+- **RF-DETR nano** — 48.0 AP on COCO, beats D-FINE nano by 5.3 AP at similar latency.
+- **RF-DETR 2x-large** — outperforms GroundingDINO-tiny by 1.2 AP on Roboflow100-VL while running 20× as fast.
+- Evaluated directly against YOLO11 / YOLOv8 and LW-DETR / D-FINE — consistently #1 or #2 across categories.
+
+Pick RF-DETR when:
+- You're on a GPU and want SOTA accuracy without sacrificing real-time latency.
+- You need strong transfer to custom domains — RF100-VL shows it adapts better than YOLO-class models.
+- NMS-free serving matters operationally.
+
+Pick YOLO26 over RF-DETR when:
+- CPU-only deployment (transformer overhead still matters at the low end).
+- Deep ecosystem lock-in (Ultralytics Hub, existing fine-tuning pipelines).
 
 ## When to pick something else
 
@@ -40,7 +63,8 @@ Transformer-based, no NMS post-processing (a real win operationally). RT-DETRv2 
 
 - **YOLOv1 (2015)** — the original. Real-time object detection made accessible.
 - **YOLOv4 (Bochkovskiy et al., 2020)** — last of the Darknet-native YOLO family.
-- **YOLOv5 / YOLOv8 / YOLOv11 (Ultralytics)** — the dominant practical YOLO lineage. Python-first.
+- **YOLOv5 / YOLOv8 / YOLOv11 / YOLO26 (Ultralytics)** — the dominant practical YOLO lineage. YOLO26 (Jan 2026) is current. Python-first.
+- **RF-DETR (Roboflow, 2025–2026, ICLR 2026)** — first real-time detector at 60+ COCO AP. DINOv2 backbone. SOTA accuracy + real-time.
 - **YOLOX (Megvii, 2021)** — anchor-free, competitive. Less deployment polish than Ultralytics.
 - **YOLOv7 (Wang, 2022)** — strong accuracy. Less active.
 - **YOLOv9 / YOLOv10 (2024)** — incremental improvements; some prefer v10's NMS-free variant.

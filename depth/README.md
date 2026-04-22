@@ -8,28 +8,35 @@ Depth splits into two very different problems. Monocular (one image → depth ma
 
 | Flavor | Pick | When to use |
 |--------|------|-------------|
-| **Monocular default (relative depth)** | **Depth Anything V2** | Any single-image depth estimate where *relative* depth (what's closer/farther) is enough. |
-| Monocular metric depth (indoor) | **ZoeDepth** or **Depth Anything V2 Metric** | Need actual distance in meters, indoor-ish scene. |
+| **Monocular default** | **Depth Anything 3** (ByteDance, ICLR 2026) | Supersedes DA2; single-transformer architecture with DINOv2 encoder. Over 10% improvement on ETH3D vs DA2. |
+| Monocular metric depth | **Depth Anything 3 Metric-Large** | `metric_depth = focal * net_output / 300`. Single model for indoor + outdoor metric. |
+| Multi-view geometry | **Depth Anything 3** (multi-view mode) | Same model predicts spatially consistent geometry from any number of views. Beats VGGT by 44.3% on camera pose, 25.1% on geometric accuracy. |
 | Stereo / depth sensor | **OpenCV StereoSGBM** or **RAFT-Stereo** | If you already have a stereo rig or RGB-D camera. |
 | Commercial depth sensor | **Intel RealSense / Orbbec / Luxonis OAK-D** | If hardware is still in the budget. On-device depth, no ML cost. |
 
-## Monocular: why Depth Anything V2 is the default
+## Monocular: why Depth Anything 3 is the default
 
-Depth Anything (Yang et al., TikTok, 2024) trained a large ViT on ~1.5M labeled + 62M unlabeled images. The v2 release (mid-2024) improved the training recipe and released weights at multiple sizes (small, base, large). Outputs relative depth — the network has a consistent notion of "closer/farther" but the absolute scale is arbitrary per image.
+**Depth Anything 3** (ByteDance Seed, ICLR 2026) reset the field in November 2025. A single plain transformer (vanilla DINOv2 encoder) as backbone, with a singular depth-ray prediction target — no multi-task specialization. Predicts spatially consistent geometry from any number of views, with or without camera poses.
 
-Install via Hugging Face. Fast on GPU; usable but slow on CPU.
+Improvements over DA2 (itself the 2024 default):
+- **>10% relative improvement on ETH3D and KITTI** for monocular depth.
+- Unified architecture handles multi-view reconstruction too: beats prior SOTA VGGT by 44.3% on camera pose accuracy, 25.1% on geometric accuracy.
+- The same checkpoint handles monocular, stereo, and multi-view — no switching models.
+
+Install via [GitHub](https://github.com/ByteDance-Seed/Depth-Anything-3). Fast on GPU; usable but slow on CPU.
 
 "Relative depth" is what you want for AR occlusion, portrait mode blur, novel-view synthesis, any use case where the ratio matters more than the metric scale.
 
 ## Metric monocular — when you need meters
 
-Monocular metric depth is harder than relative depth because the scene's absolute scale isn't recoverable from one image (a photo of a model car looks identical to a photo of a real car at the right distance). Recent models solve this by training on metric-labeled datasets for specific domains.
+DA3 ships a dedicated **DA3 Metric-Large** checkpoint fine-tuned for metric depth. Conversion formula in the docs: `metric_depth = focal * net_output / 300` where `focal` is the camera focal length in pixels. Handles indoor + outdoor.
 
-- **ZoeDepth (Intel ISL, 2023)** — indoor + outdoor metric depth. Strong indoor.
-- **Depth Anything V2 Metric** — metric fine-tuned variants of v2. Indoor / Outdoor variants available.
-- **Metric3D** — aims for universal metric depth via camera intrinsics.
+For robotics or measurement use cases with high reliability requirements, a stereo rig or RGB-D sensor is still more consistent than monocular metric depth across domains.
 
-For robotics or measurement use cases, strongly consider a stereo rig or RGB-D sensor instead. It's more reliable than monocular metric depth across domains.
+Historical alternatives (still seen in deployed pipelines):
+- **ZoeDepth (Intel ISL, 2023)** — indoor + outdoor metric depth. Pre-DA3.
+- **Depth Anything V2 Metric** — DA2 metric fine-tunes. Pre-DA3.
+- **Metric3D** — universal metric depth via camera intrinsics.
 
 ## Stereo — the old reliable
 
@@ -61,8 +68,9 @@ If you don't already have a stereo setup, don't add one just for depth; Depth An
 - **MiDaS (Intel ISL, 2019)** — the original "robust monocular depth." Relative.
 - **MiDaS v3.x / DPT (2021)** — transformer-based MiDaS. Strong for years.
 - **Monodepth2 (2019)** — self-supervised from video, still used in driving.
-- **Depth Anything (2024)** — massive dataset + semi-supervised training, state of the art.
-- **Depth Anything V2 (mid-2024)** — improved training. Current default.
+- **Depth Anything (2024)** — massive dataset + semi-supervised training.
+- **Depth Anything V2 (mid-2024)** — improved training. Pre-DA3.
+- **Depth Anything 3 (ByteDance, Nov 2025, ICLR 2026)** — current SOTA; single-transformer architecture for depth + multi-view geometry.
 - **ZoeDepth (2023)** — metric depth, indoor+outdoor.
 - **Marigold (2023)** — diffusion-based depth, slower, very clean outputs.
 - **Metric3D v2** — universal metric depth with intrinsics.

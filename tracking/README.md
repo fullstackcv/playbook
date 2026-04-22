@@ -53,7 +53,9 @@ Observation-Centric SORT refines the Kalman prediction to better handle non-line
 - **ByteTrack (2021)** — the current default. Uses low-confidence detections.
 - **BoT-SORT (2022)** — ByteTrack + ReID.
 - **OC-SORT (2022)** — observation-centric Kalman.
-- **StrongSORT (2022)** — modernized DeepSORT with better ReID.
+- **StrongSORT (2022)** — modernized DeepSORT with better ReID. Strong in occlusions and camera shifts.
+- **Hybrid-SORT (AAAI 2024)** — SOTA heuristic tracker on DanceTrack; also strong on MOT17/20.
+- **SolidTrack (2025)** — marginal accuracy win over ByteTrack (80.6 vs ~80.3 MOTA on MOT17). Lower variance across settings. Worth trying if ID-switch rate matters.
 - **MOTR / MOTRv2 (end-to-end transformer tracker)** — research-register, slower.
 - **BoxMOT (mikel-brostrom)** — Python library bundling multiple modern trackers with a unified interface. Best starting point for prototyping trackers.
 - **OpenMMLab MMTracking** — trackers in the MM ecosystem. Has SOT and MOT.

@@ -10,7 +10,7 @@ Pure image classification is rarely the primary product in 2026. It's usually a 
 |------|------|-------------|
 | Zero-shot (no training) | **CLIP** or **SigLIP** + cosine similarity to text labels | When you have no training data and the classes are describable in words. |
 | **Default with labeled data** | **Fine-tune a timm model** (ConvNeXt, ViT, EfficientNet) | Classic supervised classification. 100s–1000s of examples per class. |
-| Max accuracy | **DINOv2 embeddings + linear probe** or **ViT-L** fine-tune | Few-shot, transfer learning. |
+| Max accuracy | **DINOv3 embeddings + linear probe** or **ViT-L** fine-tune | Few-shot, transfer learning. |
 | Edge | **MobileNetV3** or **EfficientNet-Lite** | On-device, small footprint. |
 
 ## Why zero-shot CLIP is often the right first try
@@ -48,16 +48,22 @@ Picks within timm, roughly:
 
 Typical recipe: load the pretrained model, replace the classification head with your N classes, fine-tune with low learning rate on the backbone + higher LR on the head.
 
-## DINOv2 + linear probe — few-shot / transfer
+## DINOv3 + linear probe — few-shot / transfer (current default)
 
-DINOv2 (Meta, 2023) trained a ViT on 142M images without labels. The resulting embeddings transfer *exceptionally* well to downstream tasks with very few labels. Standard recipe:
+**DINOv3** (Meta, August 2025) scaled DINOv2 by 6× in parameters (to 7B) and 12× in training data (to 1.7B images). Key innovation: *Gram anchoring* prevents dense feature map degradation during long training. First time a self-supervised vision model outperforms weakly-supervised models across a broad range of tasks — from fine-grained classification to semantic segmentation to video object tracking.
+
+Released under a **commercial license** — both training code and pre-trained backbones. Real-world deployments already: World Resources Institute for forestry (tree canopy height error 4.1m → 1.2m in Kenya), NASA JPL for Mars rover vision.
+
+Standard recipe, unchanged from DINOv2:
 
 ```
-embeddings = dinov2.encode(images)  # frozen, no training
+embeddings = dinov3.encode(images)  # frozen, no training
 classifier = LogisticRegression().fit(embeddings[:N], labels[:N])
 ```
 
-With 10–50 examples per class, DINOv2 + linear probe often beats fine-tuning a smaller model from scratch. It's become the default for low-data classification.
+With 10–50 examples per class, DINOv3 + linear probe often beats fine-tuning a smaller model from scratch. The current default for low-data classification, transfer learning, and as a backbone for downstream models (RF-DETR uses DINOv2; a DINOv3-backed detector is a natural next step).
+
+DINOv2 is still fine — similar recipe, slightly less accuracy, smaller. Migrate when convenient.
 
 ## When to pick something else
 
@@ -93,7 +99,7 @@ With 10–50 examples per class, DINOv2 + linear probe often beats fine-tuning a
 - **CLIP (OpenAI, 2021)** — image-text contrastive.
 - **OpenCLIP** — open re-implementation.
 - **SigLIP (Google, 2023)** — improved CLIP.
-- **DINOv1 / DINOv2 (Meta)** — self-supervised ViT. DINOv2 is the current default.
+- **DINOv1 / DINOv2 / DINOv3 (Meta)** — self-supervised ViT. DINOv3 (Aug 2025) is the current default; 7B params, 1.7B training images, commercial license.
 - **MAE (Masked Autoencoder)** — self-supervised pretraining.
 - **I-JEPA (Meta)** — joint embedding, self-supervised.
 

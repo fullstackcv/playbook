@@ -9,22 +9,28 @@ Segmentation used to be a painful subtask that required large annotated datasets
 | Tier | Pick | When to use |
 |------|------|-------------|
 | Edge / mobile | **MobileSAM** or **EfficientSAM** | On-device, low-latency interactive segmentation |
-| **Default (zero-shot interactive)** | **SAM 2** | Give it a point or box, get a mask. Video support. |
-| **Default (trained task)** | **Mask2Former** or **YOLOv8-seg** | When you have labeled data and want instance segmentation in one pass |
-| Max accuracy (research) | **OneFormer** or **SAM 2 with point grids** | Research benchmarks |
+| **Default (zero-shot, concept-prompted)** | **SAM 3 / SAM 3.1** (Meta, Nov 2025 / Mar 2026) | Native text + image exemplar prompts. Doubles SAM 2 accuracy on PCS. Video tracking at 32 FPS. |
+| **Default (trained task)** | **Mask2Former** or **YOLO26-seg** | When you have labeled data and want instance segmentation in one pass |
+| Max accuracy (research) | **OneFormer** or **SAM 3 with concept prompts** | Research benchmarks |
 
 Segmentation splits into "interactive / zero-shot" and "trained / one-shot" — those are different picks.
 
-## Zero-shot interactive (SAM 2 default)
+## Zero-shot: SAM 3 / SAM 3.1 (current default)
 
-SAM 2 (Meta, 2024) accepts a point or a box or a text prompt (via SAM 2 + Grounding DINO wrapper) and returns a mask. Extends to video with temporal consistency.
+Meta shipped **SAM 3** in November 2025 and **SAM 3.1** in March 2026. The shift from SAM 2 is meaningful enough to replace SAM 2 as the default pick.
 
-This is the right default when:
-- You don't have labeled training data.
-- You're building a labeling tool or interactive editor.
-- Your "classes" change at runtime (open-vocabulary).
+What SAM 3 added over SAM 2:
+- **Concept prompts** — short noun phrases ("yellow school bus") or image exemplars, not just points/boxes. Open-vocabulary segmentation natively.
+- **~2× accuracy on image and video PCS (Promptable Concept Segmentation)** vs SAM 2.
+- Trained via a data engine that auto-annotated 4M+ unique concepts, the largest open-vocab segmentation dataset to date.
 
-Install via `segment-anything-2` from Meta or via Hugging Face. Runs slow on CPU; GPU recommended.
+What SAM 3.1 added over SAM 3 (March 2026):
+- **Object Multiplex** — shared-memory joint multi-object tracking.
+- **2× throughput on video** — 16 → 32 FPS on H100 for medium-object-count videos.
+
+Install: `pip install git+https://github.com/facebookresearch/sam3.git` or via Ultralytics (`docs.ultralytics.com/models/sam-3/`).
+
+SAM 2 is still deployed in production pipelines and fine; treat as migration-when-convenient, not urgent.
 
 ## Trained task (Mask2Former / YOLOv8-seg default)
 
@@ -63,7 +69,9 @@ SAM is heavy. For on-device:
 - **SegFormer (2021)** — ViT-based semantic. Good accuracy-efficiency.
 - **Mask2Former (2022)** — unified architecture. The serious trained-model default.
 - **SAM (Meta, 2023)** — open-vocabulary, promptable. Changed the field.
-- **SAM 2 (Meta, 2024)** — video extension of SAM. The current default for zero-shot.
+- **SAM 2 (Meta, 2024)** — video extension of SAM.
+- **SAM 3 (Meta, Nov 2025)** — concept prompts (text + exemplars). 2× accuracy on PCS vs SAM 2.
+- **SAM 3.1 (Meta, Mar 2026)** — Object Multiplex for joint MOT, 2× video throughput.
 - **MobileSAM (2023)** — mobile/edge distilled SAM.
 - **EfficientSAM (Meta, 2024)** — another SAM distillation.
 - **FastSAM (2023)** — YOLOv8-seg adapted for SAM-style prompts. Significantly faster, less accurate.

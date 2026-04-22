@@ -11,7 +11,7 @@ This page is the *general* retrieval case. For *face identity search specificall
 | Component | Pick | When to use |
 |-----------|------|-------------|
 | **Embedding model (text + image)** | **SigLIP** or **OpenCLIP ViT-L/14** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
-| Embedding model (image only, strong transfer) | **DINOv2** | No text side; pure image-to-image. |
+| Embedding model (image only, strong transfer) | **DINOv3** | No text side; pure image-to-image. |
 | Fine-tuned for retrieval | **train a SigLIP LoRA** or a model from the `sentence-transformers` image family | Domain-specific retrieval. |
 | ANN index (self-hosted, one machine) | **FAISS** | < 100M vectors, you control the infra. |
 | Managed vector DB | **pgvector** (Postgres ext), **Qdrant**, **Weaviate**, **Pinecone** | Multi-tenant, SQL integration, managed ops. |
@@ -28,9 +28,9 @@ Second, they're pretrained at massive scale on web image-text pairs, which makes
 
 **OpenCLIP** is an open re-implementation of CLIP that's released many model variants (including on LAION-2B). Use it when you need weights CLIP didn't release (B/32, H/14, etc.).
 
-## DINOv2 — when you don't need text
+## DINOv3 — when you don't need text
 
-DINOv2 embeddings don't have a text side but they transfer even better than CLIP on pure image-to-image retrieval, especially for fine-grained distinctions. If your product is "find visually similar products" and you never need text query, DINOv2 is the pick.
+DINOv3 embeddings don't have a text side but they transfer even better than CLIP on pure image-to-image retrieval, especially for fine-grained distinctions. If your product is "find visually similar products" and you never need text query, DINOv3 is the pick.
 
 ## The ANN index
 
@@ -52,7 +52,7 @@ For most use cases, **FAISS** until you need multi-tenant. Then **pgvector** or 
 
 ## The three questions to narrow
 
-1. **Text query, image query, or both?** Text → must use CLIP/SigLIP. Image only → DINOv2 is strong alternative.
+1. **Text query, image query, or both?** Text → must use CLIP/SigLIP. Image only → DINOv3 is strong alternative.
 2. **General concepts or domain-specific?** General → CLIP/SigLIP out of the box. Specific → fine-tune on your data.
 3. **Scale?** < 50K → numpy. 50K–100M → FAISS. 100M+ → managed vector DB.
 
@@ -62,8 +62,9 @@ For most use cases, **FAISS** until you need multi-tenant. Then **pgvector** or 
 - **CLIP (OpenAI, 2021)** — the grandfather. Still widely deployed.
 - **OpenCLIP** — open re-implementation with LAION weights.
 - **SigLIP (Google, 2023)** — improved CLIP. The recommended baseline.
-- **DINOv2 (Meta, 2023)** — self-supervised ViT, image-only.
-- **DINOv1** — earlier version.
+- **DINOv3 (Meta, Aug 2025)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval.
+- **DINOv2 (Meta, 2023)** — predecessor. Still widely deployed; comparable recipe, smaller compute.
+- **DINOv1 (Meta, 2021)** — original. Historical.
 - **Jina Embeddings** — commercial embedding API.
 - **Cohere Embed** — commercial multimodal embeddings.
 - **OpenAI text-embedding-3 + CLIP** — OpenAI's commercial embedding API (primarily text, CLIP for images).

@@ -8,24 +8,31 @@ The field has three distinct use cases with different picks. Don't pick one tool
 
 | Use case | Pick | When to use |
 |----------|------|-------------|
-| Messy real-world (receipts, handwriting, weird layouts) | **A VLM (Gemini 2.5, GPT-4o, Claude, Qwen2-VL)** | When documents don't fit a rigid template. Expensive per page but high accuracy. |
-| **Clean printed documents at scale** | **PaddleOCR** | Invoices, forms, PDFs you control. Free, multi-language, good layout support. |
+| **Document parsing SOTA (open)** | **PaddleOCR-VL-1.5** (Baidu, 0.9B VLM) | 94.5% on OmniDocBench v1.5. Handles skew, warp, illumination, screen photos. 111 languages. |
+| Messy real-world (handwriting, weird contexts) | **A flagship VLM (Gemini 2.5, GPT-5, Claude 4)** | When you want max accuracy and can afford per-page cost. Beats traditional OCR on unstructured inputs. |
+| Clean printed documents at scale | **PP-OCRv5** (lightweight PaddleOCR) | Free, 1st on avg 1-edit-distance across OmniDocBench, beats GOT-OCR-0.5B / Qwen2.5-VL-72B at a fraction of size. |
 | English-only + local + fast | **Tesseract 5** | Zero-dependency batch processing of clean text. |
 | Structured document understanding | **Donut** or **LayoutLMv3** | Form key-value extraction with a defined schema. Training-required. |
 
-## The big shift
+## The big shift (2024 → 2026)
 
-Until 2023, OCR meant Tesseract/PaddleOCR for clean, or a dedicated pipeline (Donut, LayoutLM) for forms. The work was running the model; the hard part was post-processing bad recognitions.
+Until 2023, OCR meant Tesseract/PaddleOCR for clean, or a dedicated pipeline (Donut, LayoutLM) for forms. Post-processing the model's output was where the engineering time went.
 
-Since 2024, vision-language models (GPT-4V, Gemini, Claude, Qwen-VL) do "give me the text from this image" as well as or better than classical OCR on messy inputs. For scanned receipts with faded ink, photographed whiteboards, handwritten notes, weird rotated layouts — a VLM wins. It's also more expensive per page and has no on-device option at reasonable quality.
+**2024:** vision-language models (GPT-4V, Gemini, Claude, Qwen-VL) started doing "read this image" as well as or better than classical OCR on messy inputs.
 
-So: use classical OCR for scale and clean inputs; use VLMs for messy and complex; know where the line is.
+**2025–2026:** the two worlds merged. The current SOTA on OmniDocBench v1.5 (94.5%) is **PaddleOCR-VL-1.5**, a **0.9B VLM** from Baidu — smaller than the classical pipelines, faster than flagship VLMs, and trained specifically for document parsing. For the first time there's a single open model that wins on both accuracy *and* deployability for documents.
 
-## Why PaddleOCR is the default classical
+Where each tier still wins:
+- **PaddleOCR-VL-1.5** — the new default for document parsing (forms, receipts, PDFs, multilingual, 111 languages).
+- **Flagship VLMs (Gemini 2.5, GPT-5, Claude 4)** — for inputs with scene-understanding requirements beyond OCR (reason about what the document means, not just what text it contains).
+- **PP-OCRv5** — scale, cost, and latency: ranks #1 on 1-edit distance on OmniDocBench and beats bigger VLMs at a fraction of the compute.
+- **Tesseract 5** — offline, zero-network, English-only Latin script.
 
-Baidu's OCR. Two-stage (detection + recognition) with strong multilingual support (100+ languages, real support for Chinese / Arabic / Indic / Thai). Fast, open source, well-maintained. `paddleocr` in pip.
+## Why PaddleOCR-VL-1.5 is the default
 
-Ships a structure-understanding model (PP-StructureV2) that handles tables and layouts, which is rare in open-source OCR.
+Baidu's 2026 document-understanding model. 0.9B parameters (small for a VLM), trained specifically on document tasks. 111 languages. Handles PP-DocLayoutV3-flagged "tough scenarios": skew, warping, scanning artifacts, illumination variation, photos-of-screens. Adds Seal Recognition and Text Spotting.
+
+Ships as a Hugging Face checkpoint: `PaddlePaddle/PaddleOCR-VL-1.5`. Integrates with vLLM for production serving.
 
 ## When to pick something else
 
@@ -46,10 +53,18 @@ Ships a structure-understanding model (PP-StructureV2) that handles tables and l
 
 ### Classical OCR
 - **Tesseract 5 (Google / open source)** — the grandfather of open-source OCR. Still viable for clean Latin-script text. Minimal deps.
-- **PaddleOCR (Baidu)** — multilingual, strong, the current default.
+- **PaddleOCR (Baidu)** — multilingual. PP-OCRv3, v4, v5 lineage.
+- **PP-OCRv5 (Baidu, 2025)** — lightweight; ranks 1st on OmniDocBench by 1-edit-distance. Beats GOT-OCR-0.5B, RolmOCR-7B, Qwen2.5-VL-72B, InternVL3-78B, Gemini 2.5 Pro at a fraction of size.
 - **EasyOCR** — Python-friendly wrapper around PyTorch OCR models. Easier to start with than PaddleOCR but accuracy is slightly behind.
 - **MMOCR (OpenMMLab)** — research-friendly OCR framework. Use if you're training custom models.
 - **TrOCR (Microsoft)** — transformer-based, strong on handwritten.
+
+### Document-AI VLMs (the 2025–2026 wave)
+- **PaddleOCR-VL-1.5 (Baidu, 2025–2026)** — 0.9B VLM, 94.5% OmniDocBench v1.5 SOTA. Current open document-parsing leader.
+- **GOT-OCR 2.0 (0.5B)** — compact document VLM. Solid baseline.
+- **DeepSeek-OCR 2** — 2026 entrant, competitive on OmniDocBench.
+- **GLM-OCR** — Zhipu's OCR VLM, competitive in Chinese + multilingual.
+- **RolmOCR (7B)** — larger VLM OCR entrant.
 
 ### Commercial APIs
 - **Google Cloud Vision Text Detection** — the reference commercial OCR. Strong on most inputs.

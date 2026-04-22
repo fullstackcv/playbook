@@ -96,7 +96,7 @@ MIT. Use anything here however you like.
 
 ## Maintainer
 
-**Vikas Gupta** [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/vikas-gupta-2913a276/) — Founder, [DeepVidya.ai](https://deepvidya.ai)
+**Vikas Gupta** — Founder, [DeepVidya.ai](https://deepvidya.ai) · [LinkedIn](https://www.linkedin.com/in/vikas-gupta-2913a276/)
 
 ---
 

@@ -165,7 +165,9 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 - **AdaFace (2022)** — quality-adaptive angular margin.
 - **MagFace (2021)** — magnitude encodes quality. Alternative framing to AdaFace.
 - **ElasticFace (2022)** — randomly sampled margin at training time. Marginal improvement over ArcFace.
-- **TransFace (2023)** — ViT backbone. Slightly better accuracy, higher compute.
+- **TransFace (2023)** — ViT backbone with patch-level data augmentation and hard sample mining. 99.3%+ on clean benchmarks.
+- **TopoFR (2024–2025)** — topology alignment + hard sample mining. Improves generalization vs ArcFace/AdaFace on OOD benchmarks.
+- **LVFace (2025)** — Large Vision model for Face Recognition. ViT-based, simplified architecture.
 - **SFace (2023)** — smaller backbone, safety-focused training. Mid-tier option.
 - **InsightFace** (library) — the reference implementation. Bundles most of the above.
 - **DeepFace** (library, by Sefik Serengil) — prototype-friendly multi-model wrapper.
