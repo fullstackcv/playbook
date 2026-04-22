@@ -2,9 +2,10 @@
 
 > An opinionated reference for building CV systems. Three picks per subtask, when to use each, and when not to — plus a dump of everything else worth knowing.
 
-![License: MIT](https://img.shields.io/github/license/fullstackcv/playbook?style=flat-square&color=black)
-![Site](https://img.shields.io/website?url=https%3A%2F%2Ffullstackcv.github.io%2Fplaybook%2F&style=flat-square&label=site&up_color=black)
-![Last commit](https://img.shields.io/github/last-commit/fullstackcv/playbook?style=flat-square&color=black)
+[![License: MIT](https://img.shields.io/github/license/fullstackcv/playbook?style=for-the-badge&color=3f51b5)](./LICENSE)
+[![Site](https://img.shields.io/website?url=https%3A%2F%2Ffullstackcv.github.io%2Fplaybook%2F&style=for-the-badge&label=site&up_color=ffc107&up_message=live)](https://fullstackcv.github.io/playbook/)
+[![Last commit](https://img.shields.io/github/last-commit/fullstackcv/playbook?style=for-the-badge&color=3f51b5)](https://github.com/fullstackcv/playbook/commits/main)
+[![Sections](https://img.shields.io/badge/sections-14-ffc107?style=for-the-badge)](https://fullstackcv.github.io/playbook/)
 
 > [!TIP]
 > **[Browse the rendered site →](https://fullstackcv.github.io/playbook/)**
