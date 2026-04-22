@@ -1,97 +1,113 @@
-# fullstackcv/playbook
+# fullstackcv / playbook
 
-> An opinionated reference for building CV systems. For each subtask: three picks, when to use each, and when not to. Plus a dump of everything else worth knowing.
+> An opinionated reference for building CV systems. Three picks per subtask, when to use each, and when not to — plus a dump of everything else worth knowing.
 
-## Why this exists
+![License: MIT](https://img.shields.io/github/license/fullstackcv/playbook?style=flat-square&color=black)
+![Site](https://img.shields.io/website?url=https%3A%2F%2Ffullstackcv.github.io%2Fplaybook%2F&style=flat-square&label=site&up_color=black)
+![Last commit](https://img.shields.io/github/last-commit/fullstackcv/playbook?style=flat-square&color=black)
+
+> [!TIP]
+> **[Browse the rendered site →](https://fullstackcv.github.io/playbook/)**
+>
+> Better mobile formatting, full-text search, sidebar navigation, light/dark toggle. This README is the raw markdown — fine for quick scanning on GitHub; the site is where you want to actually read it.
+
+---
+
+## The problem this solves
 
 Most CV resource lists optimise for completeness. They grow by accretion — someone submits a PR for a new library, it goes in. After two years the list has 600 entries and is useless as a decision aid. You can't tell which pick is load-bearing and which is archaeological.
 
 This repo inverts that. Each section leads with **three picks** — usually a default, an edge/low-end fallback, and a max-accuracy option — and every pick has a written *why* and *when not to*. The exhaustive list still exists (in each section's **Dump**), but it sits behind the picks, not in front of them.
 
-The picks are opinions. They will age. Every section has a "last reviewed" date and I expect to rewrite them as the field moves. See [`scripts/refresh.md`](./scripts/refresh.md) for the long-term plan to keep the picks in sync with the Dump via an LLM-in-the-loop pipeline.
+The picks are opinions. They will age. Every section has a "last reviewed" date.
+
+## Start here
+
+New to the playbook? Read [the Face section](https://fullstackcv.github.io/playbook/face/) first — it's the most complete and shows the format end-to-end. Or dive straight into whichever subtask you're shipping.
 
 ## How to read this
 
-If you know what subtask you need, jump to the section. The section README leads with a picks table. Read the 3–4 rows. That's usually enough.
+| Situation | What to do |
+|-----------|-----------|
+| You know the subtask | Jump to the section. Read the 3–4 rows of the picks table. Often enough. |
+| Picks don't fit your constraint | Read the Dump behind them for context, then "When to pick something else." |
+| Browsing to learn the field | Read the picks across sections — ~20 min tour of what matters in each subtask. |
 
-If the picks don't fit your constraint (unusual hardware, unusual domain, unusual accuracy target), read the Dump for context, then read "When to pick something else."
-
-If you're browsing to learn the field, read the picks in order — they'll give you a 15-minute tour of what matters in each subtask and why.
+---
 
 ## Sections
 
-### Perception primitives
+### Perception
 
 | Section | One-line |
 |---------|----------|
-| [Classification](./classification/README.md) | CLIP zero-shot / timm fine-tune / DINOv2 probe, by data availability. |
-| [Object Detection](./object-detection/README.md) | YOLO for most cases; RT-DETR if on GPU; Co-DETR for research. |
-| [Segmentation](./segmentation/README.md) | SAM 2 for zero-shot; Mask2Former / YOLOv8-seg for trained. |
-| [Pose Estimation](./pose/README.md) | RTMPose server; MediaPipe browser; ViTPose research. |
-| [OCR / Document AI](./ocr/README.md) | PaddleOCR for clean; VLMs for messy; Donut for structured forms. |
-| [Tracking](./tracking/README.md) | ByteTrack default; BoT-SORT with ReID; OC-SORT for benchmarks. |
-| [Depth Estimation](./depth/README.md) | Depth Anything V2 monocular; stereo if hardware available. |
-| [Retrieval / Embeddings](./retrieval/README.md) | SigLIP embeddings + FAISS; DINOv2 for image-only. |
+| [Classification](https://fullstackcv.github.io/playbook/classification/) | CLIP zero-shot / timm fine-tune / DINOv2 probe, by data availability. |
+| [Object Detection](https://fullstackcv.github.io/playbook/object-detection/) | YOLO for most cases; RT-DETR if on GPU; Co-DETR for research. |
+| [Segmentation](https://fullstackcv.github.io/playbook/segmentation/) | SAM 2 for zero-shot; Mask2Former / YOLOv8-seg for trained. |
+| [Pose Estimation](https://fullstackcv.github.io/playbook/pose/) | RTMPose server; MediaPipe browser; ViTPose research. |
+| [OCR / Document AI](https://fullstackcv.github.io/playbook/ocr/) | PaddleOCR for clean; VLMs for messy; Donut for structured forms. |
+| [Tracking](https://fullstackcv.github.io/playbook/tracking/) | ByteTrack default; BoT-SORT with ReID; OC-SORT for benchmarks. |
+| [Depth Estimation](https://fullstackcv.github.io/playbook/depth/) | Depth Anything V2 monocular; stereo if hardware available. |
+| [Retrieval / Embeddings](https://fullstackcv.github.io/playbook/retrieval/) | SigLIP embeddings + FAISS; DINOv2 for image-only. |
 
 ### Face (the one vertical)
 
 | Section | One-line |
 |---------|----------|
-| [Face](./face/README.md) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
+| [Face](https://fullstackcv.github.io/playbook/face/) | SCRFD detect, 5-point align, ArcFace embed, 1-NN + threshold search. |
 
-*More verticals (medical, satellite, industrial, retail, robotics) will be added as products 2–12 ship content-backed opinions in each. Not adding them as empty placeholders.*
+> [!NOTE]
+> More verticals (medical, satellite, industrial, retail, robotics) will be added as products ship content-backed opinions in each. Not adding them as empty placeholders.
 
 ### Multimodal
 
 | Section | One-line |
 |---------|----------|
-| [VLM / Multimodal](./vlm/README.md) | Gemini/GPT/Claude commercial; Qwen2-VL/InternVL2 open. |
-| [Image Generation](./generation/README.md) | Flux for open; SDXL for ecosystem; ControlNet for control. |
+| [VLM / Multimodal](https://fullstackcv.github.io/playbook/vlm/) | Gemini / GPT / Claude commercial; Qwen2-VL / InternVL2 open. |
+| [Image Generation](https://fullstackcv.github.io/playbook/generation/) | Flux for open; SDXL for ecosystem; ControlNet for control. |
 
-### Stack / deployment
+### Stack & deployment
 
 | Section | One-line |
 |---------|----------|
-| [Inference Runtimes](./runtimes/README.md) | ONNX Runtime default; TensorRT on NVIDIA; CoreML on Apple. |
-| [Edge Deployment](./edge/README.md) | Jetson Orin Nano Super, Raspberry Pi 5, CoreML for mobile. |
-| [Cloud Vision APIs](./cloud-apis/README.md) | VLMs for flexible; task APIs (Rekognition/Vision) for scale. |
-| [Data, Annotation, Datasets](./data/README.md) | CVAT / Roboflow / SAM-based auto-labeling; COCO/ImageNet/etc. |
+| [Inference Runtimes](https://fullstackcv.github.io/playbook/runtimes/) | ONNX Runtime default; TensorRT on NVIDIA; CoreML on Apple. |
+| [Edge Deployment](https://fullstackcv.github.io/playbook/edge/) | Jetson Orin Nano Super, Raspberry Pi 5, CoreML for mobile. |
+| [Cloud Vision APIs](https://fullstackcv.github.io/playbook/cloud-apis/) | VLMs for flexible; task APIs (Rekognition / Vision) for scale. |
+| [Data, Annotation, Datasets](https://fullstackcv.github.io/playbook/data/) | CVAT / Roboflow / SAM-based auto-labeling; COCO / ImageNet / etc. |
 
-## Format each section follows
+---
+
+## How each section is structured
+
+Every page follows the same shape:
 
 ```
-Intro — 2 paragraphs on what this subtask is and why the picks differ
-
-Recommended picks (3 rows) — with when-to-use, when-to-avoid, install
-
-The three questions to narrow further
-
-The Dump — everything else worth knowing, one-line verdict each
-
-Graveyard — what used to be the pick but isn't anymore, and why
-
-Last reviewed — a date, so you can tell when this went stale
+Intro            — 2 paragraphs on what this subtask is and why the picks differ
+Recommended      — 3-row table with when-to-use + when-to-avoid + install
+Narrowing        — 3 questions that disambiguate to one pick
+The Dump         — exhaustive list, one-line verdict each
+Graveyard        — retired picks and why
+Last reviewed    — a date so you can tell when this went stale
 ```
 
-Some sections adjust the axis (for face recognition, the 3 picks are clean-input / surveillance / edge instead of the usual default/edge/max).
+Some sections adjust the axis (Face uses clean-input / surveillance / edge instead of default / edge / max-accuracy).
 
-## The meta
+## Reference
 
-- [`CONTRIBUTING.md`](./CONTRIBUTING.md) — how to propose additions, Dump vs Recommended vs Graveyard rules.
-- [`rubrics/evaluation-criteria.md`](./rubrics/evaluation-criteria.md) — how picks are judged (what counts, what doesn't).
-- [`rubrics/section-template.md`](./rubrics/section-template.md) — the canonical page structure.
-- [`scripts/refresh.md`](./scripts/refresh.md) — the LLM-in-the-loop pipeline (planned).
-- `.github/` — PR and issue templates (on GitHub only).
+| File | Purpose |
+|------|---------|
+| [CONTRIBUTING](./CONTRIBUTING.md) | How to propose additions; Dump vs Recommended vs Graveyard rules |
+| [Evaluation criteria](./rubrics/evaluation-criteria.md) | How picks are judged (what counts, what doesn't) |
+| [Section template](./rubrics/section-template.md) | Canonical page structure for new sections |
+| [Refresh pipeline](./scripts/refresh.md) | LLM-in-the-loop regeneration sketch |
 
 ## License
 
 MIT. Use anything here however you like.
 
-## Who maintains this
+## Maintainer
 
-Vikas Gupta ([@vikasguptaai](https://www.linkedin.com/in/vikasgptai/)), senior CV engineer, 13 years in the field. Also maintains [facestack](https://github.com/fullstackcv/facestack) and the `@vikasguptaai` YouTube channel. Reach via LinkedIn or open an issue here.
-
-This playbook is research I'd want to hand my past self. If something here is wrong, tell me — I'll fix it.
+Vikas Gupta ([@vikasguptaai](https://www.linkedin.com/in/vikasgptai/)) — senior CV engineer, 13 years in the field. Also maintains [facestack](https://github.com/fullstackcv/facestack) and the [`@vikasguptaai`](https://www.youtube.com/@vikasguptaai) YouTube channel. Reach via LinkedIn or open an issue here.
 
 ---
 
