@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1280px; height: 640px; overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-feature-settings: "ss01", "ss02", "cv11";
+    -webkit-font-smoothing: antialiased;
+    background: #0e1430;
+  }
+  body {
+    position: relative;
+    color: #e6e9f0;
+    background:
+      radial-gradient(1000px 700px at 10% 10%, rgba(63, 81, 181, 0.35) 0%, transparent 60%),
+      radial-gradient(800px 600px at 100% 100%, rgba(255, 193, 7, 0.08) 0%, transparent 60%),
+      linear-gradient(180deg, #0e1430 0%, #090d22 100%);
+  }
+  .frame {
+    position: absolute; inset: 0;
+    padding: 72px 80px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    column-gap: 56px;
+    align-items: center;
+  }
+  .brand-row {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 32px;
+    font-family: "SF Mono", "JetBrains Mono", "Menlo", Consolas, monospace;
+    font-size: 20px; color: #9aa3c7;
+    letter-spacing: 0.02em;
+  }
+  .brand-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #FFC107;
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.12);
+  }
+  h1 {
+    font-size: 92px;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 28px;
+  }
+  h1 .slash { color: rgba(255, 255, 255, 0.35); font-weight: 500; }
+  .tag {
+    font-size: 30px; line-height: 1.3;
+    color: #FFC107;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    margin-bottom: 14px;
+  }
+  .sub {
+    font-size: 22px; line-height: 1.45;
+    color: #9aa3c7;
+    max-width: 540px;
+  }
+  .footer {
+    position: absolute;
+    left: 80px; bottom: 56px;
+    font-family: "SF Mono", "JetBrains Mono", "Menlo", Consolas, monospace;
+    font-size: 18px; color: #6b7299;
+    letter-spacing: 0.01em;
+  }
+  .card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 28px 32px;
+    font-family: "SF Mono", "JetBrains Mono", "Menlo", Consolas, monospace;
+    font-size: 18px; line-height: 1.9;
+    color: #c6cce6;
+    backdrop-filter: blur(8px);
+  }
+  .card .head {
+    color: #9aa3c7;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .card .row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    column-gap: 12px;
+    align-items: baseline;
+    padding: 4px 0;
+  }
+  .card .tier { color: #9aa3c7; }
+  .card .pick { color: #ffffff; font-weight: 600; }
+  .card .pick .amber { color: #FFC107; }
+  .card .sep {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    margin: 6px 0;
+  }
+</style>
+</head>
+<body>
+  <div class="frame">
+    <div class="left">
+      <div class="brand-row">
+        <span class="brand-dot"></span>
+        <span>fullstackcv</span>
+      </div>
+      <h1>playbook<span class="slash"> /cv</span></h1>
+      <div class="tag">Three picks per subtask, not six hundred.</div>
+      <div class="sub">An opinionated reference for building CV systems. Each pick explains the <em>why</em> and the <em>when not to</em>.</div>
+    </div>
+    <div class="right">
+      <div class="card">
+        <div class="head">Object Detection</div>
+        <div class="row"><span class="tier">Edge</span><span class="pick">YOLO26n</span></div>
+        <div class="row"><span class="tier">Default (CNN)</span><span class="pick">YOLO26m</span></div>
+        <div class="row"><span class="tier">Default (DETR)</span><span class="pick">RF-DETR</span></div>
+        <div class="sep"></div>
+        <div class="row"><span class="tier">Max accuracy</span><span class="pick">Co-DETR <span class="amber">· DINO</span></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">fullstackcv.github.io/playbook</div>
+</body>
+</html>
