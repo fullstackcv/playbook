@@ -33,7 +33,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Build site
-        run: mkdocs build --strict
+        # --strict would trip on the expected README.md / index.md coexistence
+        # (README.md is the GitHub landing page; index.md is the site homepage)
+        run: mkdocs build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
