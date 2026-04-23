@@ -11,10 +11,10 @@ Edge deployment is where most CV products actually live. The constraints are dif
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Premium embedded (GPU-ish) | **Jetson Orin Nano Super** (2024, $249) | Strong ML performance in a 15W envelope |
-| Budget embedded | **Raspberry Pi 5** (8GB) | General-purpose, larger ecosystem, OK CV performance |
-| Dedicated TPU | **Google Coral USB/Dev Board** | Efficient INT8 inference; but check current availability |
-| Mobile flagship | **iPhone + CoreML** | Best-in-class on-device ML in the consumer device category |
+| Premium embedded (GPU-ish) | **[Jetson Orin Nano Super](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/jetson-orin/)** (2024, $249) | Strong ML performance in a 15W envelope |
+| Budget embedded | **[Raspberry Pi 5](https://www.raspberrypi.com/products/raspberry-pi-5/)** (8GB) | General-purpose, larger ecosystem, OK CV performance |
+| Dedicated TPU | **[Google Coral USB/Dev Board](https://coral.ai/)** | Efficient INT8 inference; but check current availability |
+| Mobile flagship | **[iPhone + CoreML](https://developer.apple.com/documentation/coreml)** | Best-in-class on-device ML in the consumer device category |
 
 ## Jetson — the embedded default
 
@@ -43,7 +43,7 @@ Pick Pi when:
 - The CV model is light or legacy.
 - You don't need hardware ML acceleration.
 
-Add a **Hailo M.2 accelerator** to turn a Pi 5 into a credible edge AI platform. Two variants sold as Pi 5 kits:
+Add a **[Hailo M.2 accelerator](https://hailo.ai/)** to turn a Pi 5 into a credible edge AI platform. Two variants sold as Pi 5 kits:
 - **Hailo-8L** (standard AI Kit) — 13 TOPS, cheaper.
 - **Hailo-8** (AI+ Kit) — 26 TOPS, premium.
 
@@ -80,44 +80,44 @@ iPhone's Neural Engine is the strongest single-device mobile ML platform in 2026
 ## The Dump
 
 ### Embedded boards
-- **NVIDIA Jetson family** — Nano / Orin Nano / Orin Nano Super / Orin NX / AGX Orin.
-- **Raspberry Pi 4 / 5** — general-purpose ARM. Pi 5 8GB is the usable baseline.
-- **Orange Pi / Rock Pi / Banana Pi** — Rockchip-based Pi alternatives. Some (RK3588) have decent NPUs.
-- **ASUS Tinker Board** — Rockchip-based. Less community.
-- **BeagleBone AI-64** — TI-based. Niche.
-- **NVIDIA IGX Orin** — industrial/medical hardened Jetson variant.
-- **NVIDIA Thor (announced)** — next-gen auto/robotics.
+- **[NVIDIA Jetson family](https://www.nvidia.com/en-us/autonomous-machines/embedded-systems/)** — Nano / Orin Nano / Orin Nano Super / Orin NX / AGX Orin.
+- **[Raspberry Pi 4 / 5](https://www.raspberrypi.com/)** — general-purpose ARM. Pi 5 8GB is the usable baseline.
+- **[Orange Pi](http://www.orangepi.org/) / [Rock Pi](https://radxa.com/) / [Banana Pi](https://www.banana-pi.org/)** — Rockchip-based Pi alternatives. Some (RK3588) have decent NPUs.
+- **[ASUS Tinker Board](https://tinker-board.asus.com/)** — Rockchip-based. Less community.
+- **[BeagleBone AI-64](https://beagleboard.org/ai-64)** — TI-based. Niche.
+- **[NVIDIA IGX Orin](https://www.nvidia.com/en-us/edge-computing/products/igx/)** — industrial/medical hardened Jetson variant.
+- **[NVIDIA Thor (announced)](https://nvidianews.nvidia.com/news/nvidia-announces-drive-thor)** — next-gen auto/robotics.
 
 ### Accelerators
-- **Hailo-8 / Hailo-10 M.2** — the winning Pi accelerator story. 26 / 40 TOPS.
-- **Google Coral (USB + board)** — dedicated TPU. Aging.
+- **[Hailo-8 / Hailo-10 M.2](https://hailo.ai/)** — the winning Pi accelerator story. 26 / 40 TOPS.
+- **[Google Coral (USB + board)](https://coral.ai/)** — dedicated TPU. Aging.
 - **Intel Neural Compute Stick 2** — USB accelerator. Discontinued; Intel shifted focus to iGPU.
-- **Kneron KL720 / KL630** — dedicated SoC.
+- **[Kneron KL720 / KL630](https://www.kneron.com/)** — dedicated SoC.
 - **Gyrfalcon Lightspeeur** — niche.
-- **Axelera Metis** — newer dedicated ML accelerator, interesting.
+- **[Axelera Metis](https://www.axelera.ai/)** — newer dedicated ML accelerator, interesting.
 
 ### Mobile / consumer
-- **iPhone + CoreML / Neural Engine** — top of the consumer mobile class.
-- **Android flagships + QNN (Qualcomm NPU)** — strong in Snapdragon 8 Gen 3+.
-- **Google Pixel + Tensor chip** — Google's own mobile chip with TPU.
+- **[iPhone + CoreML / Neural Engine](https://developer.apple.com/documentation/coreml)** — top of the consumer mobile class.
+- **[Android flagships + QNN (Qualcomm NPU)](https://www.qualcomm.com/developer/artificial-intelligence)** — strong in Snapdragon 8 Gen 3+.
+- **[Google Pixel + Tensor chip](https://store.google.com/category/phones)** — Google's own mobile chip with TPU.
 
 ### Industrial / automotive
-- **NVIDIA DRIVE Orin / Thor** — automotive.
-- **Qualcomm Ride / Flex** — automotive.
-- **Ambarella CV-family** — dashcam / auto / robotics vision SoCs.
-- **Intel IGX Orin / NVIDIA IGX Orin** — medical-grade.
+- **[NVIDIA DRIVE Orin / Thor](https://www.nvidia.com/en-us/self-driving-cars/drive-platform/hardware/)** — automotive.
+- **[Qualcomm Ride / Flex](https://www.qualcomm.com/products/automotive)** — automotive.
+- **[Ambarella CV-family](https://www.ambarella.com/)** — dashcam / auto / robotics vision SoCs.
+- **[Intel IGX Orin / NVIDIA IGX Orin](https://www.nvidia.com/en-us/edge-computing/products/igx/)** — medical-grade.
 
 ### Cameras with built-in compute
-- **Luxonis OAK-D / OAK-1** — Intel Myriad X inside. Depth + detection in one device.
-- **ReoLink / Reolink Duo smart cameras** — consumer CV cameras with basic on-device ML.
-- **Sony IMX500** — sensor with ML inside. Niche but interesting.
+- **[Luxonis OAK-D / OAK-1](https://shop.luxonis.com/)** — Intel Myriad X inside. Depth + detection in one device.
+- **[ReoLink / Reolink Duo smart cameras](https://reolink.com/)** — consumer CV cameras with basic on-device ML.
+- **[Sony IMX500](https://developer.sony.com/imx500)** — sensor with ML inside. Niche but interesting.
 
 ### Software stacks
-- **NVIDIA JetPack** — Jetson's SDK (CUDA, TensorRT, DeepStream, etc.).
-- **NVIDIA DeepStream** — video pipeline + model serving for Jetson/servers.
-- **Picamera2** — Raspberry Pi camera API.
-- **libcamera** — cross-embedded camera library.
-- **GStreamer** — media pipelines; the glue on most Linux embedded CV stacks.
+- **[NVIDIA JetPack](https://developer.nvidia.com/embedded/jetpack)** — Jetson's SDK (CUDA, TensorRT, DeepStream, etc.).
+- **[NVIDIA DeepStream](https://developer.nvidia.com/deepstream-sdk)** — video pipeline + model serving for Jetson/servers.
+- **[Picamera2](https://github.com/raspberrypi/picamera2)** — Raspberry Pi camera API.
+- **[libcamera](https://libcamera.org/)** — cross-embedded camera library.
+- **[GStreamer](https://gstreamer.freedesktop.org/)** — media pipelines; the glue on most Linux embedded CV stacks.
 
 ## Graveyard
 

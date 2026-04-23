@@ -8,12 +8,12 @@ A runtime is the software that loads your model, moves data in, runs the math, m
 
 | Target | Pick | When to use |
 |--------|------|-------------|
-| **Default (cross-platform)** | **ONNX Runtime** | Anything not NVIDIA-specific or Apple-specific. CPU + GPU + mobile, all one runtime. |
-| NVIDIA max performance | **TensorRT** | Squeeze last 30–50% out of NVIDIA GPUs. Worth it for high-volume production. |
-| Apple ecosystem | **CoreML** | iOS / macOS / Vision Pro. Uses the Neural Engine automatically. |
-| Intel CPU / iGPU | **OpenVINO** | Intel laptop/workstation targets. |
-| Browser / JS | **ONNX Runtime Web** or **TensorFlow.js** | Client-side inference. |
-| Mobile (non-Apple) | **TensorFlow Lite** / **LiteRT** | Android, embedded. |
+| **Default (cross-platform)** | **[ONNX Runtime](https://github.com/microsoft/onnxruntime)** | Anything not NVIDIA-specific or Apple-specific. CPU + GPU + mobile, all one runtime. |
+| NVIDIA max performance | **[TensorRT](https://developer.nvidia.com/tensorrt)** | Squeeze last 30–50% out of NVIDIA GPUs. Worth it for high-volume production. |
+| Apple ecosystem | **[CoreML](https://developer.apple.com/documentation/coreml)** | iOS / macOS / Vision Pro. Uses the Neural Engine automatically. |
+| Intel CPU / iGPU | **[OpenVINO](https://github.com/openvinotoolkit/openvino)** | Intel laptop/workstation targets. |
+| Browser / JS | **[ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/)** or **[TensorFlow.js](https://www.tensorflow.org/js)** | Client-side inference. |
+| Mobile (non-Apple) | **[TensorFlow Lite / LiteRT](https://ai.google.dev/edge/litert)** | Android, embedded. |
 
 ## Why ONNX Runtime is the default
 
@@ -60,44 +60,44 @@ All the runtimes above support quantized models; the export tooling varies.
 ## The Dump
 
 ### Runtimes
-- **ONNX Runtime (Microsoft)** — cross-platform. Default.
-- **TensorRT (NVIDIA)** — NVIDIA-only, max performance. FP32/FP16/INT8/INT4.
-- **CoreML (Apple)** — Apple Neural Engine + GPU + CPU.
-- **OpenVINO (Intel)** — Intel CPU/iGPU/VPU.
-- **TensorFlow Lite / LiteRT (Google)** — mobile, edge.
-- **TensorFlow.js** — browser JS.
-- **PyTorch Mobile / ExecuTorch** — PyTorch's mobile runtime. Smaller footprint for PyTorch-native models.
-- **TorchScript / torch.compile** — in-process PyTorch compilation. Not a separate runtime; still PyTorch under the hood.
-- **vLLM** — LLM-specific serving, not general CV.
-- **Triton Inference Server (NVIDIA)** — multi-model serving on top of TensorRT / ONNX / PyTorch.
-- **BentoML** — Python-first model serving framework.
-- **NVIDIA DeepStream** — video pipeline + inference stack for NVIDIA devices.
-- **Apple Vision framework** — higher-level Apple API on top of CoreML for common tasks.
-- **Android NNAPI** — Android's neural network API.
-- **Qualcomm QNN / SNPE** — Qualcomm mobile SoC runtimes.
-- **MediaTek NeuroPilot** — MediaTek SoC runtime.
-- **Rockchip RKNN** — Rockchip embedded SoC (Orange Pi, etc.).
-- **Hexagon NPU** — Qualcomm DSP.
-- **TVM / MLIR / IREE** — compile-your-own runtime stacks. Research-heavy, production-sparse.
-- **GGML / llama.cpp** — originally LLM-only, increasingly covers multimodal. Runs on almost anything.
+- **[ONNX Runtime (Microsoft)](https://github.com/microsoft/onnxruntime)** — cross-platform. Default.
+- **[TensorRT (NVIDIA)](https://developer.nvidia.com/tensorrt)** — NVIDIA-only, max performance. FP32/FP16/INT8/INT4.
+- **[CoreML (Apple)](https://developer.apple.com/documentation/coreml)** — Apple Neural Engine + GPU + CPU.
+- **[OpenVINO (Intel)](https://github.com/openvinotoolkit/openvino)** — Intel CPU/iGPU/VPU.
+- **[TensorFlow Lite / LiteRT (Google)](https://ai.google.dev/edge/litert)** — mobile, edge.
+- **[TensorFlow.js](https://www.tensorflow.org/js)** — browser JS.
+- **[PyTorch Mobile / ExecuTorch](https://github.com/pytorch/executorch)** — PyTorch's mobile runtime. Smaller footprint for PyTorch-native models.
+- **[TorchScript / torch.compile](https://pytorch.org/docs/stable/torch.compiler.html)** — in-process PyTorch compilation. Not a separate runtime; still PyTorch under the hood.
+- **[vLLM](https://github.com/vllm-project/vllm)** — LLM-specific serving, not general CV.
+- **[Triton Inference Server (NVIDIA)](https://github.com/triton-inference-server/server)** — multi-model serving on top of TensorRT / ONNX / PyTorch.
+- **[BentoML](https://github.com/bentoml/BentoML)** — Python-first model serving framework.
+- **[NVIDIA DeepStream](https://developer.nvidia.com/deepstream-sdk)** — video pipeline + inference stack for NVIDIA devices.
+- **[Apple Vision framework](https://developer.apple.com/documentation/vision)** — higher-level Apple API on top of CoreML for common tasks.
+- **[Android NNAPI](https://developer.android.com/ndk/guides/neuralnetworks)** — Android's neural network API.
+- **[Qualcomm QNN / SNPE](https://www.qualcomm.com/developer/artificial-intelligence)** — Qualcomm mobile SoC runtimes.
+- **[MediaTek NeuroPilot](https://neuropilot.mediatek.com/)** — MediaTek SoC runtime.
+- **[Rockchip RKNN](https://github.com/rockchip-linux/rknn-toolkit2)** — Rockchip embedded SoC (Orange Pi, etc.).
+- **[Hexagon NPU](https://developer.qualcomm.com/software/hexagon-dsp-sdk)** — Qualcomm DSP.
+- **[TVM](https://github.com/apache/tvm) / [MLIR](https://mlir.llvm.org/) / [IREE](https://github.com/iree-org/iree)** — compile-your-own runtime stacks. Research-heavy, production-sparse.
+- **[GGML](https://github.com/ggerganov/ggml) / [llama.cpp](https://github.com/ggerganov/llama.cpp)** — originally LLM-only, increasingly covers multimodal. Runs on almost anything.
 
 ### Serving frameworks (wrappers around runtimes)
-- **FastAPI + uvicorn** — bring your own model, your own routes. What most CV APIs look like.
-- **Triton Inference Server** — production-grade multi-model serving.
-- **BentoML** — Python-first, batteries included.
-- **TorchServe** — PyTorch's official serving. Widely used.
-- **KServe (Kubernetes)** — scales model serving on K8s.
-- **Ray Serve** — for complex multi-model / multi-step pipelines.
-- **vLLM** — LLM-specific.
-- **SGLang** — LLM-specific serving.
+- **[FastAPI](https://github.com/tiangolo/fastapi) + [uvicorn](https://github.com/encode/uvicorn)** — bring your own model, your own routes. What most CV APIs look like.
+- **[Triton Inference Server](https://github.com/triton-inference-server/server)** — production-grade multi-model serving.
+- **[BentoML](https://github.com/bentoml/BentoML)** — Python-first, batteries included.
+- **[TorchServe](https://github.com/pytorch/serve)** — PyTorch's official serving. Widely used.
+- **[KServe (Kubernetes)](https://github.com/kserve/kserve)** — scales model serving on K8s.
+- **[Ray Serve](https://docs.ray.io/en/latest/serve/index.html)** — for complex multi-model / multi-step pipelines.
+- **[vLLM](https://github.com/vllm-project/vllm)** — LLM-specific.
+- **[SGLang](https://github.com/sgl-project/sglang)** — LLM-specific serving.
 
 ### Export tools
-- **torch.onnx.export** — PyTorch → ONNX.
-- **onnxruntime-tools / Olive (Microsoft)** — optimization, quantization.
-- **coremltools** — PyTorch/TensorFlow → CoreML.
-- **tensorflow.lite.TFLiteConverter** — TF → TFLite.
-- **openvino.tools.mo** — ONNX → OpenVINO IR.
-- **TensorRT trtexec / polygraphy** — ONNX → TensorRT engine.
+- **[torch.onnx.export](https://pytorch.org/docs/stable/onnx.html)** — PyTorch → ONNX.
+- **[onnxruntime-tools](https://github.com/microsoft/onnxruntime) / [Olive (Microsoft)](https://github.com/microsoft/Olive)** — optimization, quantization.
+- **[coremltools](https://github.com/apple/coremltools)** — PyTorch/TensorFlow → CoreML.
+- **[tensorflow.lite.TFLiteConverter](https://ai.google.dev/edge/litert/models/convert)** — TF → TFLite.
+- **[openvino.tools.mo](https://docs.openvino.ai/)** — ONNX → OpenVINO IR.
+- **[TensorRT trtexec](https://github.com/NVIDIA/TensorRT/tree/main/samples/trtexec) / [polygraphy](https://github.com/NVIDIA/TensorRT/tree/main/tools/Polygraphy)** — ONNX → TensorRT engine.
 
 ## Graveyard
 

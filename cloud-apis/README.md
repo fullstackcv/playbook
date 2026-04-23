@@ -8,11 +8,11 @@ Cloud vision has bifurcated in 2026 into two worlds: **task-specific APIs** (det
 
 | Use case | Pick | When to use |
 |----------|------|-------------|
-| **General "what's in this image"** | **Gemini 2.5 Flash**, **GPT-4o**, or **Claude Sonnet** (a VLM) | Anything that doesn't fit a rigid template. |
-| Face rec at scale | **AWS Rekognition** or **Face++** | Pre-enrolled identity matching, large volumes, regulatory compliance. |
-| OCR at scale | **Google Cloud Vision Text** or **AWS Textract** | Structured invoice/form extraction at volume. |
-| Content moderation | **AWS Rekognition Content Moderation**, **Hive**, **Sightengine** | Explicit content detection, structured label output. |
-| Live video analysis | **AWS Rekognition Video** or **Azure Video Indexer** | Large-scale video with indexing/search needs. |
+| **General "what's in this image"** | **[Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/flash/)**, **[GPT-4o](https://platform.openai.com/docs/models)**, or **[Claude Sonnet](https://www.anthropic.com/claude)** (a VLM) | Anything that doesn't fit a rigid template. |
+| Face rec at scale | **[AWS Rekognition](https://aws.amazon.com/rekognition/)** or **[Face++](https://www.faceplusplus.com/)** | Pre-enrolled identity matching, large volumes, regulatory compliance. |
+| OCR at scale | **[Google Cloud Vision Text](https://cloud.google.com/vision/docs/ocr)** or **[AWS Textract](https://aws.amazon.com/textract/)** | Structured invoice/form extraction at volume. |
+| Content moderation | **[AWS Rekognition Content Moderation](https://aws.amazon.com/rekognition/content-moderation/)**, **[Hive](https://hivemoderation.com/)**, **[Sightengine](https://sightengine.com/)** | Explicit content detection, structured label output. |
+| Live video analysis | **[AWS Rekognition Video](https://aws.amazon.com/rekognition/video-features/)** or **[Azure Video Indexer](https://vi.microsoft.com/)** | Large-scale video with indexing/search needs. |
 
 ## The VLM-ate-the-cloud-API shift
 
@@ -90,52 +90,52 @@ For low/medium volume (< 10K images/day), VLM APIs are competitive. At 1M+ image
 ## The Dump
 
 ### AWS
-- **Rekognition** (image + video, face, label, liveness, moderation, PPE, celebrity).
-- **Textract** (forms + tables + handwriting).
-- **Comprehend** (text, not CV, but often chained).
-- **SageMaker** (if you train your own).
+- **[Rekognition](https://aws.amazon.com/rekognition/)** (image + video, face, label, liveness, moderation, PPE, celebrity).
+- **[Textract](https://aws.amazon.com/textract/)** (forms + tables + handwriting).
+- **[Comprehend](https://aws.amazon.com/comprehend/)** (text, not CV, but often chained).
+- **[SageMaker](https://aws.amazon.com/sagemaker/)** (if you train your own).
 
 ### Google Cloud
-- **Cloud Vision API** (labels, text, objects, landmarks, faces, web detection, safe search).
-- **Document AI** (structured extraction).
-- **Vertex AI** (custom model training/deployment).
-- **Video Intelligence** (video analysis).
+- **[Cloud Vision API](https://cloud.google.com/vision)** (labels, text, objects, landmarks, faces, web detection, safe search).
+- **[Document AI](https://cloud.google.com/document-ai)** (structured extraction).
+- **[Vertex AI](https://cloud.google.com/vertex-ai)** (custom model training/deployment).
+- **[Video Intelligence](https://cloud.google.com/video-intelligence)** (video analysis).
 
 ### Azure
-- **Azure AI Vision** (image analysis, OCR/Read, face — restricted).
-- **Document Intelligence** (forms).
-- **Video Indexer** (video).
-- **Custom Vision** (AutoML).
+- **[Azure AI Vision](https://azure.microsoft.com/en-us/products/ai-services/ai-vision)** (image analysis, OCR/Read, face — restricted).
+- **[Document Intelligence](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)** (forms).
+- **[Video Indexer](https://vi.microsoft.com/)** (video).
+- **[Custom Vision](https://www.customvision.ai/)** (AutoML).
 
 ### Anthropic / OpenAI / Google AI (VLM APIs)
-- **Claude 4 Sonnet / Opus / Haiku** (Anthropic).
-- **GPT-5 / GPT-4o / GPT-4o-mini** (OpenAI).
-- **Gemini 2.5 Pro / Flash** (Google AI Studio / Vertex).
+- **[Claude 4 Sonnet / Opus / Haiku](https://www.anthropic.com/claude)** (Anthropic).
+- **[GPT-5 / GPT-4o / GPT-4o-mini](https://platform.openai.com/docs/models)** (OpenAI).
+- **[Gemini 2.5 Pro / Flash](https://deepmind.google/technologies/gemini/)** (Google AI Studio / Vertex).
 
 ### Specialized / regional
-- **Face++ (Megvii)** — face identity, especially in China.
-- **Baidu AI Open Platform** — Chinese market.
-- **Yandex Vision** — Russian market.
-- **Kakao Vision / Naver Clova** — Korean market.
+- **[Face++ (Megvii)](https://www.faceplusplus.com/)** — face identity, especially in China.
+- **[Baidu AI Open Platform](https://ai.baidu.com/)** — Chinese market.
+- **[Yandex Vision](https://yandex.cloud/en/services/vision)** — Russian market.
+- **[Kakao Vision](https://developers.kakao.com/product/kakaoI/vision) / [Naver Clova](https://clova.ai/)** — Korean market.
 
 ### Content moderation specialists
-- **Hive** — ML-based moderation.
-- **Sightengine** — images + video.
-- **Amazon Rekognition Content Moderation** — AWS-native.
-- **Microsoft Content Moderator** — deprecated in 2024, replaced by Azure AI Content Safety.
+- **[Hive](https://hivemoderation.com/)** — ML-based moderation.
+- **[Sightengine](https://sightengine.com/)** — images + video.
+- **[Amazon Rekognition Content Moderation](https://aws.amazon.com/rekognition/content-moderation/)** — AWS-native.
+- **Microsoft Content Moderator** — deprecated in 2024, replaced by [Azure AI Content Safety](https://azure.microsoft.com/en-us/products/ai-services/ai-content-safety).
 
 ### KYC / Identity verification (chain includes face rec)
-- **Jumio** — full KYC stack.
-- **Onfido** — full KYC stack.
-- **Persona** — developer-friendly KYC.
-- **IDnow** — European market.
-- **Veriff** — European-focused.
-- **Socure** — US-focused.
+- **[Jumio](https://www.jumio.com/)** — full KYC stack.
+- **[Onfido](https://onfido.com/)** — full KYC stack.
+- **[Persona](https://withpersona.com/)** — developer-friendly KYC.
+- **[IDnow](https://www.idnow.io/)** — European market.
+- **[Veriff](https://www.veriff.com/)** — European-focused.
+- **[Socure](https://www.socure.com/)** — US-focused.
 
 ### Other
-- **Clarifai** — model hub + APIs.
-- **Mindee** — document AI API, dev-friendly.
-- **Nanonets** — document AI + OCR + data extraction.
+- **[Clarifai](https://www.clarifai.com/)** — model hub + APIs.
+- **[Mindee](https://www.mindee.com/)** — document AI API, dev-friendly.
+- **[Nanonets](https://nanonets.com/)** — document AI + OCR + data extraction.
 
 ## Graveyard
 

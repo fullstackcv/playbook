@@ -10,11 +10,11 @@ This page is the *general* retrieval case. For *face identity search specificall
 
 | Component | Pick | When to use |
 |-----------|------|-------------|
-| **Embedding model (text + image)** | **SigLIP** or **OpenCLIP ViT-L/14** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
-| Embedding model (image only, strong transfer) | **DINOv3** | No text side; pure image-to-image. |
-| Fine-tuned for retrieval | **train a SigLIP LoRA** or a model from the `sentence-transformers` image family | Domain-specific retrieval. |
-| ANN index (self-hosted, one machine) | **FAISS** | < 100M vectors, you control the infra. |
-| Managed vector DB | **pgvector** (Postgres ext), **Qdrant**, **Weaviate**, **Pinecone** | Multi-tenant, SQL integration, managed ops. |
+| **Embedding model (text + image)** | **[SigLIP](https://arxiv.org/abs/2303.15343)** or **[OpenCLIP ViT-L/14](https://github.com/mlfoundations/open_clip)** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
+| Embedding model (image only, strong transfer) | **[DINOv3](https://github.com/facebookresearch/dinov3)** | No text side; pure image-to-image. |
+| Fine-tuned for retrieval | **train a SigLIP LoRA** or a model from the **[`sentence-transformers`](https://github.com/UKPLab/sentence-transformers)** image family | Domain-specific retrieval. |
+| ANN index (self-hosted, one machine) | **[FAISS](https://github.com/facebookresearch/faiss)** | < 100M vectors, you control the infra. |
+| Managed vector DB | **[pgvector](https://github.com/pgvector/pgvector)** (Postgres ext), **[Qdrant](https://qdrant.tech/)**, **[Weaviate](https://weaviate.io/)**, **[Pinecone](https://www.pinecone.io/)** | Multi-tenant, SQL integration, managed ops. |
 
 ## Why SigLIP/CLIP for most retrieval
 
@@ -59,44 +59,44 @@ For most use cases, **FAISS** until you need multi-tenant. Then **pgvector** or 
 ## The Dump
 
 ### Embedding models
-- **CLIP (OpenAI, 2021)** — the grandfather. Still widely deployed.
-- **OpenCLIP** — open re-implementation with LAION weights.
-- **SigLIP (Google, 2023)** — improved CLIP. The recommended baseline.
-- **DINOv3 (Meta, Aug 2025)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval.
-- **DINOv2 (Meta, 2023)** — predecessor. Still widely deployed; comparable recipe, smaller compute.
-- **DINOv1 (Meta, 2021)** — original. Historical.
-- **Jina Embeddings** — commercial embedding API.
-- **Cohere Embed** — commercial multimodal embeddings.
-- **OpenAI text-embedding-3 + CLIP** — OpenAI's commercial embedding API (primarily text, CLIP for images).
-- **BLIP-2 features** — intermediate activations used as embeddings. Uncommon.
-- **MobileCLIP (Apple)** — mobile-friendly CLIP.
+- **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — the grandfather. Still widely deployed.
+- **[OpenCLIP](https://github.com/mlfoundations/open_clip)** — open re-implementation with LAION weights.
+- **[SigLIP (Google, 2023)](https://arxiv.org/abs/2303.15343)** — improved CLIP. The recommended baseline.
+- **[DINOv3 (Meta, Aug 2025)](https://github.com/facebookresearch/dinov3)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval.
+- **[DINOv2 (Meta, 2023)](https://github.com/facebookresearch/dinov2)** — predecessor. Still widely deployed; comparable recipe, smaller compute.
+- **[DINOv1 (Meta, 2021)](https://github.com/facebookresearch/dino)** — original. Historical.
+- **[Jina Embeddings](https://jina.ai/embeddings/)** — commercial embedding API.
+- **[Cohere Embed](https://cohere.com/embeddings)** — commercial multimodal embeddings.
+- **[OpenAI text-embedding-3 + CLIP](https://platform.openai.com/docs/guides/embeddings)** — OpenAI's commercial embedding API (primarily text, CLIP for images).
+- **[BLIP-2 features](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)** — intermediate activations used as embeddings. Uncommon.
+- **[MobileCLIP (Apple)](https://github.com/apple/ml-mobileclip)** — mobile-friendly CLIP.
 
 ### ANN / vector search
-- **FAISS (Meta)** — the standard. IndexFlatIP (brute), HNSW, IVF+PQ.
-- **Annoy (Spotify)** — older tree-based, largely superseded.
-- **ScaNN (Google)** — strong ANN.
-- **hnswlib** — HNSW alone, the core data structure.
-- **pgvector** — Postgres extension. SQL-native.
-- **Qdrant** — open-source vector DB, Rust. Strong.
-- **Weaviate** — open-source vector DB, knowledge-graph-flavored.
-- **Pinecone** — managed vector DB, serverless.
-- **Milvus** — open-source, scales huge.
-- **Chroma** — Python-first, simple to deploy.
-- **Vespa** — Yahoo! alumni vector + structured search engine.
-- **LanceDB** — columnar vector DB, embedded.
-- **Elasticsearch + vector search** — Elasticsearch's own vector support.
-- **Redis Stack vector search** — Redis with vectors.
+- **[FAISS (Meta)](https://github.com/facebookresearch/faiss)** — the standard. IndexFlatIP (brute), HNSW, IVF+PQ.
+- **[Annoy (Spotify)](https://github.com/spotify/annoy)** — older tree-based, largely superseded.
+- **[ScaNN (Google)](https://github.com/google-research/google-research/tree/master/scann)** — strong ANN.
+- **[hnswlib](https://github.com/nmslib/hnswlib)** — HNSW alone, the core data structure.
+- **[pgvector](https://github.com/pgvector/pgvector)** — Postgres extension. SQL-native.
+- **[Qdrant](https://qdrant.tech/)** — open-source vector DB, Rust. Strong.
+- **[Weaviate](https://weaviate.io/)** — open-source vector DB, knowledge-graph-flavored.
+- **[Pinecone](https://www.pinecone.io/)** — managed vector DB, serverless.
+- **[Milvus](https://milvus.io/)** — open-source, scales huge.
+- **[Chroma](https://www.trychroma.com/)** — Python-first, simple to deploy.
+- **[Vespa](https://vespa.ai/)** — Yahoo! alumni vector + structured search engine.
+- **[LanceDB](https://lancedb.com/)** — columnar vector DB, embedded.
+- **[Elasticsearch + vector search](https://www.elastic.co/elasticsearch/vector-database)** — Elasticsearch's own vector support.
+- **[Redis Stack vector search](https://redis.io/docs/latest/develop/interact/search-and-query/advanced-concepts/vectors/)** — Redis with vectors.
 
 ### Specialized retrieval
-- **Perceptual hashes (pHash / aHash / dHash / wHash)** — near-duplicate detection.
-- **VPR (Visual Place Recognition)** libraries — MapillarySLS, NetVLAD variants.
+- **[Perceptual hashes (pHash / aHash / dHash / wHash)](https://github.com/JohannesBuchner/imagehash)** — near-duplicate detection.
+- **VPR (Visual Place Recognition)** libraries — [MapillarySLS](https://github.com/mapillary/mapillary_sls), [NetVLAD variants](https://github.com/Nanne/pytorch-NetVlad).
 - **DOLG / SOLAR / etc.** — landmark retrieval research.
 - **Swin + GeM pooling** — reference landmark retrieval baseline.
 
 ### Training libraries
-- **open_clip** — train or fine-tune CLIP-family.
-- **sentence-transformers** — library primarily for text, supports image encoders.
-- **`transformers` (HF)** — many embedding models available.
+- **[open_clip](https://github.com/mlfoundations/open_clip)** — train or fine-tune CLIP-family.
+- **[sentence-transformers](https://github.com/UKPLab/sentence-transformers)** — library primarily for text, supports image encoders.
+- **[`transformers` (HF)](https://github.com/huggingface/transformers)** — many embedding models available.
 
 ## Graveyard
 

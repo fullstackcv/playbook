@@ -8,11 +8,11 @@ The field has three distinct use cases with different picks. Don't pick one tool
 
 | Use case | Pick | When to use |
 |----------|------|-------------|
-| **Document parsing SOTA (open)** | **PaddleOCR-VL-1.5** (Baidu, 0.9B VLM) | 94.5% on OmniDocBench v1.5. Handles skew, warp, illumination, screen photos. 111 languages. |
-| Messy real-world (handwriting, weird contexts) | **A flagship VLM (Gemini 2.5, GPT-5, Claude 4)** | When you want max accuracy and can afford per-page cost. Often more robust than traditional OCR on unstructured inputs. |
-| Clean printed documents at scale | **PP-OCRv5** (lightweight PaddleOCR) | Free, 1st on avg 1-edit-distance across OmniDocBench, beats GOT-OCR-0.5B / Qwen2.5-VL-72B at a fraction of size. |
-| English-only + local + fast | **Tesseract 5** | Zero-dependency batch processing of clean text. |
-| Structured document understanding | **Donut** or **LayoutLMv3** | Form key-value extraction with a defined schema. Training-required. |
+| **Document parsing SOTA (open)** | **[PaddleOCR-VL-1.5](https://huggingface.co/PaddlePaddle/PaddleOCR-VL)** (Baidu, 0.9B VLM) | 94.5% on OmniDocBench v1.5. Handles skew, warp, illumination, screen photos. 111 languages. |
+| Messy real-world (handwriting, weird contexts) | **A flagship VLM ([Gemini 2.5](https://deepmind.google/technologies/gemini/), [GPT-5](https://platform.openai.com/docs/models), [Claude 4](https://www.anthropic.com/claude))** | When you want max accuracy and can afford per-page cost. Often more robust than traditional OCR on unstructured inputs. |
+| Clean printed documents at scale | **[PP-OCRv5](https://github.com/PaddlePaddle/PaddleOCR)** (lightweight PaddleOCR) | Free, 1st on avg 1-edit-distance across OmniDocBench, beats GOT-OCR-0.5B / Qwen2.5-VL-72B at a fraction of size. |
+| English-only + local + fast | **[Tesseract 5](https://github.com/tesseract-ocr/tesseract)** | Zero-dependency batch processing of clean text. |
+| Structured document understanding | **[Donut](https://github.com/clovaai/donut)** or **[LayoutLMv3](https://github.com/microsoft/unilm/tree/master/layoutlmv3)** | Form key-value extraction with a defined schema. Training-required. |
 
 ## The big shift (2024 → 2026)
 
@@ -52,44 +52,44 @@ Ships as a Hugging Face checkpoint: `PaddlePaddle/PaddleOCR-VL-1.5`. Integrates 
 ## The Dump
 
 ### Classical OCR
-- **Tesseract 5 (Google / open source)** — the grandfather of open-source OCR. Still viable for clean Latin-script text. Minimal deps.
-- **PaddleOCR (Baidu)** — multilingual. PP-OCRv3, v4, v5 lineage.
-- **PP-OCRv5 (Baidu, 2025)** — lightweight; ranks 1st on OmniDocBench by 1-edit-distance. Beats GOT-OCR-0.5B, RolmOCR-7B, Qwen2.5-VL-72B, InternVL3-78B, Gemini 2.5 Pro at a fraction of size.
-- **EasyOCR** — Python-friendly wrapper around PyTorch OCR models. Easier to start with than PaddleOCR but accuracy is slightly behind.
-- **MMOCR (OpenMMLab)** — research-friendly OCR framework. Use if you're training custom models.
-- **TrOCR (Microsoft)** — transformer-based, strong on handwritten.
+- **[Tesseract 5 (Google / open source)](https://github.com/tesseract-ocr/tesseract)** — the grandfather of open-source OCR. Still viable for clean Latin-script text. Minimal deps.
+- **[PaddleOCR (Baidu)](https://github.com/PaddlePaddle/PaddleOCR)** — multilingual. PP-OCRv3, v4, v5 lineage.
+- **[PP-OCRv5 (Baidu, 2025)](https://github.com/PaddlePaddle/PaddleOCR)** — lightweight; ranks 1st on OmniDocBench by 1-edit-distance. Beats GOT-OCR-0.5B, RolmOCR-7B, Qwen2.5-VL-72B, InternVL3-78B, Gemini 2.5 Pro at a fraction of size.
+- **[EasyOCR](https://github.com/JaidedAI/EasyOCR)** — Python-friendly wrapper around PyTorch OCR models. Easier to start with than PaddleOCR but accuracy is slightly behind.
+- **[MMOCR (OpenMMLab)](https://github.com/open-mmlab/mmocr)** — research-friendly OCR framework. Use if you're training custom models.
+- **[TrOCR (Microsoft)](https://github.com/microsoft/unilm/tree/master/trocr)** — transformer-based, strong on handwritten.
 
 ### Document-AI VLMs (the 2025–2026 wave)
-- **PaddleOCR-VL-1.5 (Baidu, 2025–2026)** — 0.9B VLM, 94.5% OmniDocBench v1.5 SOTA. Current open document-parsing leader.
-- **GOT-OCR 2.0 (0.5B)** — compact document VLM. Solid baseline.
+- **[PaddleOCR-VL-1.5 (Baidu, 2025–2026)](https://huggingface.co/PaddlePaddle/PaddleOCR-VL)** — 0.9B VLM, 94.5% OmniDocBench v1.5 SOTA. Current open document-parsing leader.
+- **[GOT-OCR 2.0 (0.5B)](https://github.com/Ucas-HaoranWei/GOT-OCR2.0)** — compact document VLM. Solid baseline.
 - **DeepSeek-OCR 2** — 2026 entrant, competitive on OmniDocBench.
 - **GLM-OCR** — Zhipu's OCR VLM, competitive in Chinese + multilingual.
 - **RolmOCR (7B)** — larger VLM OCR entrant.
 
 ### Commercial APIs
-- **Google Cloud Vision Text Detection** — the reference commercial OCR. Strong on most inputs.
-- **AWS Textract** — specializes in forms + tables. Strong on clean documents.
-- **Azure Document Intelligence** (formerly Form Recognizer) — closest competitor to Textract.
-- **Mindee** — dev-friendly document API, good key-value extraction.
+- **[Google Cloud Vision Text Detection](https://cloud.google.com/vision/docs/ocr)** — the reference commercial OCR. Strong on most inputs.
+- **[AWS Textract](https://aws.amazon.com/textract/)** — specializes in forms + tables. Strong on clean documents.
+- **[Azure Document Intelligence](https://azure.microsoft.com/en-us/products/ai-services/ai-document-intelligence)** (formerly Form Recognizer) — closest competitor to Textract.
+- **[Mindee](https://www.mindee.com/)** — dev-friendly document API, good key-value extraction.
 
 ### Document understanding (OCR + layout)
-- **Donut (Naver, 2022)** — no separate OCR step, directly trains image → structured output. Fine-tune on your docs.
-- **LayoutLMv3 (Microsoft, 2022)** — pre-trained on document layouts; strong for form understanding.
-- **Pix2Struct (Google, 2023)** — same family, different architecture.
-- **Nougat (Meta, 2023)** — academic papers specifically.
-- **Marker (VikParuchuri)** — PDF → markdown, uses a stack of OCR + layout models.
+- **[Donut (Naver, 2022)](https://github.com/clovaai/donut)** — no separate OCR step, directly trains image → structured output. Fine-tune on your docs.
+- **[LayoutLMv3 (Microsoft, 2022)](https://github.com/microsoft/unilm/tree/master/layoutlmv3)** — pre-trained on document layouts; strong for form understanding.
+- **[Pix2Struct (Google, 2023)](https://github.com/google-research/pix2struct)** — same family, different architecture.
+- **[Nougat (Meta, 2023)](https://github.com/facebookresearch/nougat)** — academic papers specifically.
+- **[Marker (VikParuchuri)](https://github.com/VikParuchuri/marker)** — PDF → markdown, uses a stack of OCR + layout models.
 
 ### VLM-based OCR (modern messy default)
-- **GPT-4o / GPT-4-turbo-vision** — OpenAI. Strong on messy inputs. Expensive.
-- **Gemini 2.5 Flash / Pro** — Google. Competitive with GPT-4, often cheaper.
-- **Claude 3.5/4 Sonnet** — Anthropic. Strong, strict about factuality.
-- **Qwen2-VL-72B** — strongest open VLM at this scale. Self-hostable.
-- **InternVL2** — another open VLM competitor.
+- **[GPT-4o / GPT-4-turbo-vision](https://platform.openai.com/docs/models)** — OpenAI. Strong on messy inputs. Expensive.
+- **[Gemini 2.5 Flash / Pro](https://deepmind.google/technologies/gemini/)** — Google. Competitive with GPT-4, often cheaper.
+- **[Claude 3.5/4 Sonnet](https://www.anthropic.com/claude)** — Anthropic. Strong, strict about factuality.
+- **[Qwen2-VL-72B](https://github.com/QwenLM/Qwen2-VL)** — strongest open VLM at this scale. Self-hostable.
+- **[InternVL2](https://github.com/OpenGVLab/InternVL)** — another open VLM competitor.
 
 ### Specialized
-- **pix2tex / LaTeX-OCR** — math equations to LaTeX.
+- **[pix2tex / LaTeX-OCR](https://github.com/lukas-blecher/LaTeX-OCR)** — math equations to LaTeX.
 - **paddledetection + custom CRNN** — train your own if you have labeled data in a specific domain.
-- **CRAFT** — text detection only, strong at finding text regions.
+- **[CRAFT](https://github.com/clovaai/CRAFT-pytorch)** — text detection only, strong at finding text regions.
 
 ## Graveyard
 

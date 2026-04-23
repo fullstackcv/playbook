@@ -8,9 +8,9 @@ Pose splits into two deployment flavors — server-side accuracy and on-device r
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Browser / mobile | **MediaPipe Pose** | JS in the browser, iOS/Android, real-time, no server |
-| **Default** | **RTMPose (OpenMMLab)** | Server-side real-time, production accuracy |
-| Max accuracy | **ViTPose** | Research benchmarks, offline batch |
+| Browser / mobile | **[MediaPipe Pose](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker)** | JS in the browser, iOS/Android, real-time, no server |
+| **Default** | **[RTMPose (OpenMMLab)](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose)** | Server-side real-time, production accuracy |
+| Max accuracy | **[ViTPose](https://github.com/ViTAE-Transformer/ViTPose)** | Research benchmarks, offline batch |
 
 ## Why RTMPose is the default
 
@@ -40,26 +40,26 @@ If you're building anything that runs in a browser tab or a phone app without a 
 
 ## The Dump
 
-- **OpenPose (2017)** — the original multi-person pose pipeline. Historical weight, supplanted.
-- **HRNet (2019)** — high-resolution network. Still the backbone of many modern pose models.
-- **AlphaPose (SJTU)** — strong top-down system. Outpaced by RTMPose.
-- **Detectron2 Keypoint R-CNN** — Facebook's keypoint detection in Detectron2. Reasonable but dated.
-- **MediaPipe Pose (Google)** — TFLite, 33 keypoints, browser/mobile default.
-- **MediaPipe Hands** — 21 keypoints per hand, same ecosystem.
-- **MediaPipe Holistic** — body + face + hands together, same shot.
-- **DEKR** — bottom-up keypoint regression. Crowded scenes.
-- **ViTPose (2022)** — ViT backbone, strong accuracy. Expensive.
-- **ViTPose++** — improved training recipe. Same compute class.
-- **RTMPose (2023)** — OpenMMLab's distilled real-time pose. The current default.
-- **RTMW (OpenMMLab)** — whole-body variant. First model to exceed 70 AP on COCO-WholeBody (RTMW-x at 70.2 AP).
-- **RTMO** — bottom-up variant from the same team.
-- **DWPose (2023)** — distilled whole-body, used as the ControlNet pose preprocessor.
-- **MotionBERT** — 3D human motion representation. Strong on video.
-- **MMHuman3D (OpenMMLab)** — SMPL body fitting from video.
-- **Yolov8-pose / Yolov11-pose (Ultralytics)** — YOLO with a keypoint head. Fast, good ecosystem, less accurate than RTMPose.
-- **PoseNet (Google, TFJS)** — the browser default before MediaPipe. Retired.
-- **MMPose (OpenMMLab)** — the reference training/inference library for top-down pose.
-- **rtmlib** — lightweight wrapper around RTMPose without the MMPose dependency chain.
+- **[OpenPose (2017)](https://github.com/CMU-Perceptual-Computing-Lab/openpose)** — the original multi-person pose pipeline. Historical weight, supplanted.
+- **[HRNet (2019)](https://github.com/HRNet/HRNet-Human-Pose-Estimation)** — high-resolution network. Still the backbone of many modern pose models.
+- **[AlphaPose (SJTU)](https://github.com/MVIG-SJTU/AlphaPose)** — strong top-down system. Outpaced by RTMPose.
+- **[Detectron2 Keypoint R-CNN](https://github.com/facebookresearch/detectron2)** — Facebook's keypoint detection in Detectron2. Reasonable but dated.
+- **[MediaPipe Pose (Google)](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker)** — TFLite, 33 keypoints, browser/mobile default.
+- **[MediaPipe Hands](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker)** — 21 keypoints per hand, same ecosystem.
+- **[MediaPipe Holistic](https://ai.google.dev/edge/mediapipe/solutions/vision/holistic_landmarker)** — body + face + hands together, same shot.
+- **[DEKR](https://github.com/HRNet/DEKR)** — bottom-up keypoint regression. Crowded scenes.
+- **[ViTPose (2022)](https://github.com/ViTAE-Transformer/ViTPose)** — ViT backbone, strong accuracy. Expensive.
+- **[ViTPose++](https://arxiv.org/abs/2212.04246)** — improved training recipe. Same compute class.
+- **[RTMPose (2023)](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose)** — OpenMMLab's distilled real-time pose. The current default.
+- **[RTMW (OpenMMLab)](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose)** — whole-body variant. First model to exceed 70 AP on COCO-WholeBody (RTMW-x at 70.2 AP).
+- **[RTMO](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmo)** — bottom-up variant from the same team.
+- **[DWPose (2023)](https://github.com/IDEA-Research/DWPose)** — distilled whole-body, used as the ControlNet pose preprocessor.
+- **[MotionBERT](https://github.com/Walter0807/MotionBERT)** — 3D human motion representation. Strong on video.
+- **[MMHuman3D (OpenMMLab)](https://github.com/open-mmlab/mmhuman3d)** — SMPL body fitting from video.
+- **[Yolov8-pose / Yolov11-pose (Ultralytics)](https://github.com/ultralytics/ultralytics)** — YOLO with a keypoint head. Fast, good ecosystem, less accurate than RTMPose.
+- **[PoseNet (Google, TFJS)](https://github.com/tensorflow/tfjs-models/tree/master/posenet)** — the browser default before MediaPipe. Retired.
+- **[MMPose (OpenMMLab)](https://github.com/open-mmlab/mmpose)** — the reference training/inference library for top-down pose.
+- **[rtmlib](https://github.com/Tau-J/rtmlib)** — lightweight wrapper around RTMPose without the MMPose dependency chain.
 
 ## Graveyard
 

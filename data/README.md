@@ -8,11 +8,11 @@ Data is where most CV projects actually spend their time. Model choice is a 1-da
 
 | Use case | Pick | When to use |
 |----------|------|-------------|
-| **Open-source labeling (team)** | **CVAT** | Self-hosted, mature, video support |
-| Open-source labeling (solo) | **Label Studio** | Broader (text, audio, image, video); easier to spin up |
-| **Managed labeling platform** | **Roboflow** | End-to-end (upload → label → train → deploy). Best developer experience. |
-| Pro/enterprise managed | **V7** or **Labelbox** | Medical, industrial, compliance-heavy. Expensive. |
-| Auto-labeling | **SAM 2 + Grounding DINO** (programmatic) or **Roboflow / CVAT SAM integrations** | Accelerate labeling 5–10×. |
+| **Open-source labeling (team)** | **[CVAT](https://github.com/cvat-ai/cvat)** | Self-hosted, mature, video support |
+| Open-source labeling (solo) | **[Label Studio](https://github.com/HumanSignal/label-studio)** | Broader (text, audio, image, video); easier to spin up |
+| **Managed labeling platform** | **[Roboflow](https://roboflow.com/)** | End-to-end (upload → label → train → deploy). Best developer experience. |
+| Pro/enterprise managed | **[V7](https://www.v7labs.com/)** or **[Labelbox](https://labelbox.com/)** | Medical, industrial, compliance-heavy. Expensive. |
+| Auto-labeling | **[SAM 2](https://github.com/facebookresearch/sam2) + [Grounding DINO](https://github.com/IDEA-Research/GroundingDINO)** (programmatic) or **Roboflow / CVAT SAM integrations** | Accelerate labeling 5–10×. |
 
 ## Why CVAT for teams
 
@@ -37,58 +37,58 @@ Every major annotation platform integrated SAM in 2023–2024: CVAT, Label Studi
 ## Programmatic labeling
 
 When you don't need a UI and can label in a script:
-- **SAM 2 (Meta)** — click / box / text → mask.
-- **Grounding DINO** — text → bounding box. Open-vocabulary detection.
-- **Grounded-SAM** — combine the above: text → mask.
-- **Autodistill (Roboflow)** — wraps several of the above into a `"detect cars" → labeled dataset` pipeline.
+- **[SAM 2 (Meta)](https://github.com/facebookresearch/sam2)** — click / box / text → mask.
+- **[Grounding DINO](https://github.com/IDEA-Research/GroundingDINO)** — text → bounding box. Open-vocabulary detection.
+- **[Grounded-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything)** — combine the above: text → mask.
+- **[Autodistill (Roboflow)](https://github.com/autodistill/autodistill)** — wraps several of the above into a `"detect cars" → labeled dataset` pipeline.
 - **LabelGPT-style (using a VLM to label)** — send each image to a VLM, get labels. Expensive but flexible.
 
 ## Benchmark datasets (the canonical ones)
 
 ### Detection
-- **COCO (2014)** — 80 classes, 330K images. The universal detection benchmark.
-- **Open Images V7** — ~9M images, 600+ classes. Larger but noisier than COCO.
-- **Objects365** — 365 classes, more diversity than COCO.
-- **LVIS** — COCO images re-labeled with 1,200 long-tail categories.
-- **Visual Genome** — dense scene graphs. More about relationships than pure detection.
+- **[COCO (2014)](https://cocodataset.org/)** — 80 classes, 330K images. The universal detection benchmark.
+- **[Open Images V7](https://storage.googleapis.com/openimages/web/index.html)** — ~9M images, 600+ classes. Larger but noisier than COCO.
+- **[Objects365](https://www.objects365.org/)** — 365 classes, more diversity than COCO.
+- **[LVIS](https://www.lvisdataset.org/)** — COCO images re-labeled with 1,200 long-tail categories.
+- **[Visual Genome](https://homes.cs.washington.edu/~ranjay/visualgenome/)** — dense scene graphs. More about relationships than pure detection.
 
 ### Segmentation
-- **COCO (instance + panoptic)** — reuses COCO images with mask annotations.
-- **ADE20K** — 20K images, 150 classes, semantic segmentation.
-- **Cityscapes** — street scenes, semantic segmentation, autonomous driving.
-- **SA-1B (SAM training set)** — 1B masks. Meta released ~11M for research.
+- **[COCO (instance + panoptic)](https://cocodataset.org/)** — reuses COCO images with mask annotations.
+- **[ADE20K](https://groups.csail.mit.edu/vision/datasets/ADE20K/)** — 20K images, 150 classes, semantic segmentation.
+- **[Cityscapes](https://www.cityscapes-dataset.com/)** — street scenes, semantic segmentation, autonomous driving.
+- **[SA-1B (SAM training set)](https://ai.meta.com/datasets/segment-anything/)** — 1B masks. Meta released ~11M for research.
 
 ### Face
-- **LFW (Labeled Faces in the Wild, 2007)** — saturated. 99.8%+ accuracy for any modern recognizer. Not diagnostic anymore.
+- **[LFW (Labeled Faces in the Wild, 2007)](http://vis-www.cs.umass.edu/lfw/)** — saturated. 99.8%+ accuracy for any modern recognizer. Not diagnostic anymore.
 - **MS1M / MS-Celeb-1M** — training set, not benchmark.
-- **IJB-C** — unconstrained face recognition. Still useful as a harder benchmark.
-- **MegaFace** — 1M distractors. Historical.
-- **WIDER Face** — face detection benchmark.
-- **QMUL-SurvFace** — surveillance-quality. Useful for modern face recognition benchmarks.
+- **[IJB-C](https://www.nist.gov/itl/iad/image-group/ijb-c)** — unconstrained face recognition. Still useful as a harder benchmark.
+- **[MegaFace](http://megaface.cs.washington.edu/)** — 1M distractors. Historical.
+- **[WIDER Face](http://shuoyang1213.me/WIDERFACE/)** — face detection benchmark.
+- **[QMUL-SurvFace](https://qmul-survface.github.io/)** — surveillance-quality. Useful for modern face recognition benchmarks.
 
 ### OCR
-- **ICDAR series** — the standard OCR/text detection benchmarks.
-- **SROIE** — receipt parsing.
-- **FUNSD** — form understanding.
-- **DocVQA** — document visual question answering.
-- **TextVQA** — scene text VQA.
+- **[ICDAR series](https://rrc.cvc.uab.es/)** — the standard OCR/text detection benchmarks.
+- **[SROIE](https://rrc.cvc.uab.es/?ch=13)** — receipt parsing.
+- **[FUNSD](https://guillaumejaume.github.io/FUNSD/)** — form understanding.
+- **[DocVQA](https://www.docvqa.org/)** — document visual question answering.
+- **[TextVQA](https://textvqa.org/)** — scene text VQA.
 
 ### Pose
-- **COCO Keypoints** — the default 2D pose benchmark.
-- **MPII** — older, still referenced.
-- **CrowdPose** — crowded scenes.
-- **COCO-WholeBody** — 133 keypoints per person.
+- **[COCO Keypoints](https://cocodataset.org/#keypoints-2020)** — the default 2D pose benchmark.
+- **[MPII](http://human-pose.mpi-inf.mpg.de/)** — older, still referenced.
+- **[CrowdPose](https://github.com/Jeff-sjtu/CrowdPose)** — crowded scenes.
+- **[COCO-WholeBody](https://github.com/jin-s13/COCO-WholeBody)** — 133 keypoints per person.
 
 ### Video / Tracking
-- **MOT17 / MOT20** — multi-object tracking benchmarks.
-- **Kinetics-400 / 700** — action recognition.
-- **ActivityNet** — action localization.
-- **DAVIS** — video object segmentation.
+- **[MOT17 / MOT20](https://motchallenge.net/)** — multi-object tracking benchmarks.
+- **[Kinetics-400 / 700](https://www.deepmind.com/open-source/kinetics)** — action recognition.
+- **[ActivityNet](http://activity-net.org/)** — action localization.
+- **[DAVIS](https://davischallenge.org/)** — video object segmentation.
 
 ### Classification
-- **ImageNet-1K (ILSVRC 2012)** — historical default. Saturated.
-- **ImageNet-21K** — larger, better for pretraining.
-- **CIFAR-10 / 100** — toy. Use for pedagogy, not actual benchmarks.
+- **[ImageNet-1K (ILSVRC 2012)](https://www.image-net.org/)** — historical default. Saturated.
+- **[ImageNet-21K](https://www.image-net.org/)** — larger, better for pretraining.
+- **[CIFAR-10 / 100](https://www.cs.toronto.edu/~kriz/cifar.html)** — toy. Use for pedagogy, not actual benchmarks.
 
 ## When to pick something else
 
@@ -106,47 +106,47 @@ When you don't need a UI and can label in a script:
 ## The Dump
 
 ### Open-source labeling
-- **CVAT (Intel)** — teams, video support.
-- **Label Studio (HumanSignal)** — general-purpose; images, audio, text.
-- **VGG Image Annotator (VIA)** — single HTML file, no install. Toy-level but amazing for one-off.
-- **LabelImg** — bounding boxes, classic desktop tool.
-- **Labelme** — polygons, desktop.
-- **AnyLabeling** — Labelme + AI assistance (SAM integration).
-- **X-AnyLabeling** — enhanced AnyLabeling.
-- **MakeSense.AI** — browser-based, free.
+- **[CVAT (Intel)](https://github.com/cvat-ai/cvat)** — teams, video support.
+- **[Label Studio (HumanSignal)](https://github.com/HumanSignal/label-studio)** — general-purpose; images, audio, text.
+- **[VGG Image Annotator (VIA)](https://www.robots.ox.ac.uk/~vgg/software/via/)** — single HTML file, no install. Toy-level but amazing for one-off.
+- **[LabelImg](https://github.com/HumanSignal/labelImg)** — bounding boxes, classic desktop tool.
+- **[Labelme](https://github.com/wkentaro/labelme)** — polygons, desktop.
+- **[AnyLabeling](https://github.com/vietanhdev/anylabeling)** — Labelme + AI assistance (SAM integration).
+- **[X-AnyLabeling](https://github.com/CVHub520/X-AnyLabeling)** — enhanced AnyLabeling.
+- **[MakeSense.AI](https://www.makesense.ai/)** — browser-based, free.
 
 ### Managed platforms
-- **Roboflow** — dev-first end-to-end.
-- **V7** — enterprise, medical/industrial focus.
-- **Labelbox** — enterprise.
-- **Scale AI** — huge projects, Fortune 500.
-- **SuperAnnotate** — solid mid-market.
-- **Kili Technology** — European.
-- **Supervisely** — strong for 3D / point clouds.
-- **Dataloop** — MLOps-heavy.
-- **Encord** — video + DICOM.
+- **[Roboflow](https://roboflow.com/)** — dev-first end-to-end.
+- **[V7](https://www.v7labs.com/)** — enterprise, medical/industrial focus.
+- **[Labelbox](https://labelbox.com/)** — enterprise.
+- **[Scale AI](https://scale.com/)** — huge projects, Fortune 500.
+- **[SuperAnnotate](https://www.superannotate.com/)** — solid mid-market.
+- **[Kili Technology](https://kili-technology.com/)** — European.
+- **[Supervisely](https://supervisely.com/)** — strong for 3D / point clouds.
+- **[Dataloop](https://dataloop.ai/)** — MLOps-heavy.
+- **[Encord](https://encord.com/)** — video + DICOM.
 
 ### Auto-labeling tools
-- **SAM 2** — the interactive default.
-- **Grounding DINO** — text → boxes.
-- **Grounded-SAM** — text → masks.
-- **Autodistill** (Roboflow) — combine open models into a labeling pipeline.
-- **Cleanlab** — find labeling errors in existing datasets.
+- **[SAM 2](https://github.com/facebookresearch/sam2)** — the interactive default.
+- **[Grounding DINO](https://github.com/IDEA-Research/GroundingDINO)** — text → boxes.
+- **[Grounded-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything)** — text → masks.
+- **[Autodistill](https://github.com/autodistill/autodistill)** (Roboflow) — combine open models into a labeling pipeline.
+- **[Cleanlab](https://github.com/cleanlab/cleanlab)** — find labeling errors in existing datasets.
 
 ### Data management
-- **DVC** — Data Version Control, git-style.
-- **LakeFS** — Git for object storage.
-- **Weights & Biases Artifacts** — dataset versioning within W&B.
-- **Roboflow Universe** — public datasets.
-- **Hugging Face Datasets** — general ML dataset hub.
-- **Kaggle** — competitions + datasets.
+- **[DVC](https://dvc.org/)** — Data Version Control, git-style.
+- **[LakeFS](https://lakefs.io/)** — Git for object storage.
+- **[Weights & Biases Artifacts](https://wandb.ai/site/artifacts)** — dataset versioning within W&B.
+- **[Roboflow Universe](https://universe.roboflow.com/)** — public datasets.
+- **[Hugging Face Datasets](https://huggingface.co/datasets)** — general ML dataset hub.
+- **[Kaggle](https://www.kaggle.com/datasets)** — competitions + datasets.
 
 ### Synthetic data
-- **NVIDIA Omniverse / Isaac Sim** — physics-based synthetic.
-- **Unity Perception** — Unity-based synthetic.
-- **Blender + python** — DIY rendering.
+- **[NVIDIA Omniverse](https://www.nvidia.com/en-us/omniverse/) / [Isaac Sim](https://developer.nvidia.com/isaac-sim)** — physics-based synthetic.
+- **[Unity Perception](https://github.com/Unity-Technologies/com.unity.perception)** — Unity-based synthetic.
+- **[Blender](https://www.blender.org/) + python** — DIY rendering.
 - **Diffusion-generated (Flux, SDXL)** — image augmentation with control.
-- **Gretel** — mostly tabular, some CV.
+- **[Gretel](https://gretel.ai/)** — mostly tabular, some CV.
 
 ## Graveyard
 

@@ -8,10 +8,10 @@ Pure image classification is rarely the primary product in 2026. It's usually a 
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Zero-shot (no training) | **CLIP** or **SigLIP** + cosine similarity to text labels | When you have no training data and the classes are describable in words. |
-| **Default with labeled data** | **Fine-tune a timm model** (ConvNeXt, ViT, EfficientNet) | Classic supervised classification. 100s–1000s of examples per class. |
-| Max accuracy | **DINOv3 embeddings + linear probe** or **ViT-L** fine-tune | Few-shot, transfer learning. |
-| Edge | **MobileNetV3** or **EfficientNet-Lite** | On-device, small footprint. |
+| Zero-shot (no training) | **[CLIP](https://github.com/openai/CLIP)** or **[SigLIP](https://arxiv.org/abs/2303.15343)** + cosine similarity to text labels | When you have no training data and the classes are describable in words. |
+| **Default with labeled data** | **Fine-tune a [timm](https://github.com/huggingface/pytorch-image-models) model** ([ConvNeXt](https://github.com/facebookresearch/ConvNeXt), [ViT](https://arxiv.org/abs/2010.11929), [EfficientNet](https://arxiv.org/abs/1905.11946)) | Classic supervised classification. 100s–1000s of examples per class. |
+| Max accuracy | **[DINOv3](https://github.com/facebookresearch/dinov3) embeddings + linear probe** or **[ViT-L](https://arxiv.org/abs/2010.11929)** fine-tune | Few-shot, transfer learning. |
+| Edge | **[MobileNetV3](https://arxiv.org/abs/1905.02244)** or **[EfficientNet-Lite](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite)** | On-device, small footprint. |
 
 ## Why zero-shot CLIP is often the right first try
 
@@ -82,43 +82,43 @@ DINOv2 is still fine — similar recipe, slightly less accuracy, smaller. Migrat
 ## The Dump
 
 ### Backbones (still in use in 2026)
-- **ResNet-50 / 101 (2015)** — the historical default. Still solid.
-- **ResNeXt, Wide ResNet** — ResNet variants, minor improvements.
-- **DenseNet** — connection-dense. Historical.
-- **MobileNet V1/V2/V3** — mobile-efficient.
-- **EfficientNet B0–B7 / V2** — compound scaling.
-- **ConvNeXt / ConvNeXtV2 (2022/2023)** — modernized CNN. Competitive with ViT at similar size.
-- **ViT / ViT-B/L/H** — the transformer default.
-- **Swin / Swin V2** — hierarchical ViT.
-- **DeiT** — data-efficient ViT training.
-- **BEiT, MAE** — self-supervised pretraining for ViT.
-- **CoAtNet, EfficientFormer** — CNN+transformer hybrids.
-- **RegNet (Meta)** — Neural Architecture Search results. Strong.
+- **[ResNet-50 / 101 (2015)](https://arxiv.org/abs/1512.03385)** — the historical default. Still solid.
+- **[ResNeXt](https://arxiv.org/abs/1611.05431), [Wide ResNet](https://arxiv.org/abs/1605.07146)** — ResNet variants, minor improvements.
+- **[DenseNet](https://arxiv.org/abs/1608.06993)** — connection-dense. Historical.
+- **[MobileNet V1/V2/V3](https://arxiv.org/abs/1905.02244)** — mobile-efficient.
+- **[EfficientNet B0–B7](https://arxiv.org/abs/1905.11946) / [V2](https://arxiv.org/abs/2104.00298)** — compound scaling.
+- **[ConvNeXt](https://github.com/facebookresearch/ConvNeXt) / [ConvNeXtV2](https://github.com/facebookresearch/ConvNeXt-V2) (2022/2023)** — modernized CNN. Competitive with ViT at similar size.
+- **[ViT / ViT-B/L/H](https://arxiv.org/abs/2010.11929)** — the transformer default.
+- **[Swin](https://github.com/microsoft/Swin-Transformer) / [Swin V2](https://arxiv.org/abs/2111.09883)** — hierarchical ViT.
+- **[DeiT](https://github.com/facebookresearch/deit)** — data-efficient ViT training.
+- **[BEiT](https://github.com/microsoft/unilm/tree/master/beit), [MAE](https://github.com/facebookresearch/mae)** — self-supervised pretraining for ViT.
+- **[CoAtNet](https://arxiv.org/abs/2106.04803), [EfficientFormer](https://github.com/snap-research/EfficientFormer)** — CNN+transformer hybrids.
+- **[RegNet (Meta)](https://github.com/facebookresearch/pycls)** — Neural Architecture Search results. Strong.
 
 ### Self-supervised / embedding models
-- **CLIP (OpenAI, 2021)** — image-text contrastive.
-- **OpenCLIP** — open re-implementation.
-- **SigLIP (Google, 2023)** — improved CLIP.
-- **DINOv1 / DINOv2 / DINOv3 (Meta)** — self-supervised ViT. DINOv3 (Aug 2025) is the current default; 7B params, 1.7B training images, commercial license.
-- **MAE (Masked Autoencoder)** — self-supervised pretraining.
-- **I-JEPA (Meta)** — joint embedding, self-supervised.
+- **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — image-text contrastive.
+- **[OpenCLIP](https://github.com/mlfoundations/open_clip)** — open re-implementation.
+- **[SigLIP (Google, 2023)](https://arxiv.org/abs/2303.15343)** — improved CLIP.
+- **[DINOv1](https://github.com/facebookresearch/dino) / [DINOv2](https://github.com/facebookresearch/dinov2) / [DINOv3](https://github.com/facebookresearch/dinov3) (Meta)** — self-supervised ViT. DINOv3 (Aug 2025) is the current default; 7B params, 1.7B training images, commercial license.
+- **[MAE (Masked Autoencoder)](https://github.com/facebookresearch/mae)** — self-supervised pretraining.
+- **[I-JEPA (Meta)](https://github.com/facebookresearch/ijepa)** — joint embedding, self-supervised.
 
 ### Libraries
-- **timm (Hugging Face)** — 1,000+ pretrained models. The reference.
-- **torchvision** — PyTorch's built-in model zoo. Smaller than timm.
-- **Keras Applications** — TF/Keras pretrained models.
+- **[timm (Hugging Face)](https://github.com/huggingface/pytorch-image-models)** — 1,000+ pretrained models. The reference.
+- **[torchvision](https://pytorch.org/vision/stable/index.html)** — PyTorch's built-in model zoo. Smaller than timm.
+- **[Keras Applications](https://keras.io/api/applications/)** — TF/Keras pretrained models.
 
 ### Datasets
-- **ImageNet-1K** — 1000-class classification benchmark.
-- **ImageNet-21K** — 21K classes, used for pretraining.
-- **iNaturalist** — fine-grained species classification.
-- **CIFAR-10 / 100** — toys.
-- **Places365** — scene classification.
+- **[ImageNet-1K](https://www.image-net.org/)** — 1000-class classification benchmark.
+- **[ImageNet-21K](https://www.image-net.org/)** — 21K classes, used for pretraining.
+- **[iNaturalist](https://github.com/visipedia/inat_comp)** — fine-grained species classification.
+- **[CIFAR-10 / 100](https://www.cs.toronto.edu/~kriz/cifar.html)** — toys.
+- **[Places365](http://places2.csail.mit.edu/)** — scene classification.
 
 ## Graveyard
 
-- **AlexNet (2012)** — historical.
-- **VGG (2014)** — the "deep but simple" era. Retired.
+- **[AlexNet (2012)](https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)** — historical.
+- **[VGG (2014)](https://arxiv.org/abs/1409.1556)** — the "deep but simple" era. Retired.
 - **Training from scratch on ImageNet** — retired for most use cases. Pretrained + fine-tune is almost always better.
 - **Ad-hoc CNN architectures in Keras** — retired. Use timm or torchvision backbones.
 

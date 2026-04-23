@@ -10,10 +10,10 @@ The field moves *fast*. The picks below are current as of 2026-04-22 and will ag
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Commercial flagship | **Gemini 2.5 Pro**, **GPT-5**, or **Claude 4 Sonnet/Opus** | Prototyping, low-volume production, when quality matters more than cost |
-| Commercial budget | **Gemini 2.5 Flash**, **GPT-5-mini**, **Claude Haiku** | High-volume, latency-sensitive. Often 10× cheaper than flagship. |
-| **Open flagship** | **Qwen3-VL-235B-A22B** or **InternVL3-78B** | Rivals Gemini-2.5-Pro / GPT-5 on multimodal benchmarks. Self-hosted, data-sensitive, cost-critical at scale. |
-| Open small | **Qwen3-VL-7B**, **InternVL3-8B**, **LLaVA-OneVision-7B** | Edge GPU, on-prem, prototyping |
+| Commercial flagship | **[Gemini 2.5 Pro](https://deepmind.google/technologies/gemini/pro/)**, **[GPT-5](https://platform.openai.com/docs/models)**, or **[Claude 4 Sonnet/Opus](https://www.anthropic.com/claude)** | Prototyping, low-volume production, when quality matters more than cost |
+| Commercial budget | **[Gemini 2.5 Flash](https://deepmind.google/technologies/gemini/flash/)**, **[GPT-5-mini](https://platform.openai.com/docs/models)**, **[Claude Haiku](https://www.anthropic.com/claude/haiku)** | High-volume, latency-sensitive. Often 10× cheaper than flagship. |
+| **Open flagship** | **[Qwen3-VL-235B-A22B](https://github.com/QwenLM/Qwen3-VL)** or **[InternVL3-78B](https://github.com/OpenGVLab/InternVL)** | Rivals Gemini-2.5-Pro / GPT-5 on multimodal benchmarks. Self-hosted, data-sensitive, cost-critical at scale. |
+| Open small | **[Qwen3-VL-7B](https://github.com/QwenLM/Qwen3-VL)**, **[InternVL3-8B](https://github.com/OpenGVLab/InternVL)**, **[LLaVA-OneVision-7B](https://github.com/LLaVA-VL/LLaVA-NeXT)** | Edge GPU, on-prem, prototyping |
 
 *Reading the picks:* **Operational default** depends on your deployment constraints — for teams with existing Qwen2-VL / InternVL2 pipelines and strict stability requirements, those remain acceptable operational defaults; the move to Qwen3-VL / InternVL3 is a newer strong contender worth testing rather than an urgent upgrade. **Latest strong contender** = Qwen3-VL, InternVL3 (newer generation, better benchmarks). **Research max** shifts monthly in this space; expect this page to age the fastest.
 
@@ -48,62 +48,62 @@ Three cases where a VLM is the right first try:
 
 ## Commercial APIs
 
-- **OpenAI** — GPT-5, GPT-5-mini, GPT-4o. Mature API. JSON mode + function calling. Image input standard.
-- **Google** — Gemini 2.5 Pro / Flash. Leads LMArena and WebDevArena for vision + coding. 1M+ token context. Native multimodal from training.
-- **Anthropic** — Claude 4 family (Opus, Sonnet, Haiku). Strongest factuality discipline. "Computer use" capability. PDF input native (parsed as images).
-- **xAI (Grok)** — Grok Vision available. Less mature ecosystem.
+- **[OpenAI](https://platform.openai.com/docs/models)** — GPT-5, GPT-5-mini, GPT-4o. Mature API. JSON mode + function calling. Image input standard.
+- **[Google](https://deepmind.google/technologies/gemini/)** — Gemini 2.5 Pro / Flash. Leads LMArena and WebDevArena for vision + coding. 1M+ token context. Native multimodal from training.
+- **[Anthropic](https://www.anthropic.com/claude)** — Claude 4 family (Opus, Sonnet, Haiku). Strongest factuality discipline. "Computer use" capability. PDF input native (parsed as images).
+- **[xAI (Grok)](https://x.ai/)** — Grok Vision available. Less mature ecosystem.
 
 ## Open models
 
-- **Qwen3-VL (Alibaba)** — 2B / 7B / 32B / 235B variants. Flagship Qwen3-VL-235B-A22B rivals Gemini 2.5 Pro and GPT-5 on multimodal benchmarks (Q&A, 2D/3D grounding, video understanding, OCR, document comprehension).
-- **InternVL3 (Shanghai AI Lab)** — 1B / 2B / 8B / 14B / 38B / 78B. InternVL3-78B scored 72.2 on MMMU — SOTA among open MLLMs at release. Adds tool use, GUI agents, 3D vision perception.
-- **Qwen2-VL / InternVL2** — previous generations. Still widely deployed; upgrade when convenient.
-- **LLaVA lineage (LLaVA-OneVision, LLaVA-NeXT)** — academic. Easy to fine-tune. Slightly behind Qwen/InternVL on benchmarks.
-- **CogVLM2 (Tsinghua)** — 19B. Solid open option.
-- **Molmo (Allen AI)** — trained on open data, fully open weights + data. Slightly behind proprietary on most benchmarks.
-- **Gemma 3** — Google's open VLM family. Strong mid-tier performer.
-- **Florence-2 (Microsoft)** — not a chat VLM but a multi-task vision model (captioning, detection, segmentation). Lightweight (~0.8B).
-- **PaliGemma (Google)** — 3B VLM, fine-tuning-friendly.
+- **[Qwen3-VL (Alibaba)](https://github.com/QwenLM/Qwen3-VL)** — 2B / 7B / 32B / 235B variants. Flagship Qwen3-VL-235B-A22B rivals Gemini 2.5 Pro and GPT-5 on multimodal benchmarks (Q&A, 2D/3D grounding, video understanding, OCR, document comprehension).
+- **[InternVL3 (Shanghai AI Lab)](https://github.com/OpenGVLab/InternVL)** — 1B / 2B / 8B / 14B / 38B / 78B. InternVL3-78B scored 72.2 on MMMU — SOTA among open MLLMs at release. Adds tool use, GUI agents, 3D vision perception.
+- **[Qwen2-VL](https://github.com/QwenLM/Qwen2-VL) / InternVL2** — previous generations. Still widely deployed; upgrade when convenient.
+- **[LLaVA lineage (LLaVA-OneVision, LLaVA-NeXT)](https://github.com/LLaVA-VL/LLaVA-NeXT)** — academic. Easy to fine-tune. Slightly behind Qwen/InternVL on benchmarks.
+- **[CogVLM2 (Tsinghua)](https://github.com/THUDM/CogVLM2)** — 19B. Solid open option.
+- **[Molmo (Allen AI)](https://molmo.allenai.org/)** — trained on open data, fully open weights + data. Slightly behind proprietary on most benchmarks.
+- **[Gemma 3](https://deepmind.google/models/gemma/)** — Google's open VLM family. Strong mid-tier performer.
+- **[Florence-2 (Microsoft)](https://huggingface.co/microsoft/Florence-2-large)** — not a chat VLM but a multi-task vision model (captioning, detection, segmentation). Lightweight (~0.8B).
+- **[PaliGemma (Google)](https://huggingface.co/google/paligemma-3b-pt-224)** — 3B VLM, fine-tuning-friendly.
 
 ## Running open VLMs
 
-- **vLLM** — the standard serving engine for open models. VLM support added 2024.
-- **Ollama** — easy local experimentation; limited VLM support, growing.
-- **Hugging Face Transformers** — reference implementations.
-- **SGLang** — alternative serving; strong performance.
+- **[vLLM](https://github.com/vllm-project/vllm)** — the standard serving engine for open models. VLM support added 2024.
+- **[Ollama](https://ollama.com/)** — easy local experimentation; limited VLM support, growing.
+- **[Hugging Face Transformers](https://github.com/huggingface/transformers)** — reference implementations.
+- **[SGLang](https://github.com/sgl-project/sglang)** — alternative serving; strong performance.
 
 ## Specialized multimodal tools (not general chat)
 
-- **CLIP (OpenAI, 2021)** — image-text embedding. The grandfather. Still the default for retrieval/search.
-- **SigLIP (Google, 2023)** — CLIP improved. Better zero-shot classification.
-- **BLIP-2 (Salesforce)** — image captioning. Superseded by modern VLMs but still in deployed pipelines.
+- **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — image-text embedding. The grandfather. Still the default for retrieval/search.
+- **[SigLIP (Google, 2023)](https://arxiv.org/abs/2303.15343)** — CLIP improved. Better zero-shot classification.
+- **[BLIP-2 (Salesforce)](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)** — image captioning. Superseded by modern VLMs but still in deployed pipelines.
 
 ## The Dump
 
-- **GPT-5 / GPT-4o (OpenAI)** — closed commercial.
-- **Gemini 2.5 Pro / Flash (Google)** — closed commercial. LMArena leader.
-- **Claude 4 Opus / Sonnet / Haiku (Anthropic)** — closed commercial.
-- **Grok Vision (xAI)** — closed commercial.
-- **Reka Core / Flash (Reka AI)** — commercial, multimodal-from-training.
-- **Qwen3-VL (Alibaba)** — open, current flagship.
-- **Qwen2-VL (Alibaba)** — open, previous generation. Still deployed.
-- **InternVL3** — open, SOTA among open MLLMs.
-- **InternVL2** — open, previous generation.
-- **LLaVA-OneVision** — open, academic.
-- **LLaVA-NeXT** — open, academic.
-- **Gemma 3 (Google)** — open mid-tier.
-- **CogVLM2** — open.
-- **Molmo (Allen AI)** — fully open.
-- **PaliGemma (Google)** — open, small.
-- **MiniCPM-V** — small open VLM.
-- **Florence-2** — multi-task vision, open.
-- **CLIP / SigLIP** — embedding models, not chat.
-- **BLIP-2** — captioning.
-- **Kosmos-2 (Microsoft)** — grounded multimodal. Research.
-- **Flamingo (DeepMind, 2022)** — historical, closed, not available.
-- **VILA (NVIDIA)** — open VLM family.
-- **Idefics2 / Idefics3 (Hugging Face)** — open, strong.
-- **Phi-3.5-vision (Microsoft)** — small open VLM.
+- **[GPT-5 / GPT-4o (OpenAI)](https://platform.openai.com/docs/models)** — closed commercial.
+- **[Gemini 2.5 Pro / Flash (Google)](https://deepmind.google/technologies/gemini/)** — closed commercial. LMArena leader.
+- **[Claude 4 Opus / Sonnet / Haiku (Anthropic)](https://www.anthropic.com/claude)** — closed commercial.
+- **[Grok Vision (xAI)](https://x.ai/)** — closed commercial.
+- **[Reka Core / Flash (Reka AI)](https://www.reka.ai/)** — commercial, multimodal-from-training.
+- **[Qwen3-VL (Alibaba)](https://github.com/QwenLM/Qwen3-VL)** — open, current flagship.
+- **[Qwen2-VL (Alibaba)](https://github.com/QwenLM/Qwen2-VL)** — open, previous generation. Still deployed.
+- **[InternVL3](https://github.com/OpenGVLab/InternVL)** — open, SOTA among open MLLMs.
+- **[InternVL2](https://github.com/OpenGVLab/InternVL)** — open, previous generation.
+- **[LLaVA-OneVision](https://github.com/LLaVA-VL/LLaVA-NeXT)** — open, academic.
+- **[LLaVA-NeXT](https://github.com/LLaVA-VL/LLaVA-NeXT)** — open, academic.
+- **[Gemma 3 (Google)](https://deepmind.google/models/gemma/)** — open mid-tier.
+- **[CogVLM2](https://github.com/THUDM/CogVLM2)** — open.
+- **[Molmo (Allen AI)](https://molmo.allenai.org/)** — fully open.
+- **[PaliGemma (Google)](https://huggingface.co/google/paligemma-3b-pt-224)** — open, small.
+- **[MiniCPM-V](https://github.com/OpenBMB/MiniCPM-V)** — small open VLM.
+- **[Florence-2](https://huggingface.co/microsoft/Florence-2-large)** — multi-task vision, open.
+- **[CLIP](https://github.com/openai/CLIP) / [SigLIP](https://arxiv.org/abs/2303.15343)** — embedding models, not chat.
+- **[BLIP-2](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)** — captioning.
+- **[Kosmos-2 (Microsoft)](https://github.com/microsoft/unilm/tree/master/kosmos-2)** — grounded multimodal. Research.
+- **[Flamingo (DeepMind, 2022)](https://arxiv.org/abs/2204.14198)** — historical, closed, not available.
+- **[VILA (NVIDIA)](https://github.com/NVlabs/VILA)** — open VLM family.
+- **[Idefics2](https://huggingface.co/HuggingFaceM4/idefics2-8b) / [Idefics3](https://huggingface.co/HuggingFaceM4/Idefics3-8B-Llama3) (Hugging Face)** — open, strong.
+- **[Phi-3.5-vision (Microsoft)](https://huggingface.co/microsoft/Phi-3.5-vision-instruct)** — small open VLM.
 
 ## Graveyard
 

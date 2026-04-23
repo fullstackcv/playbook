@@ -8,9 +8,9 @@ Tracking is usually bolted on top of an object detector (YOLO, RT-DETR). The tra
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| **Default** | **ByteTrack** | Fast, robust, very widely used. The 2026 default for most pipelines. |
-| With appearance features (ReID) | **BoT-SORT** | When objects cross/occlude each other a lot and appearance disambiguates |
-| Max accuracy (short-term occlusion) | **OC-SORT** or **StrongSORT** | Research / benchmark submissions |
+| **Default** | **[ByteTrack](https://github.com/ifzhang/ByteTrack)** | Fast, robust, very widely used. The 2026 default for most pipelines. |
+| With appearance features (ReID) | **[BoT-SORT](https://github.com/NirAharon/BoT-SORT)** | When objects cross/occlude each other a lot and appearance disambiguates |
+| Max accuracy (short-term occlusion) | **[OC-SORT](https://github.com/noahcao/OC_SORT)** or **[StrongSORT](https://github.com/dyhBUPT/StrongSORT)** | Research / benchmark submissions |
 
 ## Why ByteTrack is the default
 
@@ -46,24 +46,24 @@ Observation-Centric SORT refines the Kalman prediction to better handle non-line
 
 ## The Dump
 
-- **SORT (2016)** — original Simple Online Realtime Tracking. Kalman + Hungarian. Foundational.
-- **DeepSORT (2017)** — SORT + a ReID network. Historical default for ReID-enhanced tracking.
+- **[SORT (2016)](https://github.com/abewley/sort)** — original Simple Online Realtime Tracking. Kalman + Hungarian. Foundational.
+- **[DeepSORT (2017)](https://github.com/nwojke/deep_sort)** — SORT + a ReID network. Historical default for ReID-enhanced tracking.
 - **IOU Tracker (2017)** — the absolute simplest tracker — match by bounding box IoU. Surprisingly decent baseline.
-- **FairMOT (2020)** — joint detection + ReID. Historically strong for pedestrians.
-- **ByteTrack (2021)** — the current default. Uses low-confidence detections.
-- **BoT-SORT (2022)** — ByteTrack + ReID.
-- **OC-SORT (2022)** — observation-centric Kalman.
-- **StrongSORT (2022)** — modernized DeepSORT with better ReID. Strong in occlusions and camera shifts.
-- **Hybrid-SORT (AAAI 2024)** — SOTA heuristic tracker on DanceTrack; also strong on MOT17/20.
+- **[FairMOT (2020)](https://github.com/ifzhang/FairMOT)** — joint detection + ReID. Historically strong for pedestrians.
+- **[ByteTrack (2021)](https://github.com/ifzhang/ByteTrack)** — the current default. Uses low-confidence detections.
+- **[BoT-SORT (2022)](https://github.com/NirAharon/BoT-SORT)** — ByteTrack + ReID.
+- **[OC-SORT (2022)](https://github.com/noahcao/OC_SORT)** — observation-centric Kalman.
+- **[StrongSORT (2022)](https://github.com/dyhBUPT/StrongSORT)** — modernized DeepSORT with better ReID. Strong in occlusions and camera shifts.
+- **[Hybrid-SORT (AAAI 2024)](https://github.com/ymzis69/HybridSORT)** — SOTA heuristic tracker on DanceTrack; also strong on MOT17/20.
 - **SolidTrack (2025)** — marginal accuracy win over ByteTrack (80.6 vs ~80.3 MOTA on MOT17). Lower variance across settings. Worth trying if ID-switch rate matters.
-- **MOTR / MOTRv2 (end-to-end transformer tracker)** — research-register, slower.
-- **BoxMOT (mikel-brostrom)** — Python library bundling multiple modern trackers with a unified interface. Best starting point for prototyping trackers.
-- **OpenMMLab MMTracking** — trackers in the MM ecosystem. Has SOT and MOT.
-- **Norfair** — lightweight Python tracker library. Simpler than BoxMOT.
-- **Supervision (Roboflow)** — tracker wrapper on top of YOLO outputs. Makes tracking a 2-line addition to detection.
-- **SAM 2 (video mode)** — mask tracking in video. Different output than box trackers.
-- **STARK / OSTrack (single object tracking)** — SOT transformers for one-object scenarios.
-- **Yolov8-track / Ultralytics tracking** — one-line ByteTrack or BoT-SORT on top of YOLO.
+- **[MOTR / MOTRv2](https://github.com/megvii-research/MOTRv2) (end-to-end transformer tracker)** — research-register, slower.
+- **[BoxMOT (mikel-brostrom)](https://github.com/mikel-brostrom/boxmot)** — Python library bundling multiple modern trackers with a unified interface. Best starting point for prototyping trackers.
+- **[OpenMMLab MMTracking](https://github.com/open-mmlab/mmtracking)** — trackers in the MM ecosystem. Has SOT and MOT.
+- **[Norfair](https://github.com/tryolabs/norfair)** — lightweight Python tracker library. Simpler than BoxMOT.
+- **[Supervision (Roboflow)](https://github.com/roboflow/supervision)** — tracker wrapper on top of YOLO outputs. Makes tracking a 2-line addition to detection.
+- **[SAM 2 (video mode)](https://github.com/facebookresearch/sam2)** — mask tracking in video. Different output than box trackers.
+- **[STARK](https://github.com/researchmm/Stark) / [OSTrack](https://github.com/botaoye/OSTrack) (single object tracking)** — SOT transformers for one-object scenarios.
+- **[Yolov8-track / Ultralytics tracking](https://docs.ultralytics.com/modes/track/)** — one-line ByteTrack or BoT-SORT on top of YOLO.
 - **RealSense / depth-aware trackers** — if you have depth, you can improve association. Niche.
 
 ## Graveyard

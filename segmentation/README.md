@@ -8,10 +8,10 @@ Segmentation used to be a painful subtask that required large annotated datasets
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Edge / mobile | **MobileSAM** or **EfficientSAM** | On-device, low-latency interactive segmentation |
-| **Default (zero-shot, concept-prompted)** | **SAM 3 / SAM 3.1** (Meta, Nov 2025 / Mar 2026) | Native text + image exemplar prompts. Doubles SAM 2 accuracy on PCS. Video tracking at 32 FPS. |
-| **Default (trained task)** | **Mask2Former** or **YOLO26-seg** | When you have labeled data and want instance segmentation in one pass |
-| Max accuracy (research) | **OneFormer** or **SAM 3 with concept prompts** | Research benchmarks |
+| Edge / mobile | **[MobileSAM](https://github.com/ChaoningZhang/MobileSAM)** or **[EfficientSAM](https://github.com/yformer/EfficientSAM)** | On-device, low-latency interactive segmentation |
+| **Default (zero-shot, concept-prompted)** | **[SAM 3 / SAM 3.1](https://github.com/facebookresearch/sam3)** (Meta, Nov 2025 / Mar 2026) | Native text + image exemplar prompts. Doubles SAM 2 accuracy on PCS. Video tracking at 32 FPS. |
+| **Default (trained task)** | **[Mask2Former](https://github.com/facebookresearch/Mask2Former)** or **[YOLO26-seg](https://github.com/ultralytics/ultralytics)** | When you have labeled data and want instance segmentation in one pass |
+| Max accuracy (research) | **[OneFormer](https://github.com/SHI-Labs/OneFormer)** or **SAM 3 with concept prompts** | Research benchmarks |
 
 Segmentation splits into "interactive / zero-shot" and "trained / one-shot" — those are different picks.
 
@@ -62,35 +62,35 @@ SAM is heavy. For on-device:
 
 ## The Dump
 
-- **U-Net (2015)** — the encoder-decoder that started it all. Still the standard for medical.
-- **Mask R-CNN (2017)** — instance segmentation via two-stage detection + mask head. Historical default.
-- **DeepLabV3+ (2018)** — semantic segmentation. Still used in autonomous.
-- **PointRend (2020)** — sharp boundaries via point-based refinement.
-- **SegFormer (2021)** — ViT-based semantic. Good accuracy-efficiency.
-- **Mask2Former (2022)** — unified architecture. The serious trained-model default.
-- **SAM (Meta, 2023)** — open-vocabulary, promptable. Changed the field.
-- **SAM 2 (Meta, 2024)** — video extension of SAM.
-- **SAM 3 (Meta, Nov 2025)** — concept prompts (text + exemplars). 2× accuracy on PCS vs SAM 2.
-- **SAM 3.1 (Meta, Mar 2026)** — Object Multiplex for joint MOT, 2× video throughput.
-- **MobileSAM (2023)** — mobile/edge distilled SAM.
-- **EfficientSAM (Meta, 2024)** — another SAM distillation.
-- **FastSAM (2023)** — YOLOv8-seg adapted for SAM-style prompts. Significantly faster, less accurate.
-- **HQ-SAM (2023)** — high-quality mask refinement on top of SAM.
-- **YOLOv8-seg / YOLOv11-seg** — instance segmentation with the YOLO ecosystem.
-- **OneFormer (2023)** — unified architecture; one model for all three segmentation types.
-- **Grounded-SAM** — Grounding DINO + SAM → text-prompt segmentation.
+- **[U-Net (2015)](https://arxiv.org/abs/1505.04597)** — the encoder-decoder that started it all. Still the standard for medical.
+- **[Mask R-CNN (2017)](https://arxiv.org/abs/1703.06870)** — instance segmentation via two-stage detection + mask head. Historical default.
+- **[DeepLabV3+ (2018)](https://arxiv.org/abs/1802.02611)** — semantic segmentation. Still used in autonomous.
+- **[PointRend (2020)](https://arxiv.org/abs/1912.08193)** — sharp boundaries via point-based refinement.
+- **[SegFormer (2021)](https://github.com/NVlabs/SegFormer)** — ViT-based semantic. Good accuracy-efficiency.
+- **[Mask2Former (2022)](https://github.com/facebookresearch/Mask2Former)** — unified architecture. The serious trained-model default.
+- **[SAM (Meta, 2023)](https://github.com/facebookresearch/segment-anything)** — open-vocabulary, promptable. Changed the field.
+- **[SAM 2 (Meta, 2024)](https://github.com/facebookresearch/sam2)** — video extension of SAM.
+- **[SAM 3 (Meta, Nov 2025)](https://github.com/facebookresearch/sam3)** — concept prompts (text + exemplars). 2× accuracy on PCS vs SAM 2.
+- **[SAM 3.1 (Meta, Mar 2026)](https://github.com/facebookresearch/sam3)** — Object Multiplex for joint MOT, 2× video throughput.
+- **[MobileSAM (2023)](https://github.com/ChaoningZhang/MobileSAM)** — mobile/edge distilled SAM.
+- **[EfficientSAM (Meta, 2024)](https://github.com/yformer/EfficientSAM)** — another SAM distillation.
+- **[FastSAM (2023)](https://github.com/CASIA-IVA-Lab/FastSAM)** — YOLOv8-seg adapted for SAM-style prompts. Significantly faster, less accurate.
+- **[HQ-SAM (2023)](https://github.com/SysCV/sam-hq)** — high-quality mask refinement on top of SAM.
+- **[YOLOv8-seg / YOLOv11-seg](https://github.com/ultralytics/ultralytics)** — instance segmentation with the YOLO ecosystem.
+- **[OneFormer (2023)](https://github.com/SHI-Labs/OneFormer)** — unified architecture; one model for all three segmentation types.
+- **[Grounded-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything)** — Grounding DINO + SAM → text-prompt segmentation.
 - **SAM + CLIP** — zero-shot class-agnostic then classify.
-- **nnU-Net** — self-configuring U-Net for medical. The medical default.
-- **MONAI** — medical imaging AI ecosystem; includes segmentation networks and training pipelines.
-- **Panoptic-DeepLab** — panoptic semantic + instance in one net.
-- **MediaPipe Selfie / Image Segmenter** — browser/mobile, limited to specific classes.
-- **Apple Vision VNGeneratePersonSegmentationRequest** — on-device iOS person segmentation.
+- **[nnU-Net](https://github.com/MIC-DKFZ/nnUNet)** — self-configuring U-Net for medical. The medical default.
+- **[MONAI](https://monai.io/)** — medical imaging AI ecosystem; includes segmentation networks and training pipelines.
+- **[Panoptic-DeepLab](https://github.com/bowenc0221/panoptic-deeplab)** — panoptic semantic + instance in one net.
+- **[MediaPipe Selfie / Image Segmenter](https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter)** — browser/mobile, limited to specific classes.
+- **[Apple Vision VNGeneratePersonSegmentationRequest](https://developer.apple.com/documentation/vision/vngeneratepersonsegmentationrequest)** — on-device iOS person segmentation.
 
 ## Graveyard
 
 - **Mask R-CNN as a default for new work** — retired by Mask2Former and SAM.
 - **Hand-crafted CRF post-processing** — retired ~2019; modern models produce clean masks without it.
-- **FCN (fully convolutional, 2015)** — superseded by U-Net and DeepLab family.
+- **[FCN (fully convolutional, 2015)](https://arxiv.org/abs/1411.4038)** — superseded by U-Net and DeepLab family.
 
 ## Last reviewed
 

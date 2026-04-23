@@ -8,11 +8,11 @@ Depth splits into two very different problems. Monocular (one image → depth ma
 
 | Flavor | Pick | When to use |
 |--------|------|-------------|
-| **Monocular default** | **Depth Anything 3** (ByteDance, ICLR 2026) | Supersedes DA2; single-transformer architecture with DINOv2 encoder. Over 10% improvement on ETH3D vs DA2. |
-| Monocular metric depth | **Depth Anything 3 Metric-Large** | `metric_depth = focal * net_output / 300`. Single model for indoor + outdoor metric. |
-| Multi-view geometry | **Depth Anything 3** (multi-view mode) | Same model predicts spatially consistent geometry from any number of views. Beats VGGT by 44.3% on camera pose, 25.1% on geometric accuracy. |
-| Stereo / depth sensor | **OpenCV StereoSGBM** or **RAFT-Stereo** | If you already have a stereo rig or RGB-D camera. |
-| Commercial depth sensor | **Intel RealSense / Orbbec / Luxonis OAK-D** | If hardware is still in the budget. On-device depth, no ML cost. |
+| **Monocular default** | **[Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3)** (ByteDance, ICLR 2026) | Supersedes DA2; single-transformer architecture with DINOv2 encoder. Over 10% improvement on ETH3D vs DA2. |
+| Monocular metric depth | **[Depth Anything 3 Metric-Large](https://github.com/ByteDance-Seed/Depth-Anything-3)** | `metric_depth = focal * net_output / 300`. Single model for indoor + outdoor metric. |
+| Multi-view geometry | **[Depth Anything 3](https://github.com/ByteDance-Seed/Depth-Anything-3)** (multi-view mode) | Same model predicts spatially consistent geometry from any number of views. Beats VGGT by 44.3% on camera pose, 25.1% on geometric accuracy. |
+| Stereo / depth sensor | **[OpenCV StereoSGBM](https://docs.opencv.org/4.x/d2/d85/classcv_1_1StereoSGBM.html)** or **[RAFT-Stereo](https://github.com/princeton-vl/RAFT-Stereo)** | If you already have a stereo rig or RGB-D camera. |
+| Commercial depth sensor | **[Intel RealSense](https://www.intelrealsense.com/) / [Orbbec](https://www.orbbec.com/) / [Luxonis OAK-D](https://shop.luxonis.com/)** | If hardware is still in the budget. On-device depth, no ML cost. |
 
 ## Monocular: why Depth Anything 3 is the default
 
@@ -34,9 +34,9 @@ DA3 ships a dedicated **DA3 Metric-Large** checkpoint fine-tuned for metric dept
 For robotics or measurement use cases with high reliability requirements, a stereo rig or RGB-D sensor is still more consistent than monocular metric depth across domains.
 
 Historical alternatives (still seen in deployed pipelines):
-- **ZoeDepth (Intel ISL, 2023)** — indoor + outdoor metric depth. Pre-DA3.
-- **Depth Anything V2 Metric** — DA2 metric fine-tunes. Pre-DA3.
-- **Metric3D** — universal metric depth via camera intrinsics.
+- **[ZoeDepth (Intel ISL, 2023)](https://github.com/isl-org/ZoeDepth)** — indoor + outdoor metric depth. Pre-DA3.
+- **[Depth Anything V2 Metric](https://github.com/DepthAnything/Depth-Anything-V2)** — DA2 metric fine-tunes. Pre-DA3.
+- **[Metric3D](https://github.com/YvanYin/Metric3D)** — universal metric depth via camera intrinsics.
 
 ## Stereo — the old reliable
 
@@ -62,25 +62,25 @@ If you don't already have a stereo setup, don't add one just for depth; Depth An
 
 ## The Dump
 
-- **Stereo SGBM (OpenCV, classical)** — the CPU-era default. Still effective.
-- **RAFT-Stereo (2021)** — neural stereo, slow, accurate.
-- **CREStereo (2022)** — refinement-based neural stereo.
-- **MiDaS (Intel ISL, 2019)** — the original "robust monocular depth." Relative.
-- **MiDaS v3.x / DPT (2021)** — transformer-based MiDaS. Strong for years.
-- **Monodepth2 (2019)** — self-supervised from video, still used in driving.
-- **Depth Anything (2024)** — massive dataset + semi-supervised training.
-- **Depth Anything V2 (mid-2024)** — improved training. Pre-DA3.
-- **Depth Anything 3 (ByteDance, Nov 2025, ICLR 2026)** — current SOTA; single-transformer architecture for depth + multi-view geometry.
-- **ZoeDepth (2023)** — metric depth, indoor+outdoor.
-- **Marigold (2023)** — diffusion-based depth, slower, very clean outputs.
-- **Metric3D v2** — universal metric depth with intrinsics.
-- **Intel RealSense** — depth camera hardware (D435i, D455, etc.). Active IR stereo.
-- **Orbbec Astra / Femto** — budget depth cameras.
-- **Luxonis OAK-D** — embedded depth + detection in one device.
-- **iPhone TrueDepth / LiDAR** — on-device depth via Apple's ARKit. Very accurate at short range.
+- **[Stereo SGBM (OpenCV, classical)](https://docs.opencv.org/4.x/d2/d85/classcv_1_1StereoSGBM.html)** — the CPU-era default. Still effective.
+- **[RAFT-Stereo (2021)](https://github.com/princeton-vl/RAFT-Stereo)** — neural stereo, slow, accurate.
+- **[CREStereo (2022)](https://github.com/megvii-research/CREStereo)** — refinement-based neural stereo.
+- **[MiDaS (Intel ISL, 2019)](https://github.com/isl-org/MiDaS)** — the original "robust monocular depth." Relative.
+- **[MiDaS v3.x / DPT (2021)](https://github.com/isl-org/DPT)** — transformer-based MiDaS. Strong for years.
+- **[Monodepth2 (2019)](https://github.com/nianticlabs/monodepth2)** — self-supervised from video, still used in driving.
+- **[Depth Anything (2024)](https://github.com/LiheYoung/Depth-Anything)** — massive dataset + semi-supervised training.
+- **[Depth Anything V2 (mid-2024)](https://github.com/DepthAnything/Depth-Anything-V2)** — improved training. Pre-DA3.
+- **[Depth Anything 3 (ByteDance, Nov 2025, ICLR 2026)](https://github.com/ByteDance-Seed/Depth-Anything-3)** — current SOTA; single-transformer architecture for depth + multi-view geometry.
+- **[ZoeDepth (2023)](https://github.com/isl-org/ZoeDepth)** — metric depth, indoor+outdoor.
+- **[Marigold (2023)](https://github.com/prs-eth/Marigold)** — diffusion-based depth, slower, very clean outputs.
+- **[Metric3D v2](https://github.com/YvanYin/Metric3D)** — universal metric depth with intrinsics.
+- **[Intel RealSense](https://www.intelrealsense.com/)** — depth camera hardware (D435i, D455, etc.). Active IR stereo.
+- **[Orbbec Astra / Femto](https://www.orbbec.com/)** — budget depth cameras.
+- **[Luxonis OAK-D](https://shop.luxonis.com/)** — embedded depth + detection in one device.
+- **[iPhone TrueDepth / LiDAR](https://developer.apple.com/documentation/arkit)** — on-device depth via Apple's ARKit. Very accurate at short range.
 - **Kinect (deprecated)** — historical Microsoft depth sensor. Replaced by Azure Kinect, also deprecated. Niche.
-- **StructureFromMotion (SfM) tools** — COLMAP for multi-image depth + pose. Not real-time, not single-image.
-- **Gaussian Splatting** — not depth per se, but a modern 3D reconstruction alternative.
+- **[StructureFromMotion (SfM) tools](https://colmap.github.io/)** — COLMAP for multi-image depth + pose. Not real-time, not single-image.
+- **[Gaussian Splatting](https://github.com/graphdeco-inria/gaussian-splatting)** — not depth per se, but a modern 3D reconstruction alternative.
 
 ## Graveyard
 
