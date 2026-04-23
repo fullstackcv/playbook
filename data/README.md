@@ -45,6 +45,19 @@ When you don't need a UI and can label in a script:
 
 ## Benchmark datasets (the canonical ones)
 
+> [!WARNING]
+> **Dataset licenses matter — most academic CV datasets are research-only.** Training on these and shipping the resulting weights commercially is a license violation in most cases.
+> - **ImageNet**: non-commercial research license from Stanford/Princeton.
+> - **COCO**: CC-BY-4.0 images (commercial OK with attribution), but the *annotations* are CC-BY-4.0 too — check each sub-dataset.
+> - **Open Images**: CC-BY-2.0 images (commercial OK with attribution). Good baseline for commercial training.
+> - **CelebA**: CC-BY-NC-SA-4.0 (non-commercial).
+> - **CASIA-WebFace / VGGFace2 / MS-Celeb-1M / Glint360K / WebFace260M**: all research-only.
+> - **SA-1B (SAM training set)**: research license.
+> - **LAION-5B / LAION-2B**: CC-BY-4.0 metadata; image URLs are third-party rights — training on them is legally murky and has open lawsuits.
+> - **LFW / MOT / Kinetics / ADE20K / Cityscapes**: research/academic licenses — evaluation OK, commercial deployment of derived weights is not.
+>
+> If you're training for a commercial product: **COCO, Open Images, and your own proprietary/licensed data** are the cleanest options. Synthetic data (Blender, Omniverse, diffusion-generated) also bypasses dataset licensing.
+
 ### Detection
 - **[COCO (2014)](https://cocodataset.org/)** — 80 classes, 330K images. The universal detection benchmark.
 - **[Open Images V7](https://storage.googleapis.com/openimages/web/index.html)** — ~9M images, 600+ classes. Larger but noisier than COCO.

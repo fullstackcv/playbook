@@ -16,16 +16,28 @@ Generation is a distinct world from perception — different libraries, differen
 | Editing (img2img / inpainting) | **[Flux Fill](https://huggingface.co/black-forest-labs/FLUX.1-Fill-dev)**, **SDXL Inpainting**, or a commercial "edit" API | Targeted regions of an existing image |
 | Fast / real-time | **[SDXL Turbo](https://huggingface.co/stabilityai/sdxl-turbo)**, **[SD Lightning](https://huggingface.co/ByteDance/SDXL-Lightning)**, or **[Flux Schnell](https://huggingface.co/black-forest-labs/FLUX.1-schnell)** | Live preview, sketch-to-image, interactive apps |
 
+> [!WARNING]
+> **Open image-gen weights have messy licenses — check before shipping.**
+> - **Flux.1 [dev]**: FLUX.1 [dev] Non-Commercial License — research/personal only, no commercial use of the weights.
+> - **Flux.1 [schnell]**: Apache-2.0 — commercial-safe.
+> - **Flux 2 Pro / Pro 1.1**: commercial API-only (Black Forest Labs hosted). The open **Flux 2 [dev]** weights inherit the same non-commercial terms as Flux.1 [dev].
+> - **Stable Diffusion 3 / 3.5**: Stability Community License — free below $1M annual revenue or non-commercial; paid Enterprise License required above that threshold.
+> - **SDXL 1.0**: CreativeML OpenRAIL++-M — commercial-safe with use restrictions (no illegal / harmful content, attribution).
+> - **SD 1.5**: OpenRAIL-M — similar terms to SDXL.
+> - **Qwen-Image**: Apache-2.0 — commercial-safe.
+>
+> For commercial deployment with **no license friction**: Flux.1 [schnell] (Apache-2.0), SDXL 1.0 (OpenRAIL++-M), or Qwen-Image (Apache-2.0). For commercial flagship quality with a clean license: pay for Flux 2 Pro / Midjourney / DALL-E / Imagen API.
+
 ## Why Flux 2 is the current open leader
 
 **Flux 2** (Black Forest Labs, November 2025) is the biggest open-model step forward since SDXL. Superior photorealism, better prompt comprehension, up to 4MP output. Best single choice for portrait / product / hero image quality.
 
 Flux family as of 2026:
 - **Flux 2 Pro** — API-only commercial, max quality.
-- **Flux.1 [dev]** — 12B params, non-commercial license. Still widely used because of the maturing ecosystem.
-- **Flux.1 [schnell]** — Apache 2 license, 1-step or 4-step generation. Use for self-hosted commercial.
+- **Flux.1 [dev]** — 12B params, **FLUX.1 [dev] Non-Commercial License**. Still widely used in research and non-commercial tooling because of the maturing ecosystem. *Don't ship this in a commercial product.*
+- **Flux.1 [schnell]** — Apache-2.0 license, 1-step or 4-step generation. **Use this for self-hosted commercial.**
 
-For self-hosted commercial: Flux.1 [schnell] (Apache) or Qwen-Image (Apache). For highest-quality self-hosted with non-commercial acceptable: Flux 2 via HF weights or Flux.1 [dev].
+For self-hosted commercial: Flux.1 [schnell] (Apache) or Qwen-Image (Apache). For highest-quality self-hosted with non-commercial acceptable: Flux 2 / Flux.1 [dev] weights.
 
 ## Why Qwen-Image for text-in-image
 
@@ -101,17 +113,17 @@ Video generation is moving faster than image generation and the recommendations 
 ## The Dump
 
 ### Diffusion model families
-- **[Stable Diffusion 1.5 (SD 1.5)](https://huggingface.co/runwayml/stable-diffusion-v1-5)** — the classic. Still running in many pipelines for backwards compat.
-- **[SDXL 1.0 (Stability AI, 2023)](https://github.com/Stability-AI/generative-models)** — mature open default.
-- **[SD 3 / SD 3.5 (Stability AI, 2024)](https://stability.ai/news/stable-diffusion-3-5)** — mixed reception, license complications.
-- **[Flux.1 (Black Forest Labs, 2024)](https://github.com/black-forest-labs/flux)** — the current open leader.
-- **[Pixart-α](https://github.com/PixArt-alpha/PixArt-alpha) / [Pixart-Σ](https://github.com/PixArt-alpha/PixArt-sigma)** — alternative open model families.
-- **[Kolors (Kuaishou)](https://github.com/Kwai-Kolors/Kolors)** — strong Chinese-text generation.
-- **[Playground v3](https://playground.com/)** — aesthetic-tuned SDXL variant.
-- **[Juggernaut / DreamShaper / RealVis](https://civitai.com/)** — popular SDXL fine-tunes on Civitai.
+- **[Stable Diffusion 1.5 (SD 1.5)](https://huggingface.co/runwayml/stable-diffusion-v1-5)** — the classic. Still running in many pipelines for backwards compat. *License: CreativeML OpenRAIL-M (commercial with use restrictions).*
+- **[SDXL 1.0 (Stability AI, 2023)](https://github.com/Stability-AI/generative-models)** — mature open default. *License: CreativeML OpenRAIL++-M (commercial with use restrictions).*
+- **[SD 3 / SD 3.5 (Stability AI, 2024)](https://stability.ai/news/stable-diffusion-3-5)** — mixed reception. *License: **Stability Community License** — free below $1M annual revenue; paid Enterprise License above.*
+- **[Flux.1 dev / schnell (Black Forest Labs, 2024)](https://github.com/black-forest-labs/flux)** — the current open leader. *License: Flux.1 [dev] **non-commercial**; Flux.1 [schnell] Apache-2.0.*
+- **[Pixart-α](https://github.com/PixArt-alpha/PixArt-alpha) / [Pixart-Σ](https://github.com/PixArt-alpha/PixArt-sigma)** — alternative open model families. *AGPL-3.0.*
+- **[Kolors (Kuaishou)](https://github.com/Kwai-Kolors/Kolors)** — strong Chinese-text generation. *Apache-2.0.*
+- **[Playground v3](https://playground.com/)** — aesthetic-tuned SDXL variant. *Playground v2.5 Community License (non-commercial for weights).*
+- **[Juggernaut / DreamShaper / RealVis](https://civitai.com/)** — popular SDXL fine-tunes on Civitai. *Varies per author — always check the Civitai model card before commercial use.*
 
 ### Tools
-- **[ComfyUI](https://github.com/comfyanonymous/ComfyUI)** — node-based UI, most flexible.
+- **[ComfyUI](https://github.com/comfyanonymous/ComfyUI)** — node-based UI, most flexible. *License: GPL-3.0 — if you distribute a product based on it, you must open-source your derivative.*
 - **[Automatic1111](https://github.com/AUTOMATIC1111/stable-diffusion-webui)** — classic WebUI.
 - **[Fooocus](https://github.com/lllyasviel/Fooocus) / [Forge](https://github.com/lllyasviel/stable-diffusion-webui-forge) / [InvokeAI](https://github.com/invoke-ai/InvokeAI)** — alternative UIs.
 - **[Diffusers](https://github.com/huggingface/diffusers)** — Python library.

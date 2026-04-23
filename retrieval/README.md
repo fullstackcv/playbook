@@ -12,6 +12,13 @@ This page is the *general* retrieval case. For *face identity search specificall
 |-----------|------|-------------|
 | **Embedding model (text + image)** | **[SigLIP](https://github.com/google-research/big_vision)** or **[OpenCLIP ViT-L/14](https://github.com/mlfoundations/open_clip)** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
 | Embedding model (image only, strong transfer) | **[DINOv3](https://github.com/facebookresearch/dinov3)** | No text side; pure image-to-image. |
+
+> [!WARNING]
+> **Embedding model licenses:**
+> - **DINOv3**: commercial-friendly Meta license (first DINO generation that's commercial-safe).
+> - **DINOv2 / DINOv1**: CC-BY-NC 4.0 — **non-commercial**. Still widely deployed but check if your product is commercial before relying on DINOv2.
+> - **CLIP** (MIT), **OpenCLIP** (MIT), **SigLIP** (Apache-2.0): all commercial-safe.
+> - **Jina / Cohere / OpenAI embeddings**: commercial APIs, licensed via vendor T&C.
 | Fine-tuned for retrieval | **train a SigLIP LoRA** or a model from the **[`sentence-transformers`](https://github.com/UKPLab/sentence-transformers)** image family | Domain-specific retrieval. |
 | ANN index (self-hosted, one machine) | **[FAISS](https://github.com/facebookresearch/faiss)** | < 100M vectors, you control the infra. |
 | Managed vector DB | **[pgvector](https://github.com/pgvector/pgvector)** (Postgres ext), **[Qdrant](https://qdrant.tech/)**, **[Weaviate](https://weaviate.io/)**, **[Pinecone](https://www.pinecone.io/)** | Multi-tenant, SQL integration, managed ops. |
@@ -62,9 +69,9 @@ For most use cases, **FAISS** until you need multi-tenant. Then **pgvector** or 
 - **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — the grandfather. Still widely deployed.
 - **[OpenCLIP](https://github.com/mlfoundations/open_clip)** — open re-implementation with LAION weights.
 - **[SigLIP (Google, 2023)](https://github.com/google-research/big_vision)** — improved CLIP. The recommended baseline.
-- **[DINOv3 (Meta, Aug 2025)](https://github.com/facebookresearch/dinov3)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval.
-- **[DINOv2 (Meta, 2023)](https://github.com/facebookresearch/dinov2)** — predecessor. Still widely deployed; comparable recipe, smaller compute.
-- **[DINOv1 (Meta, 2021)](https://github.com/facebookresearch/dino)** — original. Historical.
+- **[DINOv3 (Meta, Aug 2025)](https://github.com/facebookresearch/dinov3)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval. *License: commercial-friendly.*
+- **[DINOv2 (Meta, 2023)](https://github.com/facebookresearch/dinov2)** — predecessor. Still widely deployed; comparable recipe, smaller compute. *License: **CC-BY-NC 4.0 — non-commercial**.*
+- **[DINOv1 (Meta, 2021)](https://github.com/facebookresearch/dino)** — original. Historical. *License: **CC-BY-NC 4.0 — non-commercial**.*
 - **[Jina Embeddings](https://jina.ai/embeddings/)** — commercial embedding API.
 - **[Cohere Embed](https://cohere.com/embeddings)** — commercial multimodal embeddings.
 - **[OpenAI text-embedding-3 + CLIP](https://platform.openai.com/docs/guides/embeddings)** — OpenAI's commercial embedding API (primarily text, CLIP for images).

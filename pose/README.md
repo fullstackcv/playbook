@@ -40,9 +40,9 @@ If you're building anything that runs in a browser tab or a phone app without a 
 
 ## The Dump
 
-- **[OpenPose (2017)](https://github.com/CMU-Perceptual-Computing-Lab/openpose)** — the original multi-person pose pipeline. Historical weight, supplanted.
+- **[OpenPose (2017)](https://github.com/CMU-Perceptual-Computing-Lab/openpose)** — the original multi-person pose pipeline. Historical weight, supplanted. *License: **CMU non-commercial academic license** — commercial use requires a paid license from CMU; this is the famous reason OpenPose stopped being a production default around 2020.*
 - **[HRNet (2019)](https://github.com/HRNet/HRNet-Human-Pose-Estimation)** — high-resolution network. Still the backbone of many modern pose models.
-- **[AlphaPose (SJTU)](https://github.com/MVIG-SJTU/AlphaPose)** — strong top-down system. Outpaced by RTMPose.
+- **[AlphaPose (SJTU)](https://github.com/MVIG-SJTU/AlphaPose)** — strong top-down system. Outpaced by RTMPose. *License: non-commercial research license.*
 - **[Detectron2 Keypoint R-CNN](https://github.com/facebookresearch/detectron2)** — Facebook's keypoint detection in Detectron2. Reasonable but dated.
 - **[MediaPipe Pose (Google)](https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker)** — TFLite, 33 keypoints, browser/mobile default.
 - **[MediaPipe Hands](https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker)** — 21 keypoints per hand, same ecosystem.
@@ -56,7 +56,7 @@ If you're building anything that runs in a browser tab or a phone app without a 
 - **[DWPose (2023)](https://github.com/IDEA-Research/DWPose)** — distilled whole-body, used as the ControlNet pose preprocessor.
 - **[MotionBERT](https://github.com/Walter0807/MotionBERT)** — 3D human motion representation. Strong on video.
 - **[MMHuman3D (OpenMMLab)](https://github.com/open-mmlab/mmhuman3d)** — SMPL body fitting from video.
-- **[Yolov8-pose / Yolov11-pose (Ultralytics)](https://github.com/ultralytics/ultralytics)** — YOLO with a keypoint head. Fast, good ecosystem, less accurate than RTMPose.
+- **[Yolov8-pose / Yolov11-pose (Ultralytics)](https://github.com/ultralytics/ultralytics)** — YOLO with a keypoint head. Fast, good ecosystem, less accurate than RTMPose. *License: **AGPL-3.0**; commercial use requires Ultralytics Enterprise License.*
 - **[PoseNet (Google, TFJS)](https://github.com/tensorflow/tfjs-models/tree/master/posenet)** — the browser default before MediaPipe. Retired.
 - **[MMPose (OpenMMLab)](https://github.com/open-mmlab/mmpose)** — the reference training/inference library for top-down pose.
 - **[rtmlib](https://github.com/Tau-J/rtmlib)** — lightweight wrapper around RTMPose without the MMPose dependency chain.

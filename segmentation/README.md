@@ -13,6 +13,14 @@ Segmentation used to be a painful subtask that required large annotated datasets
 | **Default (trained task)** | **[Mask2Former](https://github.com/facebookresearch/Mask2Former)** or **[YOLO26-seg](https://github.com/ultralytics/ultralytics)** | When you have labeled data and want instance segmentation in one pass |
 | Max accuracy (research) | **[OneFormer](https://github.com/SHI-Labs/OneFormer)** or **SAM 3 with concept prompts** | Research benchmarks |
 
+> [!WARNING]
+> **License notes for picks:**
+> - **SAM 2 / 3 / 3.1**: Apache-2.0 (Meta) — commercial-safe. Good news: segmentation's most capable open models ship commercial-clean.
+> - **YOLO26-seg**: **AGPL-3.0** (Ultralytics) — commercial use requires paid Enterprise License. Use Mask2Former if you want commercial-safe trained instance seg.
+> - **Mask2Former**: MIT (Meta) — commercial-safe.
+> - **OneFormer**: MIT — commercial-safe.
+> - **MobileSAM / EfficientSAM / FastSAM**: Apache-2.0 — commercial-safe.
+
 Segmentation splits into "interactive / zero-shot" and "trained / one-shot" — those are different picks.
 
 ## Zero-shot: SAM 3 / SAM 3.1 (current default)
@@ -66,7 +74,7 @@ SAM is heavy. For on-device:
 - **[Mask R-CNN (2017)](https://github.com/matterport/Mask_RCNN)** — instance segmentation via two-stage detection + mask head. Historical default.
 - **[DeepLabV3+ (2018)](https://github.com/jfzhang95/pytorch-deeplab-xception)** — semantic segmentation. Still used in autonomous.
 - **[PointRend (2020)](https://github.com/facebookresearch/detectron2/tree/main/projects/PointRend)** — sharp boundaries via point-based refinement.
-- **[SegFormer (2021)](https://github.com/NVlabs/SegFormer)** — ViT-based semantic. Good accuracy-efficiency.
+- **[SegFormer (2021)](https://github.com/NVlabs/SegFormer)** — ViT-based semantic. Good accuracy-efficiency. *License: **NVIDIA Source Code License — non-commercial**; commercial use requires NVIDIA agreement.*
 - **[Mask2Former (2022)](https://github.com/facebookresearch/Mask2Former)** — unified architecture. The serious trained-model default.
 - **[SAM (Meta, 2023)](https://github.com/facebookresearch/segment-anything)** — open-vocabulary, promptable. Changed the field.
 - **[SAM 2 (Meta, 2024)](https://github.com/facebookresearch/sam2)** — video extension of SAM.
@@ -76,7 +84,7 @@ SAM is heavy. For on-device:
 - **[EfficientSAM (Meta, 2024)](https://github.com/yformer/EfficientSAM)** — another SAM distillation.
 - **[FastSAM (2023)](https://github.com/CASIA-IVA-Lab/FastSAM)** — YOLOv8-seg adapted for SAM-style prompts. Significantly faster, less accurate.
 - **[HQ-SAM (2023)](https://github.com/SysCV/sam-hq)** — high-quality mask refinement on top of SAM.
-- **[YOLOv8-seg / YOLOv11-seg](https://github.com/ultralytics/ultralytics)** — instance segmentation with the YOLO ecosystem.
+- **[YOLOv8-seg / YOLOv11-seg](https://github.com/ultralytics/ultralytics)** — instance segmentation with the YOLO ecosystem. *License: **AGPL-3.0**; commercial use requires Ultralytics Enterprise License.*
 - **[OneFormer (2023)](https://github.com/SHI-Labs/OneFormer)** — unified architecture; one model for all three segmentation types.
 - **[Grounded-SAM](https://github.com/IDEA-Research/Grounded-Segment-Anything)** — Grounding DINO + SAM → text-prompt segmentation.
 - **SAM + CLIP** — zero-shot class-agnostic then classify.

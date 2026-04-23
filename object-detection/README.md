@@ -15,6 +15,9 @@ Object detection has fragmented into three deployment tiers that need different 
 
 *Reading the picks:* **Operational default** = YOLO26 (export + deployment maturity). **Latest strong contender** = RF-DETR (ICLR 2026 SOTA, NMS-free transformer; worth testing for GPU-side deployments). **Research max** = Co-DETR / DINO family. YOLO11 and YOLOv8 remain reasonable picks if your team is ecosystem-locked; the move from YOLO11 → YOLO26 is not urgent, just available.
 
+> [!WARNING]
+> **Ultralytics YOLO (v5, v8, v10, v11, v26) is AGPL-3.0.** If you ship a proprietary product that includes YOLO inference, AGPL requires you to open-source your entire server application under AGPL — or purchase an [Ultralytics Enterprise License](https://www.ultralytics.com/license). This catches many teams off-guard. **Commercial-safe alternatives:** RF-DETR (Apache-2.0), RT-DETR / RT-DETRv2 (Apache-2.0), DETR (Apache-2.0), YOLOX (Apache-2.0), RTMDet (Apache-2.0). For zero-shot commercial use: GroundingDINO (Apache-2.0) or Florence-2 (MIT).
+
 ## YOLO26 — the current CNN default
 
 Ultralytics shipped YOLO26 in January 2026 as a fully end-to-end, NMS-free architecture built specifically for edge deployment. Key changes vs YOLO11:
@@ -65,11 +68,11 @@ Pick YOLO26 over RF-DETR when:
 
 - **[YOLOv1 (2015)](https://github.com/pjreddie/darknet)** — the original. Real-time object detection made accessible.
 - **[YOLOv4 (Bochkovskiy et al., 2020)](https://github.com/AlexeyAB/darknet)** — last of the Darknet-native YOLO family.
-- **[YOLOv5 / YOLOv8 / YOLOv11 / YOLO26 (Ultralytics)](https://github.com/ultralytics/ultralytics)** — the dominant practical YOLO lineage. YOLO26 (Jan 2026) is current. Python-first.
+- **[YOLOv5 / YOLOv8 / YOLOv11 / YOLO26 (Ultralytics)](https://github.com/ultralytics/ultralytics)** — the dominant practical YOLO lineage. YOLO26 (Jan 2026) is current. Python-first. *License: **AGPL-3.0**; commercial use requires Ultralytics Enterprise License.*
 - **[RF-DETR (Roboflow, 2025–2026, ICLR 2026)](https://github.com/roboflow/rf-detr)** — first real-time detector at 60+ COCO AP. DINOv2 backbone. SOTA accuracy + real-time.
 - **[YOLOX (Megvii, 2021)](https://github.com/Megvii-BaseDetection/YOLOX)** — anchor-free, competitive. Less deployment polish than Ultralytics.
-- **[YOLOv7 (Wang, 2022)](https://github.com/WongKinYiu/yolov7)** — strong accuracy. Less active.
-- **[YOLOv9](https://github.com/WongKinYiu/yolov9) / [YOLOv10](https://github.com/THU-MIG/yolov10) (2024)** — incremental improvements; some prefer v10's NMS-free variant.
+- **[YOLOv7 (Wang, 2022)](https://github.com/WongKinYiu/yolov7)** — strong accuracy. Less active. *License: GPL-3.0.*
+- **[YOLOv9](https://github.com/WongKinYiu/yolov9) / [YOLOv10](https://github.com/THU-MIG/yolov10) (2024)** — incremental improvements; some prefer v10's NMS-free variant. *License: GPL-3.0 (v9), AGPL-3.0 (v10).*
 - **[YOLO-NAS (Deci / Roboflow)](https://github.com/Deci-AI/super-gradients)** — neural architecture search + quantization-aware training. Strong at edge.
 - **[DETR (Carion et al., 2020)](https://github.com/facebookresearch/detr)** — transformer-based detection. NMS-free. Original paper, slow.
 - **[Deformable DETR](https://github.com/fundamentalvision/Deformable-DETR)** — accelerated convergence.

@@ -76,7 +76,7 @@ InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFac
 - **[SCRFD (2021)](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** — the current default. Ships multiple variants (500MF, 2.5G, 10G) at different speed/accuracy tradeoffs. Default: SCRFD-500MF or SCRFD-2.5G.
 - **[YuNet (2022)](https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet)** — very fast, lightweight. Good for embedded. OpenCV ships it in `cv2.FaceDetectorYN`.
 - **[MediaPipe Face Detection (Google, ongoing)](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector)** — browser-friendly, TFLite-backed. ~30 FPS in JS.
-- **[YOLOv8-Face / YOLOv11-Face](https://github.com/derronqi/yolov8-face)** — fine-tuned YOLO on face datasets. Marginally above SCRFD on hard sets at higher compute cost.
+- **[YOLOv8-Face / YOLOv11-Face](https://github.com/derronqi/yolov8-face)** — fine-tuned YOLO on face datasets. Marginally above SCRFD on hard sets at higher compute cost. *License: inherits YOLOv8/v11's **AGPL-3.0** via Ultralytics — commercial use requires Ultralytics Enterprise License.*
 - **[BlazeFace (Google, 2019)](https://github.com/hollance/BlazeFace-PyTorch)** — predecessor to MediaPipe's current face detector. On-device mobile.
 
 ### Graveyard

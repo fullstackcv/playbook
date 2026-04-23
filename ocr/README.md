@@ -14,6 +14,9 @@ The field has three distinct use cases with different picks. Don't pick one tool
 | English-only + local + fast | **[Tesseract 5](https://github.com/tesseract-ocr/tesseract)** | Zero-dependency batch processing of clean text. |
 | Structured document understanding | **[Donut](https://github.com/clovaai/donut)** or **[LayoutLMv3](https://github.com/microsoft/unilm/tree/master/layoutlmv3)** | Form key-value extraction with a defined schema. Training-required. |
 
+> [!WARNING]
+> **LayoutLMv3 is CC-BY-NC-SA-4.0 — non-commercial only.** Microsoft released the weights under a non-commercial share-alike license. If you need LayoutLM-style structured extraction in a commercial product, use **Donut** (MIT), **Pix2Struct** (Apache-2.0), or a VLM with function calling instead. PaddleOCR and its VL variants are Apache-2.0 and commercial-safe.
+
 ## The big shift (2024 → 2026)
 
 Until 2023, OCR meant Tesseract/PaddleOCR for clean, or a dedicated pipeline (Donut, LayoutLM) for forms. Post-processing the model's output was where the engineering time went.
@@ -74,7 +77,7 @@ Ships as a Hugging Face checkpoint: `PaddlePaddle/PaddleOCR-VL-1.5`. Integrates 
 
 ### Document understanding (OCR + layout)
 - **[Donut (Naver, 2022)](https://github.com/clovaai/donut)** — no separate OCR step, directly trains image → structured output. Fine-tune on your docs.
-- **[LayoutLMv3 (Microsoft, 2022)](https://github.com/microsoft/unilm/tree/master/layoutlmv3)** — pre-trained on document layouts; strong for form understanding.
+- **[LayoutLMv3 (Microsoft, 2022)](https://github.com/microsoft/unilm/tree/master/layoutlmv3)** — pre-trained on document layouts; strong for form understanding. *License: **CC-BY-NC-SA-4.0 — non-commercial only**.*
 - **[Pix2Struct (Google, 2023)](https://github.com/google-research/pix2struct)** — same family, different architecture.
 - **[Nougat (Meta, 2023)](https://github.com/facebookresearch/nougat)** — academic papers specifically.
 - **[Marker (VikParuchuri)](https://github.com/VikParuchuri/marker)** — PDF → markdown, uses a stack of OCR + layout models.

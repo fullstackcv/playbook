@@ -15,6 +15,20 @@ The field moves *fast*. The picks below are current as of 2026-04-22 and will ag
 | **Open flagship** | **[Qwen3-VL-235B-A22B](https://github.com/QwenLM/Qwen3-VL)** or **[InternVL3-78B](https://github.com/OpenGVLab/InternVL)** | Rivals Gemini-2.5-Pro / GPT-5 on multimodal benchmarks. Self-hosted, data-sensitive, cost-critical at scale. |
 | Open small | **[Qwen3-VL-7B](https://github.com/QwenLM/Qwen3-VL)**, **[InternVL3-8B](https://github.com/OpenGVLab/InternVL)**, **[LLaVA-OneVision-7B](https://github.com/LLaVA-VL/LLaVA-NeXT)** | Edge GPU, on-prem, prototyping |
 
+> [!WARNING]
+> **Open VLM license map (check before shipping):**
+> - **Qwen3-VL / Qwen2-VL**: Apache-2.0 — commercial-safe (smaller variants). The 72B / 235B flagship checkpoints carry the **Qwen Research License** — check per-model card before commercial deployment.
+> - **InternVL3 / InternVL2**: MIT — commercial-safe.
+> - **LLaVA-OneVision / LLaVA-NeXT**: Apache-2.0 code, but the *fine-tuning data* (from GPT-4) carries OpenAI T&C restrictions for competing model training.
+> - **Gemma 3 / PaliGemma**: **Gemma Terms of Use** — allows commercial use with restrictions (prohibited uses list, attribution). Not Apache-2.0.
+> - **Molmo (Allen AI)**: Apache-2.0 — commercial-safe, fully open data.
+> - **CogVLM2**: custom license — commercial use allowed under CogVLM2 License, register with the Tsinghua team.
+> - **Florence-2**: MIT — commercial-safe.
+> - **MiniCPM-V**: Apache-2.0 (recent versions) — commercial-safe, but check the specific variant.
+> - **Flamingo**: closed, not available. **open_flamingo**: MIT, but weights trained on LAION have separate terms.
+>
+> Commercial managed flagships (**Gemini / GPT / Claude**) handle licensing for you via API T&C.
+
 *Reading the picks:* **Operational default** depends on your deployment constraints — for teams with existing Qwen2-VL / InternVL2 pipelines and strict stability requirements, those remain acceptable operational defaults; the move to Qwen3-VL / InternVL3 is a newer strong contender worth testing rather than an urgent upgrade. **Latest strong contender** = Qwen3-VL, InternVL3 (newer generation, better benchmarks). **Research max** shifts monthly in this space; expect this page to age the fastest.
 
 ## Why a VLM instead of training a model
@@ -61,9 +75,9 @@ Three cases where a VLM is the right first try:
 - **[LLaVA lineage (LLaVA-OneVision, LLaVA-NeXT)](https://github.com/LLaVA-VL/LLaVA-NeXT)** — academic. Easy to fine-tune. Slightly behind Qwen/InternVL on benchmarks.
 - **[CogVLM2 (Tsinghua)](https://github.com/THUDM/CogVLM2)** — 19B. Solid open option.
 - **[Molmo (Allen AI)](https://molmo.allenai.org/)** — trained on open data, fully open weights + data. Slightly behind proprietary on most benchmarks.
-- **[Gemma 3](https://deepmind.google/models/gemma/)** — Google's open VLM family. Strong mid-tier performer.
+- **[Gemma 3](https://deepmind.google/models/gemma/)** — Google's open VLM family. Strong mid-tier performer. *License: Gemma Terms of Use — commercial allowed with prohibited-uses restrictions.*
 - **[Florence-2 (Microsoft)](https://huggingface.co/microsoft/Florence-2-large)** — not a chat VLM but a multi-task vision model (captioning, detection, segmentation). Lightweight (~0.8B).
-- **[PaliGemma (Google)](https://huggingface.co/google/paligemma-3b-pt-224)** — 3B VLM, fine-tuning-friendly.
+- **[PaliGemma (Google)](https://huggingface.co/google/paligemma-3b-pt-224)** — 3B VLM, fine-tuning-friendly. *License: Gemma Terms of Use.*
 
 ## Running open VLMs
 

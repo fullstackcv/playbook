@@ -46,8 +46,8 @@ Observation-Centric SORT refines the Kalman prediction to better handle non-line
 
 ## The Dump
 
-- **[SORT (2016)](https://github.com/abewley/sort)** — original Simple Online Realtime Tracking. Kalman + Hungarian. Foundational.
-- **[DeepSORT (2017)](https://github.com/nwojke/deep_sort)** — SORT + a ReID network. Historical default for ReID-enhanced tracking.
+- **[SORT (2016)](https://github.com/abewley/sort)** — original Simple Online Realtime Tracking. Kalman + Hungarian. Foundational. *License: GPL-3.0 (original).*
+- **[DeepSORT (2017)](https://github.com/nwojke/deep_sort)** — SORT + a ReID network. Historical default for ReID-enhanced tracking. *License: GPL-3.0 (original).*
 - **IOU Tracker (2017)** — the absolute simplest tracker — match by bounding box IoU. Surprisingly decent baseline.
 - **[FairMOT (2020)](https://github.com/ifzhang/FairMOT)** — joint detection + ReID. Historically strong for pedestrians.
 - **[ByteTrack (2021)](https://github.com/ifzhang/ByteTrack)** — the current default. Uses low-confidence detections.

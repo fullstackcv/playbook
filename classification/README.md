@@ -11,6 +11,12 @@ Pure image classification is rarely the primary product in 2026. It's usually a 
 | Zero-shot (no training) | **[CLIP](https://github.com/openai/CLIP)** or **[SigLIP](https://github.com/google-research/big_vision)** + cosine similarity to text labels | When you have no training data and the classes are describable in words. |
 | **Default with labeled data** | **Fine-tune a [timm](https://github.com/huggingface/pytorch-image-models) model** ([ConvNeXt](https://github.com/facebookresearch/ConvNeXt), [ViT](https://github.com/google-research/vision_transformer), [EfficientNet](https://github.com/lukemelas/EfficientNet-PyTorch)) | Classic supervised classification. 100s–1000s of examples per class. |
 | Max accuracy | **[DINOv3](https://github.com/facebookresearch/dinov3) embeddings + linear probe** or **[ViT-L](https://github.com/google-research/vision_transformer)** fine-tune | Few-shot, transfer learning. |
+
+> [!WARNING]
+> **License notes for picks and Dump:**
+> - **DINOv3** ships under a **DINOv3 License** — permits commercial use with attribution; first DINO release that's commercial-friendly.
+> - **DINOv2 / DINOv1 / MAE / I-JEPA**: CC-BY-NC 4.0 — **non-commercial research only**. Widely used in papers; if you're shipping, use DINOv3 or a CLIP/SigLIP/timm backbone instead.
+> - **CLIP**: MIT. **SigLIP**: Apache-2.0. **timm, ConvNeXt, ViT, Swin, DeiT, BEiT, EfficientNet, ResNet, MobileNet**: all Apache-2.0 or MIT — commercial-safe.
 | Edge | **[MobileNetV3](https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet)** or **[EfficientNet-Lite](https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite)** | On-device, small footprint. |
 
 ## Why zero-shot CLIP is often the right first try
@@ -99,9 +105,9 @@ DINOv2 is still fine — similar recipe, slightly less accuracy, smaller. Migrat
 - **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — image-text contrastive.
 - **[OpenCLIP](https://github.com/mlfoundations/open_clip)** — open re-implementation.
 - **[SigLIP (Google, 2023)](https://github.com/google-research/big_vision)** — improved CLIP.
-- **[DINOv1](https://github.com/facebookresearch/dino) / [DINOv2](https://github.com/facebookresearch/dinov2) / [DINOv3](https://github.com/facebookresearch/dinov3) (Meta)** — self-supervised ViT. DINOv3 (Aug 2025) is the current default; 7B params, 1.7B training images, commercial license.
-- **[MAE (Masked Autoencoder)](https://github.com/facebookresearch/mae)** — self-supervised pretraining.
-- **[I-JEPA (Meta)](https://github.com/facebookresearch/ijepa)** — joint embedding, self-supervised.
+- **[DINOv1](https://github.com/facebookresearch/dino) / [DINOv2](https://github.com/facebookresearch/dinov2) / [DINOv3](https://github.com/facebookresearch/dinov3) (Meta)** — self-supervised ViT. DINOv3 (Aug 2025) is the current default; 7B params, 1.7B training images. *Licenses: DINOv1/DINOv2 **CC-BY-NC-4.0 (non-commercial)**; DINOv3 commercial-friendly.*
+- **[MAE (Masked Autoencoder)](https://github.com/facebookresearch/mae)** — self-supervised pretraining. *License: **CC-BY-NC 4.0 — non-commercial only**.*
+- **[I-JEPA (Meta)](https://github.com/facebookresearch/ijepa)** — joint embedding, self-supervised. *License: **CC-BY-NC 4.0 — non-commercial only**.*
 
 ### Libraries
 - **[timm (Hugging Face)](https://github.com/huggingface/pytorch-image-models)** — 1,000+ pretrained models. The reference.
