@@ -49,7 +49,7 @@ If you're building anything that runs in a browser tab or a phone app without a 
 - **[MediaPipe Holistic](https://ai.google.dev/edge/mediapipe/solutions/vision/holistic_landmarker)** — body + face + hands together, same shot.
 - **[DEKR](https://github.com/HRNet/DEKR)** — bottom-up keypoint regression. Crowded scenes.
 - **[ViTPose (2022)](https://github.com/ViTAE-Transformer/ViTPose)** — ViT backbone, strong accuracy. Expensive.
-- **[ViTPose++](https://arxiv.org/abs/2212.04246)** — improved training recipe. Same compute class.
+- **[ViTPose++](https://github.com/ViTAE-Transformer/ViTPose)** — improved training recipe. Same compute class.
 - **[RTMPose (2023)](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose)** — OpenMMLab's distilled real-time pose. The current default.
 - **[RTMW (OpenMMLab)](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmpose)** — whole-body variant. First model to exceed 70 AP on COCO-WholeBody (RTMW-x at 70.2 AP).
 - **[RTMO](https://github.com/open-mmlab/mmpose/tree/main/projects/rtmo)** — bottom-up variant from the same team.

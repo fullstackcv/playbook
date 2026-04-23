@@ -62,10 +62,10 @@ SAM is heavy. For on-device:
 
 ## The Dump
 
-- **[U-Net (2015)](https://arxiv.org/abs/1505.04597)** — the encoder-decoder that started it all. Still the standard for medical.
-- **[Mask R-CNN (2017)](https://arxiv.org/abs/1703.06870)** — instance segmentation via two-stage detection + mask head. Historical default.
-- **[DeepLabV3+ (2018)](https://arxiv.org/abs/1802.02611)** — semantic segmentation. Still used in autonomous.
-- **[PointRend (2020)](https://arxiv.org/abs/1912.08193)** — sharp boundaries via point-based refinement.
+- **[U-Net (2015)](https://github.com/milesial/Pytorch-UNet)** — the encoder-decoder that started it all. Still the standard for medical.
+- **[Mask R-CNN (2017)](https://github.com/matterport/Mask_RCNN)** — instance segmentation via two-stage detection + mask head. Historical default.
+- **[DeepLabV3+ (2018)](https://github.com/jfzhang95/pytorch-deeplab-xception)** — semantic segmentation. Still used in autonomous.
+- **[PointRend (2020)](https://github.com/facebookresearch/detectron2/tree/main/projects/PointRend)** — sharp boundaries via point-based refinement.
 - **[SegFormer (2021)](https://github.com/NVlabs/SegFormer)** — ViT-based semantic. Good accuracy-efficiency.
 - **[Mask2Former (2022)](https://github.com/facebookresearch/Mask2Former)** — unified architecture. The serious trained-model default.
 - **[SAM (Meta, 2023)](https://github.com/facebookresearch/segment-anything)** — open-vocabulary, promptable. Changed the field.
@@ -90,7 +90,7 @@ SAM is heavy. For on-device:
 
 - **Mask R-CNN as a default for new work** — retired by Mask2Former and SAM.
 - **Hand-crafted CRF post-processing** — retired ~2019; modern models produce clean masks without it.
-- **[FCN (fully convolutional, 2015)](https://arxiv.org/abs/1411.4038)** — superseded by U-Net and DeepLab family.
+- **[FCN (fully convolutional, 2015)](https://github.com/shelhamer/fcn.berkeleyvision.org)** — superseded by U-Net and DeepLab family.
 
 ## Last reviewed
 

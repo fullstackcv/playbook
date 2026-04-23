@@ -75,7 +75,7 @@ Three cases where a VLM is the right first try:
 ## Specialized multimodal tools (not general chat)
 
 - **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — image-text embedding. The grandfather. Still the default for retrieval/search.
-- **[SigLIP (Google, 2023)](https://arxiv.org/abs/2303.15343)** — CLIP improved. Better zero-shot classification.
+- **[SigLIP (Google, 2023)](https://github.com/google-research/big_vision)** — CLIP improved. Better zero-shot classification.
 - **[BLIP-2 (Salesforce)](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)** — image captioning. Superseded by modern VLMs but still in deployed pipelines.
 
 ## The Dump
@@ -97,10 +97,10 @@ Three cases where a VLM is the right first try:
 - **[PaliGemma (Google)](https://huggingface.co/google/paligemma-3b-pt-224)** — open, small.
 - **[MiniCPM-V](https://github.com/OpenBMB/MiniCPM-V)** — small open VLM.
 - **[Florence-2](https://huggingface.co/microsoft/Florence-2-large)** — multi-task vision, open.
-- **[CLIP](https://github.com/openai/CLIP) / [SigLIP](https://arxiv.org/abs/2303.15343)** — embedding models, not chat.
+- **[CLIP](https://github.com/openai/CLIP) / [SigLIP](https://github.com/google-research/big_vision)** — embedding models, not chat.
 - **[BLIP-2](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)** — captioning.
 - **[Kosmos-2 (Microsoft)](https://github.com/microsoft/unilm/tree/master/kosmos-2)** — grounded multimodal. Research.
-- **[Flamingo (DeepMind, 2022)](https://arxiv.org/abs/2204.14198)** — historical, closed, not available.
+- **[Flamingo (DeepMind, 2022)](https://github.com/mlfoundations/open_flamingo)** — historical, closed, not available.
 - **[VILA (NVIDIA)](https://github.com/NVlabs/VILA)** — open VLM family.
 - **[Idefics2](https://huggingface.co/HuggingFaceM4/idefics2-8b) / [Idefics3](https://huggingface.co/HuggingFaceM4/Idefics3-8B-Llama3) (Hugging Face)** — open, strong.
 - **[Phi-3.5-vision (Microsoft)](https://huggingface.co/microsoft/Phi-3.5-vision-instruct)** — small open VLM.

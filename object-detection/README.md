@@ -63,7 +63,7 @@ Pick YOLO26 over RF-DETR when:
 
 ## The Dump
 
-- **[YOLOv1 (2015)](https://arxiv.org/abs/1506.02640)** — the original. Real-time object detection made accessible.
+- **[YOLOv1 (2015)](https://github.com/pjreddie/darknet)** — the original. Real-time object detection made accessible.
 - **[YOLOv4 (Bochkovskiy et al., 2020)](https://github.com/AlexeyAB/darknet)** — last of the Darknet-native YOLO family.
 - **[YOLOv5 / YOLOv8 / YOLOv11 / YOLO26 (Ultralytics)](https://github.com/ultralytics/ultralytics)** — the dominant practical YOLO lineage. YOLO26 (Jan 2026) is current. Python-first.
 - **[RF-DETR (Roboflow, 2025–2026, ICLR 2026)](https://github.com/roboflow/rf-detr)** — first real-time detector at 60+ COCO AP. DINOv2 backbone. SOTA accuracy + real-time.
@@ -77,7 +77,7 @@ Pick YOLO26 over RF-DETR when:
 - **[Co-DETR](https://github.com/Sense-X/Co-DETR)** — the current COCO SOTA-ish. Slow.
 - **[RT-DETR / RT-DETRv2 (Baidu, 2023/2024)](https://github.com/lyuwenyu/RT-DETR)** — real-time DETR. Competitive with YOLO.
 - **[RTMDet (MMDetection / OpenMMLab)](https://github.com/open-mmlab/mmdetection/tree/main/configs/rtmdet)** — strong across tiers. Less marketing than YOLO.
-- **[Faster R-CNN](https://arxiv.org/abs/1506.01497) / [Mask R-CNN](https://arxiv.org/abs/1703.06870)** — historical. Still used in research.
+- **[Faster R-CNN](https://github.com/rbgirshick/py-faster-rcnn) / [Mask R-CNN](https://github.com/matterport/Mask_RCNN)** — historical. Still used in research.
 - **[CenterNet](https://github.com/xingyizhou/CenterNet) / [FCOS](https://github.com/tianzhi0549/FCOS)** — anchor-free approaches; superseded.
 - **[GroundingDINO](https://github.com/IDEA-Research/GroundingDINO)** — open-vocabulary detection. Text prompt → boxes.
 - **[Florence-2 (Microsoft)](https://huggingface.co/microsoft/Florence-2-large)** — grounding + captioning + OCR in one model. Open-vocab detection included.
@@ -89,7 +89,7 @@ Pick YOLO26 over RF-DETR when:
 
 ## Graveyard
 
-- **[SSD (2015)](https://arxiv.org/abs/1512.02325)** — overtaken. Still ships in OpenCV but rarely the right choice.
+- **[SSD (2015)](https://github.com/weiliu89/caffe/tree/ssd)** — overtaken. Still ships in OpenCV but rarely the right choice.
 - **Anchor-based R-CNN family as default** — retired in favor of one-stage detectors.
 - **YOLOv3 (2018) as a modern default** — use v8+ unless you have legacy weights.
 

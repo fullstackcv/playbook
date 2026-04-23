@@ -52,14 +52,14 @@ InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFac
 - **[Viola-Jones / Haar cascade (2001)](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf)** — the classical cascade. Integral image + boosted weak classifiers. Still in OpenCV. Still runs on anything.
 - **[LBP cascade](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html)** — Local Binary Pattern variant of Viola-Jones. Slightly faster, slightly worse accuracy. Rarely worth choosing over Haar.
 - **[HOG + dlib (2005)](http://dlib.net/)** — Histogram of Oriented Gradients. CPU-only, ~15 FPS laptop, more robust to lighting than Haar. Dated but alive in legacy systems.
-- **[MTCNN (2016)](https://arxiv.org/abs/1604.02878)** — 3-stage cascaded CNN. Returns 5 landmarks. Slower than SCRFD. Historically important.
+- **[MTCNN (2016)](https://github.com/kpzhang93/MTCNN_face_detection_alignment)** — 3-stage cascaded CNN. Returns 5 landmarks. Slower than SCRFD. Historically important.
 - **[SSD via OpenCV DNN (2015 SSD, 2018 weights)](https://docs.opencv.org/4.x/d6/d0f/group__dnn.html)** — `cv2.dnn.readNetFromCaffe` with the ResNet-10 SSD weights. Ships with OpenCV. Legacy default for "DNN in OpenCV" tutorials.
 - **[RetinaFace (2019)](https://github.com/deepinsight/insightface/tree/master/detection/retinaface)** — anchor-based detector with landmark branch. Accuracy king. Slow on CPU.
 - **[SCRFD (2021)](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** — the current default. Ships multiple variants (500MF, 2.5G, 10G) at different speed/accuracy tradeoffs. Default: SCRFD-500MF or SCRFD-2.5G.
 - **[YuNet (2022)](https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet)** — very fast, lightweight. Good for embedded. OpenCV ships it in `cv2.FaceDetectorYN`.
 - **[MediaPipe Face Detection (Google, ongoing)](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector)** — browser-friendly, TFLite-backed. ~30 FPS in JS.
 - **[YOLOv8-Face / YOLOv11-Face](https://github.com/derronqi/yolov8-face)** — fine-tuned YOLO on face datasets. Marginally above SCRFD on hard sets at higher compute cost.
-- **[BlazeFace (Google, 2019)](https://arxiv.org/abs/1907.05047)** — predecessor to MediaPipe's current face detector. On-device mobile.
+- **[BlazeFace (Google, 2019)](https://github.com/hollance/BlazeFace-PyTorch)** — predecessor to MediaPipe's current face detector. On-device mobile.
 
 ### Graveyard
 
@@ -122,8 +122,8 @@ Honestly, you don't. Use the 5-point similarity transform. The only exception: i
 
 | Tier | Pick | LFW accuracy | Surveillance accuracy | When to use |
 |------|------|-------------:|----------------------:|-------------|
-| Edge | **[MobileFaceNet](https://arxiv.org/abs/1804.07573)** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
-| **Default** | **[ArcFace R100](https://arxiv.org/abs/1801.07698)** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
+| Edge | **[MobileFaceNet](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
+| **Default** | **[ArcFace R100](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
 | Surveillance | **[AdaFace IR101](https://github.com/mk-minchul/AdaFace)** | ~99.8% (paper) | higher than ArcFace under low-quality conditions | CCTV, doorway, any low-quality or distant input |
 
 *LFW numbers are saturated and come from the respective papers; they don't predict real-world performance on your data. The "Surveillance" column is a qualitative ordering, not a benchmarked number — measure against your own footage before committing.*
@@ -162,10 +162,10 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 - **Fisherfaces (1997)** — LDA. Historical.
 - **LBPH (2006)** — local binary pattern histograms. Still ships in `cv2.face.LBPHFaceRecognizer_create()`. Survives on embedded hardware that cannot run deep models.
 - **[DeepFace / Facebook (2014)](https://research.facebook.com/publications/deepface-closing-the-gap-to-human-level-performance-in-face-verification/)** — first deep recognizer at human accuracy. Historical.
-- **[FaceNet (2015)](https://arxiv.org/abs/1503.03832)** — triplet loss, 128-d embeddings. The one that made production face recognition real. Still usable; AdaFace/ArcFace both outperform it.
-- **[SphereFace (2017)](https://arxiv.org/abs/1704.08063)** — first angular margin (multiplicative). Superseded by CosFace/ArcFace.
-- **[CosFace (2018)](https://arxiv.org/abs/1801.09414)** — additive cosine margin. Cleaner math than SphereFace. Superseded by ArcFace.
-- **[ArcFace (2019)](https://arxiv.org/abs/1801.07698)** — additive *angular* margin. The current default.
+- **[FaceNet (2015)](https://github.com/davidsandberg/facenet)** — triplet loss, 128-d embeddings. The one that made production face recognition real. Still usable; AdaFace/ArcFace both outperform it.
+- **[SphereFace (2017)](https://github.com/wy1iu/sphereface)** — first angular margin (multiplicative). Superseded by CosFace/ArcFace.
+- **[CosFace (2018)](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** — additive cosine margin. Cleaner math than SphereFace. Superseded by ArcFace.
+- **[ArcFace (2019)](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** — additive *angular* margin. The current default.
 - **[AdaFace (2022)](https://github.com/mk-minchul/AdaFace)** — quality-adaptive angular margin.
 - **[MagFace (2021)](https://github.com/IrvingMeng/MagFace)** — magnitude encodes quality. Alternative framing to AdaFace.
 - **[ElasticFace (2022)](https://github.com/fdbtrs/ElasticFace)** — randomly sampled margin at training time. Marginal improvement over ArcFace.
@@ -232,7 +232,7 @@ Typical thresholds on cosine similarity: **0.60** for ArcFace, **0.55** for AdaF
 
 - **[numpy](https://numpy.org/) dot product** — `reference_embeddings @ query_embedding`. Vectorized. Sub-millisecond at 10k vectors, ~10ms at 100k. The default until it gets slow.
 - **[FAISS IndexFlatIP](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)** — same math as numpy, different storage. Persistence + slightly faster at scale.
-- **[FAISS HNSW](https://arxiv.org/abs/1603.09320)** — Hierarchical Navigable Small World graph. Approximate nearest-neighbor. Sub-millisecond at 10M vectors.
+- **[FAISS HNSW](https://github.com/nmslib/hnswlib)** — Hierarchical Navigable Small World graph. Approximate nearest-neighbor. Sub-millisecond at 10M vectors.
 - **[FAISS IVF + PQ](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)** — inverted file + product quantization. Billion-scale at some accuracy cost.
 - **[pgvector](https://github.com/pgvector/pgvector)** — Postgres extension. SQL-native. Slower than FAISS per query; much simpler operationally.
 - **[Pinecone](https://www.pinecone.io/) / [Weaviate](https://weaviate.io/) / [Milvus](https://milvus.io/) / [Qdrant](https://qdrant.tech/)** — managed or self-hosted vector DBs. Overkill for most face recognition unless you're multi-tenant at scale.

@@ -10,7 +10,7 @@ This page is the *general* retrieval case. For *face identity search specificall
 
 | Component | Pick | When to use |
 |-----------|------|-------------|
-| **Embedding model (text + image)** | **[SigLIP](https://arxiv.org/abs/2303.15343)** or **[OpenCLIP ViT-L/14](https://github.com/mlfoundations/open_clip)** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
+| **Embedding model (text + image)** | **[SigLIP](https://github.com/google-research/big_vision)** or **[OpenCLIP ViT-L/14](https://github.com/mlfoundations/open_clip)** | Cross-modal retrieval, zero-shot classification doubling as retrieval |
 | Embedding model (image only, strong transfer) | **[DINOv3](https://github.com/facebookresearch/dinov3)** | No text side; pure image-to-image. |
 | Fine-tuned for retrieval | **train a SigLIP LoRA** or a model from the **[`sentence-transformers`](https://github.com/UKPLab/sentence-transformers)** image family | Domain-specific retrieval. |
 | ANN index (self-hosted, one machine) | **[FAISS](https://github.com/facebookresearch/faiss)** | < 100M vectors, you control the infra. |
@@ -61,7 +61,7 @@ For most use cases, **FAISS** until you need multi-tenant. Then **pgvector** or 
 ### Embedding models
 - **[CLIP (OpenAI, 2021)](https://github.com/openai/CLIP)** — the grandfather. Still widely deployed.
 - **[OpenCLIP](https://github.com/mlfoundations/open_clip)** — open re-implementation with LAION weights.
-- **[SigLIP (Google, 2023)](https://arxiv.org/abs/2303.15343)** — improved CLIP. The recommended baseline.
+- **[SigLIP (Google, 2023)](https://github.com/google-research/big_vision)** — improved CLIP. The recommended baseline.
 - **[DINOv3 (Meta, Aug 2025)](https://github.com/facebookresearch/dinov3)** — self-supervised ViT, image-only. 7B params, 1.7B training images. Current default for image-to-image retrieval.
 - **[DINOv2 (Meta, 2023)](https://github.com/facebookresearch/dinov2)** — predecessor. Still widely deployed; comparable recipe, smaller compute.
 - **[DINOv1 (Meta, 2021)](https://github.com/facebookresearch/dino)** — original. Historical.
