@@ -24,9 +24,9 @@ Scroll for the *why* on each.
 
 | Tier | Pick | Accuracy | FPS (CPU laptop) | When to use |
 |------|------|---------:|-----------------:|-------------|
-| Edge / dep-light | **Haar cascade** (OpenCV built-in) | low (frontal-only) | highest (~20–30 FPS on small frames, Pi-class) | Pi Zero / Pi 3, no ONNX, frontal faces only |
-| **Default** | **SCRFD-500MF** | strong on WIDER Face | good (tens of FPS on a modern laptop CPU) | Anything with enough juice for ONNX Runtime |
-| Max accuracy | **RetinaFace R50** | slightly stronger on WIDER Face | low on CPU; GPU recommended | Offline / batch / GPU available |
+| Edge / dep-light | **[Haar cascade](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html)** (OpenCV built-in) | low (frontal-only) | highest (~20–30 FPS on small frames, Pi-class) | Pi Zero / Pi 3, no ONNX, frontal faces only |
+| **Default** | **[SCRFD-500MF](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** | strong on WIDER Face | good (tens of FPS on a modern laptop CPU) | Anything with enough juice for ONNX Runtime |
+| Max accuracy | **[RetinaFace R50](https://github.com/deepinsight/insightface/tree/master/detection/retinaface)** | slightly stronger on WIDER Face | low on CPU; GPU recommended | Offline / batch / GPU available |
 
 *Accuracy and FPS numbers vary by backbone, input resolution, and hardware; treat the above as rough ordering rather than exact figures. Benchmark against your own pipeline before committing.*
 
@@ -49,17 +49,17 @@ InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFac
 
 ### The Dump
 
-- **Viola-Jones / Haar cascade (2001)** — the classical cascade. Integral image + boosted weak classifiers. Still in OpenCV. Still runs on anything.
-- **LBP cascade** — Local Binary Pattern variant of Viola-Jones. Slightly faster, slightly worse accuracy. Rarely worth choosing over Haar.
-- **HOG + dlib (2005)** — Histogram of Oriented Gradients. CPU-only, ~15 FPS laptop, more robust to lighting than Haar. Dated but alive in legacy systems.
-- **MTCNN (2016)** — 3-stage cascaded CNN. Returns 5 landmarks. Slower than SCRFD. Historically important.
-- **SSD via OpenCV DNN (2015 SSD, 2018 weights)** — `cv2.dnn.readNetFromCaffe` with the ResNet-10 SSD weights. Ships with OpenCV. Legacy default for "DNN in OpenCV" tutorials.
-- **RetinaFace (2019)** — anchor-based detector with landmark branch. Accuracy king. Slow on CPU.
-- **SCRFD (2021)** — the current default. Ships multiple variants (500MF, 2.5G, 10G) at different speed/accuracy tradeoffs. Default: SCRFD-500MF or SCRFD-2.5G.
-- **YuNet (2022)** — very fast, lightweight. Good for embedded. OpenCV ships it in `cv2.FaceDetectorYN`.
-- **MediaPipe Face Detection (Google, ongoing)** — browser-friendly, TFLite-backed. ~30 FPS in JS.
-- **YOLOv8-Face / YOLOv11-Face** — fine-tuned YOLO on face datasets. Marginally above SCRFD on hard sets at higher compute cost.
-- **BlazeFace (Google, 2019)** — predecessor to MediaPipe's current face detector. On-device mobile.
+- **[Viola-Jones / Haar cascade (2001)](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf)** — the classical cascade. Integral image + boosted weak classifiers. Still in OpenCV. Still runs on anything.
+- **[LBP cascade](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html)** — Local Binary Pattern variant of Viola-Jones. Slightly faster, slightly worse accuracy. Rarely worth choosing over Haar.
+- **[HOG + dlib (2005)](http://dlib.net/)** — Histogram of Oriented Gradients. CPU-only, ~15 FPS laptop, more robust to lighting than Haar. Dated but alive in legacy systems.
+- **[MTCNN (2016)](https://arxiv.org/abs/1604.02878)** — 3-stage cascaded CNN. Returns 5 landmarks. Slower than SCRFD. Historically important.
+- **[SSD via OpenCV DNN (2015 SSD, 2018 weights)](https://docs.opencv.org/4.x/d6/d0f/group__dnn.html)** — `cv2.dnn.readNetFromCaffe` with the ResNet-10 SSD weights. Ships with OpenCV. Legacy default for "DNN in OpenCV" tutorials.
+- **[RetinaFace (2019)](https://github.com/deepinsight/insightface/tree/master/detection/retinaface)** — anchor-based detector with landmark branch. Accuracy king. Slow on CPU.
+- **[SCRFD (2021)](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** — the current default. Ships multiple variants (500MF, 2.5G, 10G) at different speed/accuracy tradeoffs. Default: SCRFD-500MF or SCRFD-2.5G.
+- **[YuNet (2022)](https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet)** — very fast, lightweight. Good for embedded. OpenCV ships it in `cv2.FaceDetectorYN`.
+- **[MediaPipe Face Detection (Google, ongoing)](https://ai.google.dev/edge/mediapipe/solutions/vision/face_detector)** — browser-friendly, TFLite-backed. ~30 FPS in JS.
+- **[YOLOv8-Face / YOLOv11-Face](https://github.com/derronqi/yolov8-face)** — fine-tuned YOLO on face datasets. Marginally above SCRFD on hard sets at higher compute cost.
+- **[BlazeFace (Google, 2019)](https://arxiv.org/abs/1907.05047)** — predecessor to MediaPipe's current face detector. On-device mobile.
 
 ### Graveyard
 
@@ -82,7 +82,7 @@ InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFac
 |------|------|-------------|
 | Don't skip | **No alignment** | Only acceptable if your detector already produces canonicalised crops. Otherwise typically a meaningful accuracy loss. |
 | **Default** | **5-point similarity transform** (InsightFace convention) | Standard for most face recognition systems. ~15 lines of numpy. |
-| Overkill | **Dense 68-point elastic alignment (dlib)** | Academic / research. Not typically needed for recognition accuracy. |
+| Overkill | **[Dense 68-point elastic alignment (dlib)](http://dlib.net/face_landmark_detection.py.html)** | Academic / research. Not typically needed for recognition accuracy. |
 
 Alignment is not really a "pick which model" question — the 5-point similarity transform is the common industry default. The practical question is whether to do it at all. Skipping it is a frequent mistake in tutorial code and usually costs noticeable accuracy in production.
 
@@ -101,8 +101,8 @@ Honestly, you don't. Use the 5-point similarity transform. The only exception: i
 - **5-point similarity transform** — rotate + uniform scale + translate using 5 landmarks. The standard.
 - **Affine transform (6-point)** — adds shear. Not needed; skew artifacts hurt recognition.
 - **Perspective transform (4+ points)** — overkill for faces. Reserved for documents.
-- **Dense 68-point alignment (dlib)** — uses every dlib landmark. More expensive, not more accurate for recognition. Useful for expression analysis, not recognition.
-- **MediaPipe Face Mesh (468 points)** — different use case entirely (AR filters, 3D face reconstruction). Not for recognition alignment.
+- **[Dense 68-point alignment (dlib)](http://dlib.net/face_landmark_detection.py.html)** — uses every dlib landmark. More expensive, not more accurate for recognition. Useful for expression analysis, not recognition.
+- **[MediaPipe Face Mesh (468 points)](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker)** — different use case entirely (AR filters, 3D face reconstruction). Not for recognition alignment.
 
 ### Graveyard
 
@@ -122,9 +122,9 @@ Honestly, you don't. Use the 5-point similarity transform. The only exception: i
 
 | Tier | Pick | LFW accuracy | Surveillance accuracy | When to use |
 |------|------|-------------:|----------------------:|-------------|
-| Edge | **MobileFaceNet** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
-| **Default** | **ArcFace R100** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
-| Surveillance | **AdaFace IR101** | ~99.8% (paper) | higher than ArcFace under low-quality conditions | CCTV, doorway, any low-quality or distant input |
+| Edge | **[MobileFaceNet](https://arxiv.org/abs/1804.07573)** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
+| **Default** | **[ArcFace R100](https://arxiv.org/abs/1801.07698)** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
+| Surveillance | **[AdaFace IR101](https://github.com/mk-minchul/AdaFace)** | ~99.8% (paper) | higher than ArcFace under low-quality conditions | CCTV, doorway, any low-quality or distant input |
 
 *LFW numbers are saturated and come from the respective papers; they don't predict real-world performance on your data. The "Surveillance" column is a qualitative ordering, not a benchmarked number — measure against your own footage before committing.*
 
@@ -161,20 +161,20 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 - **Eigenfaces (1991)** — PCA on face pixels. Historical only.
 - **Fisherfaces (1997)** — LDA. Historical.
 - **LBPH (2006)** — local binary pattern histograms. Still ships in `cv2.face.LBPHFaceRecognizer_create()`. Survives on embedded hardware that cannot run deep models.
-- **DeepFace / Facebook (2014)** — first deep recognizer at human accuracy. Historical.
-- **FaceNet (2015)** — triplet loss, 128-d embeddings. The one that made production face recognition real. Still usable; AdaFace/ArcFace both outperform it.
-- **SphereFace (2017)** — first angular margin (multiplicative). Superseded by CosFace/ArcFace.
-- **CosFace (2018)** — additive cosine margin. Cleaner math than SphereFace. Superseded by ArcFace.
-- **ArcFace (2019)** — additive *angular* margin. The current default.
-- **AdaFace (2022)** — quality-adaptive angular margin.
-- **MagFace (2021)** — magnitude encodes quality. Alternative framing to AdaFace.
-- **ElasticFace (2022)** — randomly sampled margin at training time. Marginal improvement over ArcFace.
-- **TransFace (2023)** — ViT backbone with patch-level data augmentation and hard sample mining. 99.3%+ on clean benchmarks.
+- **[DeepFace / Facebook (2014)](https://research.facebook.com/publications/deepface-closing-the-gap-to-human-level-performance-in-face-verification/)** — first deep recognizer at human accuracy. Historical.
+- **[FaceNet (2015)](https://arxiv.org/abs/1503.03832)** — triplet loss, 128-d embeddings. The one that made production face recognition real. Still usable; AdaFace/ArcFace both outperform it.
+- **[SphereFace (2017)](https://arxiv.org/abs/1704.08063)** — first angular margin (multiplicative). Superseded by CosFace/ArcFace.
+- **[CosFace (2018)](https://arxiv.org/abs/1801.09414)** — additive cosine margin. Cleaner math than SphereFace. Superseded by ArcFace.
+- **[ArcFace (2019)](https://arxiv.org/abs/1801.07698)** — additive *angular* margin. The current default.
+- **[AdaFace (2022)](https://github.com/mk-minchul/AdaFace)** — quality-adaptive angular margin.
+- **[MagFace (2021)](https://github.com/IrvingMeng/MagFace)** — magnitude encodes quality. Alternative framing to AdaFace.
+- **[ElasticFace (2022)](https://github.com/fdbtrs/ElasticFace)** — randomly sampled margin at training time. Marginal improvement over ArcFace.
+- **[TransFace (2023)](https://github.com/DanJun6737/TransFace)** — ViT backbone with patch-level data augmentation and hard sample mining. 99.3%+ on clean benchmarks.
 - **TopoFR (2024–2025)** — topology alignment + hard sample mining. Improves generalization vs ArcFace/AdaFace on OOD benchmarks.
 - **LVFace (2025)** — Large Vision model for Face Recognition. ViT-based, simplified architecture.
-- **SFace (2023)** — smaller backbone, safety-focused training. Mid-tier option.
-- **InsightFace** (library) — the reference implementation. Bundles most of the above.
-- **DeepFace** (library, by Sefik Serengil) — prototype-friendly multi-model wrapper.
+- **[SFace (2023)](https://github.com/zhongyy/SFace)** — smaller backbone, safety-focused training. Mid-tier option.
+- **[InsightFace](https://github.com/deepinsight/insightface)** (library) — the reference implementation. Bundles most of the above.
+- **[DeepFace](https://github.com/serengil/deepface)** (library, by Sefik Serengil) — prototype-friendly multi-model wrapper.
 
 ### Graveyard
 
@@ -196,9 +196,9 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 
 | Scale | Pick | When to use |
 |-------|------|-------------|
-| **Small-scale (roughly sub-50K vectors)** | **numpy dot product + threshold** | Most products with a modest enrolment count. Don't over-engineer. |
-| **Medium-to-large scale** | **FAISS IndexFlatIP / HNSW** | When numpy dot product gets slow. FAISS is free and fast. |
-| **Multi-tenant / Postgres-first** | **pgvector** | Per-tenant isolation, or your stack already runs Postgres. Slower than FAISS per query but operationally simpler. |
+| **Small-scale (roughly sub-50K vectors)** | **[numpy](https://numpy.org/) dot product + threshold** | Most products with a modest enrolment count. Don't over-engineer. |
+| **Medium-to-large scale** | **[FAISS](https://github.com/facebookresearch/faiss) IndexFlatIP / HNSW** | When numpy dot product gets slow. FAISS is free and fast. |
+| **Multi-tenant / Postgres-first** | **[pgvector](https://github.com/pgvector/pgvector)** | Per-tenant isolation, or your stack already runs Postgres. Slower than FAISS per query but operationally simpler. |
 
 The exact crossover between numpy / FAISS / pgvector depends on your latency target, tenanting model, and infra. The scale ranges above are rough guides, not hard thresholds.
 
@@ -230,14 +230,14 @@ Typical thresholds on cosine similarity: **0.60** for ArcFace, **0.55** for AdaF
 
 ### The Dump
 
-- **numpy dot product** — `reference_embeddings @ query_embedding`. Vectorized. Sub-millisecond at 10k vectors, ~10ms at 100k. The default until it gets slow.
-- **FAISS IndexFlatIP** — same math as numpy, different storage. Persistence + slightly faster at scale.
-- **FAISS HNSW** — Hierarchical Navigable Small World graph. Approximate nearest-neighbor. Sub-millisecond at 10M vectors.
-- **FAISS IVF + PQ** — inverted file + product quantization. Billion-scale at some accuracy cost.
-- **pgvector** — Postgres extension. SQL-native. Slower than FAISS per query; much simpler operationally.
-- **Pinecone / Weaviate / Milvus / Qdrant** — managed or self-hosted vector DBs. Overkill for most face recognition unless you're multi-tenant at scale.
+- **[numpy](https://numpy.org/) dot product** — `reference_embeddings @ query_embedding`. Vectorized. Sub-millisecond at 10k vectors, ~10ms at 100k. The default until it gets slow.
+- **[FAISS IndexFlatIP](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)** — same math as numpy, different storage. Persistence + slightly faster at scale.
+- **[FAISS HNSW](https://arxiv.org/abs/1603.09320)** — Hierarchical Navigable Small World graph. Approximate nearest-neighbor. Sub-millisecond at 10M vectors.
+- **[FAISS IVF + PQ](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes)** — inverted file + product quantization. Billion-scale at some accuracy cost.
+- **[pgvector](https://github.com/pgvector/pgvector)** — Postgres extension. SQL-native. Slower than FAISS per query; much simpler operationally.
+- **[Pinecone](https://www.pinecone.io/) / [Weaviate](https://weaviate.io/) / [Milvus](https://milvus.io/) / [Qdrant](https://qdrant.tech/)** — managed or self-hosted vector DBs. Overkill for most face recognition unless you're multi-tenant at scale.
 - **SQLite + BLOBs + numpy** — the "zero infrastructure" option.
-- **Annoy (Spotify)** — older tree-based ANN. Largely displaced by HNSW.
+- **[Annoy (Spotify)](https://github.com/spotify/annoy)** — older tree-based ANN. Largely displaced by HNSW.
 
 ### Graveyard
 
@@ -258,9 +258,9 @@ Typical thresholds on cosine similarity: **0.60** for ArcFace, **0.55** for AdaF
 
 | Tier | Pick | When to use |
 |------|------|-------------|
-| Open-source | **Silent-Face-Anti-Spoofing (MiniVision)** | Open-source project, good enough for low-stakes product demos |
-| **Managed (default for prod)** | **AWS Rekognition Liveness** or **Face++ Liveness** | Customer-facing auth, KYC, bank-grade |
-| Research | **CelebA-Spoof-trained models, or Face Anti-Spoofing Challenge submissions** | When you need to train your own |
+| Open-source | **[Silent-Face-Anti-Spoofing (MiniVision)](https://github.com/minivision-ai/Silent-Face-Anti-Spoofing)** | Open-source project, good enough for low-stakes product demos |
+| **Managed (default for prod)** | **[AWS Rekognition Liveness](https://aws.amazon.com/rekognition/face-liveness/)** or **[Face++ Liveness](https://www.faceplusplus.com/face-liveness-detection/)** | Customer-facing auth, KYC, bank-grade |
+| Research | **[CelebA-Spoof-trained models](https://github.com/ZhangYuanhan-AI/CelebA-Spoof), or Face Anti-Spoofing Challenge submissions** | When you need to train your own |
 
 ### Why a managed service is the production default
 
@@ -275,14 +275,14 @@ For anything customer-facing where being spoofed has cost (KYC, building access,
 
 ### The Dump
 
-- **Silent-Face-Anti-Spoofing (MiniVision)** — public model, RGB-only, works for printed photo + screen replay attacks. Pretrained weights on GitHub.
-- **CelebA-Spoof** — dataset + baseline model. Good for training custom anti-spoofs.
-- **MiniFASNet** — lightweight anti-spoof net, mobile-friendly.
-- **AWS Rekognition Liveness** — challenge-response + managed model. 2–3 seconds of user action required. Integrates with face verification.
-- **Face++ Liveness Detection** — similar; better in some Asian markets.
-- **IDnow / Onfido / Jumio** — identity verification stacks. Anti-spoofing is one component of a KYC pipeline.
-- **FaceTec ZoOm** — claims iBeta Level 2 compliance. Used in fintech.
-- **Apple FaceID / Face ID-equivalent systems** — hardware-based (structured light / IR). Not something you deploy yourself.
+- **[Silent-Face-Anti-Spoofing (MiniVision)](https://github.com/minivision-ai/Silent-Face-Anti-Spoofing)** — public model, RGB-only, works for printed photo + screen replay attacks. Pretrained weights on GitHub.
+- **[CelebA-Spoof](https://github.com/ZhangYuanhan-AI/CelebA-Spoof)** — dataset + baseline model. Good for training custom anti-spoofs.
+- **[MiniFASNet](https://github.com/minivision-ai/Silent-Face-Anti-Spoofing)** — lightweight anti-spoof net, mobile-friendly.
+- **[AWS Rekognition Liveness](https://aws.amazon.com/rekognition/face-liveness/)** — challenge-response + managed model. 2–3 seconds of user action required. Integrates with face verification.
+- **[Face++ Liveness Detection](https://www.faceplusplus.com/face-liveness-detection/)** — similar; better in some Asian markets.
+- **[IDnow](https://www.idnow.io/) / [Onfido](https://onfido.com/) / [Jumio](https://www.jumio.com/)** — identity verification stacks. Anti-spoofing is one component of a KYC pipeline.
+- **[FaceTec ZoOm](https://www.facetec.com/)** — claims iBeta Level 2 compliance. Used in fintech.
+- **[Apple FaceID](https://support.apple.com/en-us/102381) / Face ID-equivalent systems** — hardware-based (structured light / IR). Not something you deploy yourself.
 
 ### Graveyard
 
@@ -297,11 +297,11 @@ For anything customer-facing where being spoofed has cost (KYC, building access,
 
 ## Libraries that pull multiple sub-topics together
 
-- **InsightFace** — the reference implementation of the default stack. SCRFD + ArcFace + landmarks + anti-spoof-ish. Open-source, actively maintained, ONNX-ready. If you're starting a face project in 2026, install `insightface`.
-- **DeepFace (Sefik Serengil)** — Python wrapper around many detector/recognizer combinations. Good for prototype experiments ("what does FaceNet give me vs ArcFace?"). Not the production library.
-- **face_recognition (Adam Geitgey)** — dlib-based, historically popular, mostly unmaintained. Uses HOG + dlib face encodings. Not competitive with InsightFace for 2026 work.
-- **CompreFace** — self-hostable API server with enrollment and recognition endpoints. Based on InsightFace under the hood.
-- **facenet-pytorch** — if you specifically need PyTorch FaceNet. Niche now.
+- **[InsightFace](https://github.com/deepinsight/insightface)** — the reference implementation of the default stack. SCRFD + ArcFace + landmarks + anti-spoof-ish. Open-source, actively maintained, ONNX-ready. If you're starting a face project in 2026, install `insightface`.
+- **[DeepFace](https://github.com/serengil/deepface) ([Sefik Serengil](https://github.com/serengil))** — Python wrapper around many detector/recognizer combinations. Good for prototype experiments ("what does FaceNet give me vs ArcFace?"). Not the production library.
+- **[face_recognition](https://github.com/ageitgey/face_recognition) (Adam Geitgey)** — dlib-based, historically popular, mostly unmaintained. Uses HOG + dlib face encodings. Not competitive with InsightFace for 2026 work.
+- **[CompreFace](https://github.com/exadel-inc/CompreFace)** — self-hostable API server with enrollment and recognition endpoints. Based on InsightFace under the hood.
+- **[facenet-pytorch](https://github.com/timesler/facenet-pytorch)** — if you specifically need PyTorch FaceNet. Niche now.
 
 ---
 
