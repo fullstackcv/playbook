@@ -6,13 +6,18 @@ Face recognition is the most mature subtask in CV. The pipeline shape has been s
 
 This page covers five sub-topics, each with its own picks table. Collapsed to one sentence each:
 
-- **Detection:** SCRFD by default, Haar only on Pi-class hardware.
+- **Detection:** commercial-safe → **YuNet** default, MediaPipe for browser, Haar on Pi-class. Research / internal → SCRFD.
 - **Alignment:** 5-point similarity transform. In most pipelines, don't skip this.
-- **Recognition:** ArcFace R100 default; AdaFace IR101 for surveillance; MobileFaceNet for edge.
+- **Recognition:** no open-weights pick has both a commercial license *and* ArcFace-class accuracy. Commercial → managed service (AWS Rekognition / Face++) or **dlib ResNet** (weaker). Research / internal → ArcFace R100 default, AdaFace IR101 surveillance, MobileFaceNet edge.
 - **Search:** numpy 1-NN below 50k vectors; FAISS at 50k–10M; pgvector if multi-tenant.
 - **Anti-spoofing:** Silent-Face-Anti-Spoofing open-source; commercial (AWS Liveness, Face++) for production.
 
 Scroll for the *why* on each.
+
+> [!WARNING]
+> **License matters more than benchmarks in face recognition.** The strongest open face-rec weights — InsightFace's SCRFD / ArcFace R100 / MobileFaceNet, AdaFace pretrained, and most "SOTA on LFW" models you'll find on GitHub — are **non-commercial research use only**. The code is MIT; the *weights* are not. They were trained on datasets like MS1MV2, Glint360K, and WebFace260M whose licenses forbid commercial use.
+>
+> If you're shipping a product, **don't use those weights**. Use the commercial-safe picks below, pay for a managed service, or train your own on commercially-licensed data. Each picks table in Detection and Recognition below is split into a **commercial-safe** stack (ship this) and an **open-research** stack (higher accuracy, non-commercial use only).
 
 ---
 
@@ -20,32 +25,45 @@ Scroll for the *why* on each.
 
 **What it does:** find face bounding boxes in an image.
 
-### Recommended picks
+### Recommended picks — commercial-safe (ship this)
 
-| Tier | Pick | Accuracy | FPS (CPU laptop) | When to use |
-|------|------|---------:|-----------------:|-------------|
-| Edge / dep-light | **[Haar cascade](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html)** (OpenCV built-in) | low (frontal-only) | highest (~20–30 FPS on small frames, Pi-class) | Pi Zero / Pi 3, no ONNX, frontal faces only |
-| **Default** | **[SCRFD-500MF](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** | strong on WIDER Face | good (tens of FPS on a modern laptop CPU) | Anything with enough juice for ONNX Runtime |
-| Max accuracy | **[RetinaFace R50](https://github.com/deepinsight/insightface/tree/master/detection/retinaface)** | slightly stronger on WIDER Face | low on CPU; GPU recommended | Offline / batch / GPU available |
+| Tier | Pick | License | When to use |
+|------|------|---------|-------------|
+| Edge / dep-light | **[Haar cascade](https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html)** (OpenCV built-in) | BSD (OpenCV) | Pi Zero / Pi 3, no ONNX, frontal faces only |
+| **Default** | **[YuNet](https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet)** (OpenCV Zoo) | Apache-2.0 | Laptop/server CPU, 30+ FPS on small frames, commercial ship. |
+| Browser / mobile | **[MediaPipe Face Detection](https://github.com/google-ai-edge/mediapipe)** | Apache-2.0 | JS/WASM or iOS/Android, no server. |
+| Landmarks in one pass | **[MTCNN](https://github.com/kpzhang93/MTCNN_face_detection_alignment)** | MIT (original) | Returns 5 landmarks free; slower than YuNet. |
+
+### Recommended picks — open-research stack (non-commercial)
+
+| Tier | Pick | Training license | Accuracy |
+|------|------|------------------|----------|
+| **Default (research/internal)** | **[SCRFD-500MF](https://github.com/deepinsight/insightface/tree/master/detection/scrfd)** | InsightFace non-commercial | Strong on WIDER Face |
+| Max accuracy | **[RetinaFace R50](https://github.com/deepinsight/insightface/tree/master/detection/retinaface)** | InsightFace non-commercial | Slightly stronger than SCRFD |
 
 *Accuracy and FPS numbers vary by backbone, input resolution, and hardware; treat the above as rough ordering rather than exact figures. Benchmark against your own pipeline before committing.*
 
-### Why SCRFD is the default
+### Why YuNet is the commercial-safe default
 
-InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFace's accuracy at 5× the speed. It runs via ONNX Runtime, which installs cleanly everywhere except the very low end. It ships as the default detector inside the InsightFace pipeline that the rest of your face stack (ArcFace, anti-spoof) already uses, so zero integration friction.
+YuNet ships in the [OpenCV Zoo](https://github.com/opencv/opencv_zoo) under Apache-2.0 — weights and code. ~100 KB model, ~30 FPS on a modern laptop CPU at 320×320, ~AP 0.87 on WIDER Face Easy. Accuracy is below SCRFD-500MF on WIDER Hard, but it's the strongest **commercial-safe** detector you can ship today without license exposure. Drop-in via `cv2.FaceDetectorYN_create()`.
+
+### Why SCRFD wins on accuracy (research / internal only)
+
+InsightFace shipped SCRFD in 2021 as a distilled detector that matches RetinaFace's accuracy at ~5× the speed. **The weights are non-commercial research use only** — trained on data whose license forbids commercial deployment. Use it for research, academic evaluation, or internal non-product work. For a shipping product, go with YuNet (or train your own SCRFD on commercially-licensed data).
 
 ### When to pick something else
 
 - **Pi Zero / Pi 3 or other ONNX-hostile hardware:** Haar. Zero dependencies beyond OpenCV. 20–30 FPS on small frames. Fails on side profiles; fine for kiosks.
-- **Need landmarks and detection in one pass:** MTCNN. Slower than SCRFD but returns 5 landmarks free, saving a step if you're not using the InsightFace alignment chain.
+- **Need landmarks and detection in one pass:** MTCNN. Slower than YuNet/SCRFD but returns 5 landmarks free.
 - **Browser / webcam-only:** MediaPipe Face Detection. Runs in JS via TFLite WASM, no server required.
-- **Absolute max accuracy for offline batch:** YOLOv8-Face or YOLOv11-Face. Slightly higher WIDER-hard numbers than SCRFD at 2–3× the parameters.
+- **Max accuracy offline batch, license permitting:** RetinaFace R50 or SCRFD-10G (non-commercial). For commercial batch, train your own.
+- **YOLOv8-Face / YOLOv11-Face:** strong accuracy, but **AGPL-3.0** via Ultralytics — commercial use requires an Ultralytics enterprise license. Not commercial-safe by default.
 
 ### The three questions to narrow
 
-1. **Are you on hardware that can run ONNX Runtime?** If no → Haar. If yes → continue.
-2. **Do you need real-time (>15 FPS)?** If no and you have GPU → RetinaFace. If yes → SCRFD.
-3. **Are you in the browser?** If yes → MediaPipe. If no → SCRFD.
+1. **Is this going into a commercial product?** Yes → commercial-safe picks (YuNet / MediaPipe / Haar / MTCNN). No → SCRFD / RetinaFace fine.
+2. **Are you on hardware that can run ONNX Runtime?** If no → Haar. If yes → continue.
+3. **Are you in the browser?** If yes → MediaPipe. If no → YuNet (commercial) or SCRFD (research).
 
 ### The Dump
 
@@ -118,54 +136,77 @@ Honestly, you don't. Use the 5-point similarity transform. The only exception: i
 
 **What it does:** given an aligned 112×112 face crop, produce a 512-dim vector such that same-person vectors are close and different-person vectors are far on a hypersphere.
 
-### Recommended picks
+### The license reality
 
-| Tier | Pick | LFW accuracy | Surveillance accuracy | When to use |
-|------|------|-------------:|----------------------:|-------------|
-| Edge | **[MobileFaceNet](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** | ~99% (published) | moderate | Raspberry Pi 4/5, phones, browser |
-| **Default** | **[ArcFace R100](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** (buffalo_l) | ~99.8% (paper) | moderate on surveillance-quality input | Kiosks, attendance, identity verification — controlled input |
-| Surveillance | **[AdaFace IR101](https://github.com/mk-minchul/AdaFace)** | ~99.8% (paper) | higher than ArcFace under low-quality conditions | CCTV, doorway, any low-quality or distant input |
+**There is no open-source face recognizer with both a commercial license *and* ArcFace-class accuracy.** This is not an oversight on the playbook's part — it's a real constraint in the industry. Every strong open recognizer you'll find on GitHub (ArcFace, AdaFace, MobileFaceNet via InsightFace; MagFace; ElasticFace; TransFace) was trained on a dataset — MS1MV2, Glint360K, WebFace260M, MS-Celeb-1M — whose license forbids commercial use. The architectures are published; the *weights that make them accurate* are locked behind research licenses.
+
+Your commercial options are genuinely limited:
+
+### Recommended picks — commercial-safe (ship this)
+
+| Tier | Pick | License | Accuracy | Cost |
+|------|------|---------|----------|------|
+| **Open weights (easy)** | **[face_recognition](https://github.com/ageitgey/face_recognition) (dlib ResNet)** | Boost/MIT | ~99.38% LFW (paper). Notably weaker on surveillance / hard pose. | Free |
+| **Managed (default for product)** | **[AWS Rekognition](https://aws.amazon.com/rekognition/)** / **[Face++](https://www.faceplusplus.com/)** / **[GCP Face](https://cloud.google.com/vision/docs/face-tutorial)** | Commercial T&C | Production-grade; vendor-managed | Per-call (~$0.001/face) |
+| **DIY (hard)** | Train MobileFaceNet / ArcFace architecture yourself | Your code | Tunable | Weeks + a commercially-licensed dataset you curate |
+
+### Recommended picks — open-research stack (non-commercial)
+
+| Tier | Pick | Training license | LFW | Surveillance |
+|------|------|------------------|----:|-------------:|
+| Edge | **[MobileFaceNet](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** | InsightFace non-commercial | ~99% | moderate |
+| **Default** | **[ArcFace R100](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** (buffalo_l) | InsightFace non-commercial | ~99.8% | moderate |
+| Surveillance | **[AdaFace IR101](https://github.com/mk-minchul/AdaFace)** | Non-commercial (trained on WebFace4M) | ~99.8% | Stronger than ArcFace |
 
 *LFW numbers are saturated and come from the respective papers; they don't predict real-world performance on your data. The "Surveillance" column is a qualitative ordering, not a benchmarked number — measure against your own footage before committing.*
 
-### Why three picks, not one
+### dlib face_recognition — the commercial-safe default
 
-Because LFW is saturated and doesn't predict real-world. ArcFace and AdaFace are near-equivalent on LFW; AdaFace tends to pull ahead on surveillance-quality footage because its angular margin is *quality-adaptive* rather than fixed. If you pick based on LFW alone, ArcFace looks sufficient. If your input distribution is noisier than LFW, AdaFace is often worth testing.
+Adam Geitgey's [`face_recognition`](https://github.com/ageitgey/face_recognition) library wraps [dlib](http://dlib.net/)'s ResNet-34 face embedding model. License is clean: Boost Software License for dlib, MIT for the Python wrapper. ~99.38% on LFW (dlib's published number) — **not** ArcFace-class, and it degrades faster than ArcFace on pose / occlusion / low-quality inputs.
 
-### ArcFace — the default
+Accept the gap if you're shipping commercial and can't pay for a managed service. Don't use it for high-security applications (surveillance identification, doorway access control at scale) — accept a managed-service baseline there instead.
 
-Published 2019 (Deng et al., InsightFace). The additive angular margin loss `cos(theta + m)` forces same-class angular clusters to be tight and between-class angles to be wide on a unit hypersphere. Became the production default within 18 months of publication and has not been displaced for clean-input tasks.
+### When a managed service is the right answer
 
-Install via `insightface` (pip). The `buffalo_l` model pack bundles SCRFD for detection + ArcFace R100 for recognition, pre-trained, ONNX-ready.
+For most commercial face recognition products in 2026, **a managed service is the honest production default**. AWS Rekognition, Face++, and GCP Face API all:
 
-### AdaFace — surveillance default
+- Handle the license problem for you (it's their training data, their lawyers' problem).
+- Ship vendor-audited accuracy (often ArcFace-class or better on clean input).
+- Rotate models without you re-enrolling (they maintain a stable embedding-space contract).
+- Include anti-spoofing and bias monitoring as part of the product.
 
-Published 2022 (Kim et al.). Scales the angular margin per-sample based on the feature norm, which correlates with image quality. Low-quality inputs get a smaller effective margin, which prevents the network over-penalising ambiguous matches that are genuinely ambiguous. Matches ArcFace on clean data, significantly beats it on low-res / blurry / poorly-lit inputs.
+Pricing is roughly $0.001–0.002 per face at volume — at 1M faces/month, that's $1–2K. Often cheaper than the engineer time to curate a commercial dataset, train, evaluate, and maintain a recognizer yourself.
 
-If your deployment is a CCTV camera mounted above a door at 5 meters, this is your pick.
+### ArcFace / AdaFace / MobileFaceNet — research and internal only
 
-### MobileFaceNet — edge
+For research, academic evaluation, or internal non-product work (e.g., organizing your own photo library, evaluating a benchmark, prototyping before production), the InsightFace stack is the strongest open option and the rest of this section still applies.
 
-Smaller backbone (~4M params vs ArcFace R100's ~65M). Trained with the same margin loss family. ~5× faster on CPU, ~1–2 percentage points lower accuracy on clean data. Ships inside InsightFace.
+**ArcFace R100.** Published 2019 (Deng et al., InsightFace). The additive angular margin loss `cos(theta + m)` forces same-class angular clusters to be tight and between-class angles to be wide on a unit hypersphere. Install via `insightface` (pip). The `buffalo_l` model pack bundles SCRFD for detection + ArcFace R100 for recognition, pre-trained, ONNX-ready. *Non-commercial research use only.*
 
-Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
+**AdaFace IR101.** Published 2022 (Kim et al.). Scales the angular margin per-sample based on the feature norm, which correlates with image quality. Matches ArcFace on clean data, significantly beats it on low-res / blurry / poorly-lit inputs — the pick for surveillance research. *Non-commercial research use only.*
+
+**MobileFaceNet.** Smaller backbone (~4M params vs ArcFace R100's ~65M). ~5× faster on CPU, ~1–2 percentage points lower accuracy on clean data. *Non-commercial research use only.*
 
 ### When to pick something else
 
-- **You need a single Python library to try multiple recognizers:** use DeepFace (by Sefik Serengil). It wraps ArcFace, FaceNet, VGG-Face, DeepFace-original, SFace, all behind a unified API. Great for prototyping.
-- **You already have FaceNet embeddings enrolled:** keep using FaceNet. Migrating means re-enrolling everyone (embeddings from different models aren't comparable). The accuracy gap over ArcFace on most deployments isn't worth the migration.
-- **You need a magnitude-aware recognizer (MagFace):** edge case. MagFace encodes quality in the magnitude instead of using a quality-adaptive margin. Similar target as AdaFace; less widely deployed.
+- **Single Python library to try multiple recognizers:** [DeepFace](https://github.com/serengil/deepface) (by Sefik Serengil). Wraps ArcFace, FaceNet, VGG-Face, SFace, Dlib. Convenient for prototyping — but license varies per backbone; check before shipping.
+- **Existing FaceNet embeddings enrolled:** keep FaceNet. Migrating means re-enrolling everyone.
+- **Magnitude-aware (MagFace):** also non-commercial. Same dataset problem.
+- **Willing to train from scratch on commercially-licensed data:** CelebA (CC BY-NC-SA, *still non-commercial*), CASIA-WebFace (research only), VGGFace2 (non-commercial) — almost every academic face dataset is research-only. You'd likely need to scrape/license your own data, which is a legal project in itself.
 
 ### The Dump
 
-- **Eigenfaces (1991)** — PCA on face pixels. Historical only.
-- **Fisherfaces (1997)** — LDA. Historical.
-- **LBPH (2006)** — local binary pattern histograms. Still ships in `cv2.face.LBPHFaceRecognizer_create()`. Survives on embedded hardware that cannot run deep models.
+*Assume every entry's **pretrained weights** below are **non-commercial research use only** unless noted otherwise. The architectures and loss functions are published; the weights are trained on research-license datasets.*
+
+- **Eigenfaces (1991)** — PCA on face pixels. Historical only. (Commercial-OK if you implement yourself.)
+- **Fisherfaces (1997)** — LDA. Historical. (Commercial-OK if you implement yourself.)
+- **LBPH (2006)** — local binary pattern histograms. Still ships in `cv2.face.LBPHFaceRecognizer_create()`. Survives on embedded hardware that cannot run deep models. **Apache-2.0 via OpenCV — commercial OK.**
+- **[dlib ResNet-34 (2017)](http://dlib.net/)** — the model behind `face_recognition`. ~99.38% LFW. **Boost Software License — commercial OK.**
 - **[DeepFace / Facebook (2014)](https://research.facebook.com/publications/deepface-closing-the-gap-to-human-level-performance-in-face-verification/)** — first deep recognizer at human accuracy. Historical.
 - **[FaceNet (2015)](https://github.com/davidsandberg/facenet)** — triplet loss, 128-d embeddings. The one that made production face recognition real. Still usable; AdaFace/ArcFace both outperform it.
 - **[SphereFace (2017)](https://github.com/wy1iu/sphereface)** — first angular margin (multiplicative). Superseded by CosFace/ArcFace.
 - **[CosFace (2018)](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** — additive cosine margin. Cleaner math than SphereFace. Superseded by ArcFace.
-- **[ArcFace (2019)](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** — additive *angular* margin. The current default.
+- **[ArcFace (2019)](https://github.com/deepinsight/insightface/tree/master/recognition/arcface_torch)** — additive *angular* margin. The current research default.
 - **[AdaFace (2022)](https://github.com/mk-minchul/AdaFace)** — quality-adaptive angular margin.
 - **[MagFace (2021)](https://github.com/IrvingMeng/MagFace)** — magnitude encodes quality. Alternative framing to AdaFace.
 - **[ElasticFace (2022)](https://github.com/fdbtrs/ElasticFace)** — randomly sampled margin at training time. Marginal improvement over ArcFace.
@@ -173,8 +214,8 @@ Pick this if you're on Raspberry Pi 4, a phone, or browser WASM.
 - **TopoFR (2024–2025)** — topology alignment + hard sample mining. Improves generalization vs ArcFace/AdaFace on OOD benchmarks.
 - **LVFace (2025)** — Large Vision model for Face Recognition. ViT-based, simplified architecture.
 - **[SFace (2023)](https://github.com/zhongyy/SFace)** — smaller backbone, safety-focused training. Mid-tier option.
-- **[InsightFace](https://github.com/deepinsight/insightface)** (library) — the reference implementation. Bundles most of the above.
-- **[DeepFace](https://github.com/serengil/deepface)** (library, by Sefik Serengil) — prototype-friendly multi-model wrapper.
+- **[InsightFace](https://github.com/deepinsight/insightface)** (library) — MIT-licensed code; *the pretrained weights it distributes are non-commercial.*
+- **[DeepFace](https://github.com/serengil/deepface)** (library, by Sefik Serengil) — MIT-licensed code; the wrapped *backbones* carry their own (mostly non-commercial) license.
 
 ### Graveyard
 
@@ -297,10 +338,10 @@ For anything customer-facing where being spoofed has cost (KYC, building access,
 
 ## Libraries that pull multiple sub-topics together
 
-- **[InsightFace](https://github.com/deepinsight/insightface)** — the reference implementation of the default stack. SCRFD + ArcFace + landmarks + anti-spoof-ish. Open-source, actively maintained, ONNX-ready. If you're starting a face project in 2026, install `insightface`.
-- **[DeepFace](https://github.com/serengil/deepface) ([Sefik Serengil](https://github.com/serengil))** — Python wrapper around many detector/recognizer combinations. Good for prototype experiments ("what does FaceNet give me vs ArcFace?"). Not the production library.
-- **[face_recognition](https://github.com/ageitgey/face_recognition) (Adam Geitgey)** — dlib-based, historically popular, mostly unmaintained. Uses HOG + dlib face encodings. Not competitive with InsightFace for 2026 work.
-- **[CompreFace](https://github.com/exadel-inc/CompreFace)** — self-hostable API server with enrollment and recognition endpoints. Based on InsightFace under the hood.
+- **[InsightFace](https://github.com/deepinsight/insightface)** — the reference implementation of the *research* stack. SCRFD + ArcFace + landmarks + anti-spoof-ish. Open-source code (MIT), actively maintained, ONNX-ready. **The bundled pretrained weights are non-commercial research use only** — install it for research or internal work; don't ship the weights in a commercial product.
+- **[face_recognition](https://github.com/ageitgey/face_recognition) (Adam Geitgey)** — dlib-based, historically popular, mostly unmaintained. Uses HOG + dlib ResNet encodings. Weaker than ArcFace on surveillance / pose, but **Boost/MIT-licensed end-to-end** — the commercial-safe open default for face rec in 2026.
+- **[DeepFace](https://github.com/serengil/deepface) ([Sefik Serengil](https://github.com/serengil))** — Python wrapper around many detector/recognizer combinations. Good for prototype experiments ("what does FaceNet give me vs ArcFace?"). Library is MIT; the backbones it wraps carry their own (mostly non-commercial) licenses — check per-backbone before shipping.
+- **[CompreFace](https://github.com/exadel-inc/CompreFace)** — self-hostable API server with enrollment and recognition endpoints. Uses InsightFace models under the hood, so inherits the same non-commercial constraint on the weights.
 - **[facenet-pytorch](https://github.com/timesler/facenet-pytorch)** — if you specifically need PyTorch FaceNet. Niche now.
 
 ---
